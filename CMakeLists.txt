@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(CellLab LANGUAGES CXX C)
+project(Cytos LANGUAGES CXX C)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -28,11 +28,11 @@ file(GLOB_RECURSE SOURCE_FILES
     "src/*.c"
 )
 
-add_executable(CellLab ${SOURCE_FILES})
+add_executable(Cytos ${SOURCE_FILES})
 
-target_include_directories(CellLab PRIVATE 
+target_include_directories(Cytos PRIVATE 
     include
     include/external
 )
 
-target_link_libraries(CellLab PRIVATE glfw OpenGL::GL)
+target_link_libraries(Cytos PRIVATE glfw OpenGL::GL)
