@@ -1,0 +1,9 @@
+{
+  "ignore": {
+    "customPatterns": [
+      "build/**",
+      "include/external/**",
+      "src/glad.c"
+    ]
+  }
+}

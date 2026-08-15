@@ -1,0 +1,11 @@
+{
+    "Display_name": "Phagocyte",
+    "Max_radius": 5,
+    "Default_mass": 15,
+    "typeid": 0,
+    "Metabolism": {
+        "maxAtf": 200.0,
+        "atfConsumptionRate": 0.5,
+        "massConsumptionRate": 0.1
+    }
+}

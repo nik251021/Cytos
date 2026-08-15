@@ -1,0 +1,2126 @@
+This file is a merged representation of a subset of the codebase, containing files not matching ignore patterns, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of a subset of the repository's contents that is considered the most important context.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching these patterns are excluded: build/**, include/external/**, src/glad.c
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.cache/
+  clangd/
+    index/
+      _detail.hpp.11D9657DFBE24BC7.idx
+      _fixes.hpp.D3DF13E61B01850E.idx
+      _swizzle_func.hpp.6A1092212CB20326.idx
+      _swizzle.hpp.4150ADFE0196143E.idx
+      _vectorize.hpp.E83BC20A05781DFE.idx
+      biologicalSystem.cpp.FB6DE66F0A026890.idx
+      biologicalSystem.hpp.ABA8F7B9CF9E3626.idx
+      camera.cpp.D4F0B57E4D95F477.idx
+      camera.hpp.9AC1B33B524AC547.idx
+      cellConfigLoader.hpp.6CA95B86AC9FE345.idx
+      components.hpp.91640221973EB7B6.idx
+      EBO.cpp.B70E5FAB2196917F.idx
+      EBO.hpp.BCE3B45E9D858232.idx
+      entt.hpp.24FE8FC46802DB5A.idx
+      func_common.hpp.6A039F918DDD10EE.idx
+      func_common.inl.198332827C235F3D.idx
+      func_exponential.hpp.25FBA27EFD5C0BF2.idx
+      func_exponential.inl.34205D5A3BE178D3.idx
+      func_geometric.hpp.DDA2468DA5932C07.idx
+      func_geometric.inl.EF036065A9EB999A.idx
+      func_integer.hpp.EAB1E7436D26C662.idx
+      func_integer.inl.A2A35251D3057F6F.idx
+      func_matrix.hpp.C650FD3F23182197.idx
+      func_matrix.inl.E868B796C101D17F.idx
+      func_noise.hpp.62572225814165D5.idx
+      func_noise.inl.FCE868A2E24E6D92.idx
+      func_packing.hpp.5ABF2825958CBC83.idx
+      func_packing.inl.26168861D39A76AF.idx
+      func_trigonometric.hpp.8D3E784198CACD65.idx
+      func_trigonometric.inl.E120E95CCDC6428D.idx
+      func_vector_relational.hpp.1232B354B5CB81CC.idx
+      func_vector_relational.inl.C610CE27EB44F9C4.idx
+      genome_Loader.hpp.D9383846C11FE880.idx
+      genome_registry.hpp.83EDB78C945D857E.idx
+      genome_types.hpp.43BDE21906B2B2B2.idx
+      genomeSystem.cpp.39CA9C289461E840.idx
+      genomeSystem.hpp.1DD3E909A2454E54.idx
+      glad.c.E1CA606C8506D210.idx
+      glad.h.3DFED523F1C1C1B3.idx
+      glm.hpp.1F98758364A0FB2C.idx
+      half_float.hpp.F54770644FDF536F.idx
+      half_float.inl.E15C8A2017434714.idx
+      instance_buffer.cpp.118A4E17C012BE8C.idx
+      instance_buffer.hpp.BBC5952EA69D7315.idx
+      instance_data.hpp.D9AD754813449DC8.idx
+      json.hpp.DECE8C054CFA8EB6.idx
+      khrplatform.h.781E84E1379A4010.idx
+      main.cpp.686197FA4FA0CDD0.idx
+      matrix_transform.hpp.81F68B092CEC97BD.idx
+      matrix_transform.inl.3F1DC5010D179898.idx
+      photocyte.cpp.6B0B6AAB0DCC8B95.idx
+      photocyte.hpp.3216E9EB4CB11C03.idx
+      physicSystem.cpp.4B6C968935A25A63.idx
+      physicSystem.hpp.D7FCA79B9541ECE7.idx
+      quaternion.hpp.CE267B6146D81D02.idx
+      quaternion.inl.DC7FC612F48834AD.idx
+      renderBridge.hpp.C9B48C77740871B4.idx
+      renderer.cpp.1E82450CE4F797D4.idx
+      renderer.hpp.FB3044291E5D0C3C.idx
+      setup.hpp.9C9B48C7977393C3.idx
+      shader.cpp.FE0050C4DAD41713.idx
+      shader.hpp.900A234A1B78745D.idx
+      type_float.hpp.F4C634AF68449C8F.idx
+      type_gentype.hpp.365ACBAD8C599807.idx
+      type_half.hpp.AA8533B0E65841B0.idx
+      type_half.inl.FF020F14ECDDB18C.idx
+      type_int.hpp.2CC05197590D2416.idx
+      type_mat.hpp.0E398042E0A93AE7.idx
+      type_mat2x2.hpp.5C9158A5516CBD24.idx
+      type_mat2x2.inl.9D9A3361D0262C5D.idx
+      type_mat2x3.hpp.D199B9FF41D156C0.idx
+      type_mat2x3.inl.65F394B379DF718A.idx
+      type_mat2x4.hpp.74C6B9DEEEB7C3DA.idx
+      type_mat2x4.inl.A9A0159593E21B2E.idx
+      type_mat3x2.hpp.F10407EF720131E6.idx
+      type_mat3x2.inl.26C47AB199D0274C.idx
+      type_mat3x3.hpp.C5B514AAB174E4B3.idx
+      type_mat3x3.inl.47E5CB366FABB777.idx
+      type_mat3x4.hpp.1F160897F3420948.idx
+      type_mat3x4.inl.5036F774601BB4D6.idx
+      type_mat4x2.hpp.40C54A36831534F7.idx
+      type_mat4x2.inl.85FCAA6686CD54AE.idx
+      type_mat4x3.hpp.CDDC7738E300BE49.idx
+      type_mat4x3.inl.1ADE6F0924C2A453.idx
+      type_mat4x4.hpp.959EA3A5E2306B1B.idx
+      type_mat4x4.inl.2778CCE595E84D58.idx
+      type_ptr.hpp.E19F01D18DED3FE4.idx
+      type_ptr.inl.24B25A6B663A0914.idx
+      type_size.hpp.ED7D089CB1A2435A.idx
+      type_vec.hpp.63176716512F6F14.idx
+      type_vec1.hpp.9AA5346E1AE9D8A1.idx
+      type_vec1.inl.20245E3EA6727142.idx
+      type_vec2.hpp.66FFA66AC9C60F35.idx
+      type_vec2.inl.3FD44A29F6C058BF.idx
+      type_vec3.hpp.0D50E8629918EAF8.idx
+      type_vec3.inl.31A612561C8868D1.idx
+      type_vec4.hpp.1150ECE6F2DEBEE6.idx
+      type_vec4.inl.13284A689E0C0AD6.idx
+      type.hpp.38D375C99C4105FA.idx
+      VAO.cpp.0FC6B960E5BC342C.idx
+      VAO.hpp.DB2340E8D7984F34.idx
+      VBO.cpp.E3AB5D18FA79BDF9.idx
+      VBO.hpp.8048A09C5E9DAD68.idx
+      window.cpp.A9C52A228BF91192.idx
+      window.hpp.A6498D1FBB8777AD.idx
+      world.cpp.931F69FFDEE8F4AD.idx
+      world.hpp.9D067877A769B550.idx
+      worldApi.hpp.1EF64F87B59ED062.idx
+      worldLoader.hpp.3810124670710F3B.idx
+data/
+  configs/
+    flagellocyte.json
+    phagocyte.json
+    photocyte.json
+  gameData/
+    genomes/
+      Genome1.json
+    substrates/
+      world1.json
+  shaders/
+    cell.frag
+    cell.vert
+include/
+  bridge/
+    instance_data.hpp
+    physics_data.hpp
+    renderBridge.hpp
+  physics/
+    systems/
+      cellBehaivors/
+        photocyte.hpp
+      biologicalSystem.hpp
+      genomeSystem.hpp
+      physicSystem.hpp
+    components.hpp
+    world.hpp
+    worldApi.hpp
+  rendering/
+    buffers/
+      EBO.hpp
+      instance_buffer.hpp
+      VAO.hpp
+      VBO.hpp
+    camera.hpp
+    README.md
+    renderer.hpp
+    shader.hpp
+    window.hpp
+  resourceManager/
+    cellConfigLoader.hpp
+    genome_Loader.hpp
+    genome_registry.hpp
+    genome_types.hpp
+    worldLoader.hpp
+src/
+  physics/
+    systems/
+      cellBehaivors/
+        photocyte.cpp
+      biologicalSystem.cpp
+      genomeSystem.cpp
+      physicSystem.cpp
+    world.cpp
+  rendering/
+    buffers/
+      EBO.cpp
+      instance_buffer.cpp
+      VAO.cpp
+      VBO.cpp
+    camera.cpp
+    renderer.cpp
+    shader.cpp
+    window.cpp
+  main.cpp
+CMakeLists.txt
+LICENSE
+README.md
+repomix.config.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="data/configs/flagellocyte.json">
+{
+    "Display_name": "Flagellocyte",
+    "Max_radius": 5,
+    "Default_mass": 15,
+    "typeid": 1,
+    "Metabolism": {
+        "maxAtf": 200.0,
+        "atfConsumptionRate": 0.5,
+        "massConsumptionRate": 0.1
+    }
+}
+</file>
+
+<file path="data/configs/phagocyte.json">
+{
+    "Display_name": "Phagocyte",
+    "Max_radius": 5,
+    "Default_mass": 15,
+    "typeid": 0,
+    "Metabolism": {
+        "maxAtf": 200.0,
+        "atfConsumptionRate": 0.5,
+        "massConsumptionRate": 0.1
+    }
+}
+</file>
+
+<file path="data/configs/photocyte.json">
+{
+    "Display_name": "Photocyte",
+    "Max_radius": 5,
+    "Default_mass": 1,
+    "typeid": 2,
+
+    "Metabolism": {
+        "maxAtf": 200.0,
+        "atfConsumptionRate": 1,
+        "massConsumptionRate": 0.2
+    },
+    "Max_collision strength": 10000
+}
+</file>
+
+<file path="data/gameData/genomes/Genome1.json">
+{
+    "Name": "WallStructure",
+    "StartModule": 1,
+    "Modules_total": 4,
+    "Module1": {
+        "cell_type": "Photocyte",
+        "split_mass": 2.0,
+        "split_ratio": 0.5,
+        "split_angle": 0,
+        "childs": { 
+            "child1": 2, 
+            "child2": 3 
+        },
+        "makeAdhesin": true,
+        "restLength": 12.5,
+        "maxLength": 20,
+        "strength": 800,
+        "color_r": 0.5,
+        "color_g": 0.5,
+        "color_b": 0.5,
+        "color_a": 1.0
+    },
+    "Module2": {
+        "cell_type": "Photocyte",
+        "split_mass": 2.0,
+        "split_ratio": 0.5,
+        "split_angle": 0,
+        "childs": { 
+            "child1": 4, 
+            "child2": 4 
+        },
+        "makeAdhesin": true,
+        "restLength": 12.5,
+        "maxLength": 20,
+        "strength": 800,
+        "color_r": 0.5,
+        "color_g": 0.5,
+        "color_b": 0.5,
+        "color_a": 1.0
+    },
+    "Module3": {
+        "cell_type": "Flagellocyte", 
+        "split_mass": 2.5,
+        "split_ratio": 0.5,
+        "split_angle": 0.5,
+        "childs": { "child1": 1, "child2": 1 },
+        "makeAdhesin": true,
+        "restLength": 12.5,
+        "maxLength": 20,
+        "strength": 800,
+        "flagellum_speed": 15.0,
+        "color_r": 0.2, "color_g": 0.8, "color_b": 0.2, "color_a": 1.0
+    },
+    "Module4": {
+        "cell_type": "Photocyte",
+        "split_mass": 9999.0,
+        "split_ratio": 0.5,
+        "split_angle": 0,
+        "childs": { 
+            "child1": 4, 
+            "child2": 4 
+        },
+        "makeAdhesin": true,
+        "restLength": 12.5,
+        "maxLength": 20,
+        "strength": 800,
+        "color_r": 0.5,
+        "color_g": 0.5,
+        "color_b": 0.5,
+        "color_a": 1.0
+    }
+}
+</file>
+
+<file path="data/gameData/substrates/world1.json">
+{
+    "name": "Hello cell lab",
+
+    "max_cells": 1000,
+    "max_food": 3500,
+    "size": {
+        "size_x": 1000,
+        "size_y": 1000
+    },
+
+    "rad_lvl": 0,
+    "viscosity": 0.0,
+    "myo_disabled_friction": 0,
+    "myo_enabled_friction": 1,
+    "friction": -0.05,
+    "food_spawn_rate": 0.5,
+    "food_size": 0.2,
+    "salinity": 0.8,
+    "light_amount": 1,
+    "gravity": 0.75
+}
+</file>
+
+<file path="data/shaders/cell.frag">
+#version 330 core
+in vec2 v_LocalPos;
+in float v_Type;
+in vec4 v_Color;
+out vec4 FragColor;
+
+vec2 rotate(vec2 uv, float angle) {
+    float s = sin(angle);
+    float c = cos(angle);
+    return mat2(c, -s, s, c) * uv;
+}
+
+void main() {
+    int type = int(v_Type + 0.5);
+    float dist = length(v_LocalPos);
+    float d2 = max(abs(v_LocalPos.x), abs(v_LocalPos.y));
+    
+    float alpha = 1.0;
+    float border = 0.0;
+    vec3 shapeColor = v_Color.rgb;
+    
+    switch(type) {
+        case -1:
+            float edge = max(abs(v_LocalPos.x), abs(v_LocalPos.y));
+            if (edge < 0.95) discard;
+            alpha = 1.0;
+            shapeColor = v_Color.rgb;
+            break;
+
+        case 0:
+            if (dist > 1.0) discard;
+            alpha = 1.0 - smoothstep(0.95, 1.0, dist);
+            border = smoothstep(0.85, 0.95, dist);
+            break;
+
+        case 1:
+            float bodyDist = length(v_LocalPos - vec2(0.0, 0.2));
+            bool isTail = (abs(v_LocalPos.x) < 0.15 && v_LocalPos.y < 0.2 && v_LocalPos.y > -0.8);
+            
+            if (bodyDist > 0.8 && !isTail) discard;
+            
+            float finalDist = isTail ? 0.0 : bodyDist;
+            alpha = 1.0 - smoothstep(0.75, 0.85, finalDist);
+            
+            border = smoothstep(0.65, 0.8, finalDist);
+            break;
+
+        case 2:
+            if (dist > 1.0) discard;
+            float spots = sin(v_LocalPos.x * 10.0) * sin(v_LocalPos.y * 10.0);
+            shapeColor = mix(v_Color.rgb, vec3(0.0, 1.0, 0.0), smoothstep(0.5, 0.6, spots));
+            break;
+
+        case 3:
+            float angle = atan(v_LocalPos.y, v_LocalPos.x);
+            float spikes = sin(angle * 8.0) * 0.2 + 1.0;
+            if (dist > spikes) discard;
+            alpha = 1.0 - smoothstep(spikes - 0.05, spikes, dist);
+            break;
+
+        case 4:
+            if (dist > 1.0) discard;
+            border = smoothstep(0.6, 0.95, dist);
+            break;
+
+        case 5:
+            float d = cos(atan(v_LocalPos.y, v_LocalPos.x) * 3.0);
+            if (dist > 0.8 + 0.2 * d) discard;
+            break;
+
+        case 6:
+            if (dist > 1.0) discard;
+            shapeColor += vec3(0.5, 0.0, 0.5);
+            break;
+    }
+
+    float shade = 1.0 - smoothstep(0.3, 1.0, dist);
+    vec3 finalColor = shapeColor * (0.8 + 0.2 * shade);
+    finalColor = mix(finalColor, vec3(0.0), border * 0.5);
+    
+    FragColor = vec4(finalColor, alpha);
+}
+</file>
+
+<file path="data/shaders/cell.vert">
+#version 330 core
+layout (location = 0) in vec2 aPos;
+layout (location = 1) in vec2 aInstancePos;
+layout (location = 2) in float aInstanceRad;
+layout (location = 3) in float aType;
+layout (location = 4) in vec4 aColor;
+
+uniform mat4 u_ViewProj;
+
+out float v_Type;
+out vec4 v_Color;
+
+out vec2 v_LocalPos;
+
+void main() {
+    v_Type = aType;
+    v_Color = aColor;
+
+    v_LocalPos = aPos;
+    vec2 worldPos = aInstancePos + aPos * aInstanceRad;
+    gl_Position = u_ViewProj * vec4(worldPos, 0.0, 1.0);
+}
+</file>
+
+<file path="include/bridge/instance_data.hpp">
+#pragma once
+#include <glm/glm.hpp>
+
+struct InstanceData {
+    glm::vec2 position;
+    float radius;
+    float cellType;
+    glm::vec4 color;
+
+    InstanceData(glm::vec2 pos, float rad, float type, glm::vec4 col)
+        : position(pos), radius(rad), cellType(type), color(col) {}
+};
+</file>
+
+<file path="include/bridge/physics_data.hpp">
+#pragma once
+</file>
+
+<file path="include/bridge/renderBridge.hpp">
+#pragma once
+#include <vector>
+#include "instance_data.hpp"
+#include "../rendering/renderer.hpp"
+
+class RenderBridge {
+private:
+    std::vector<InstanceData> m_Queue;
+    Renderer& m_renderer;
+
+public:
+    RenderBridge(Renderer& renderer) : m_renderer(renderer) {}
+
+    void drawCell(const glm::vec2& pos, float radius, float type, const glm::vec4& color) {
+        m_Queue.emplace_back(pos, radius, type, color);
+    }
+
+    void drawRect(glm::vec2 pos, glm::vec2 size, glm::vec4 color) {
+        m_Queue.emplace_back(pos + size * 0.5f, size.x * 0.5f, -1.0f, color);
+    }
+
+    const std::vector<InstanceData>& getQueue() const { return m_Queue; }
+    void clear() { m_Queue.clear(); }
+};
+</file>
+
+<file path="include/physics/systems/cellBehaivors/photocyte.hpp">
+#pragma once
+#include "physics/components.hpp"
+#include <entt/entt.hpp>
+
+class PhotocyteBehavior {
+public:
+    static void update(entt::registry& registry, entt::entity entity, Methabolism& met, Mass& mass, float lightAmount, float dt) {
+        float energyProduction = lightAmount * 10.0f;
+        
+        float spaceForEnergy = met.maxAtf - met.atf;
+        
+        if (energyProduction * dt <= spaceForEnergy) {
+            met.atf += energyProduction * dt;
+        } else {
+            met.atf = met.maxAtf;
+            float excessEnergy = (energyProduction * dt) - spaceForEnergy;
+            
+            mass.value += excessEnergy * met.massEfficiency; 
+        }
+    }
+};
+</file>
+
+<file path="include/physics/systems/biologicalSystem.hpp">
+#pragma once
+#include <entt/entt.hpp>
+
+class BiologicalSystem {
+public:
+    static void update(entt::registry& registry, float dt);
+
+private:
+    static void updateMetabolism(entt::registry& registry, float dt);
+    static void updateAdhesion(entt::registry& registry, float dt);
+};
+</file>
+
+<file path="include/physics/systems/genomeSystem.hpp">
+#pragma once
+#include <entt/entt.hpp>
+#include <resourceManager/genome_registry.hpp>
+
+class world;
+
+class GenomeSystem {
+public:
+    static void update(world& w, entt::registry& registry, GenomeRegistry& genomeRegistry, float dt);
+    static void forceSplit(world& w, entt::registry& registry, GenomeRegistry& genomeRegistry, entt::entity parent);
+private:
+    static void transferAdhesions(world& w, entt::registry& registry, entt::entity oldParent, const std::vector<entt::entity>& children);
+};
+</file>
+
+<file path="include/physics/systems/physicSystem.hpp">
+#pragma once
+#include <entt/entt.hpp>
+#include <glm/glm.hpp>
+#include <physics/components.hpp>
+#include <resourceManager/worldLoader.hpp>
+#include <unordered_map>
+#include <vector>
+
+struct SpatialGrid {
+    static constexpr int CELL_SIZE = 50;
+    std::unordered_map<int, std::vector<entt::entity>> cells;
+
+    int getCellId(glm::vec2 pos) const {
+        int x = static_cast<int>(pos.x / CELL_SIZE);
+        int y = static_cast<int>(pos.y / CELL_SIZE);
+        return x * 10000 + y;
+    }
+    
+    void clear() { cells.clear(); }
+    void add(entt::entity e, glm::vec2 pos) { cells[getCellId(pos)].push_back(e); }
+
+    void getNeighboringCells(glm::vec2 pos, int* out) const {
+        int cx = static_cast<int>(pos.x / CELL_SIZE);
+        int cy = static_cast<int>(pos.y / CELL_SIZE);
+        int i = 0;
+        for(int x = cx - 1; x <= cx + 1; ++x) {
+            for(int y = cy - 1; y <= cy + 1; ++y) {
+                out[i++] = x * 10000 + y;
+            }
+        }
+    }
+};
+
+class PhysicsSystem {
+private:
+    static SpatialGrid m_grid;
+
+public:
+    static void update(entt::registry& registry, const worldSettings& settings, float dt);
+
+private:
+    static void applyForces(entt::registry& registry, const worldSettings& settings, float dt);
+    static void integratePosition(entt::registry& registry, const worldSettings& settings, float dt);
+    static void resolveCollisions(entt::registry& registry, float dt);
+};
+</file>
+
+<file path="include/physics/components.hpp">
+#pragma once
+#include "glm/glm.hpp"
+#include "physics/world.hpp"
+
+struct Position {
+    glm::vec2 value;
+};
+struct Velocity {
+    glm::vec2 value;
+};
+struct Mass {
+    float value;
+};
+struct Force {
+    glm::vec2 value;
+};
+struct Methabolism {
+    float atf;
+    float maxAtf;
+    float atfConsumptionRate;
+    float massConsumptionRate;
+    float efficiency = 1;
+    float massEfficiency = 0.5;
+    bool isActive = true;
+};
+struct SplitComponent {
+    float splitMass;
+    bool makeAdhesin;
+};
+struct GenomeComponent {
+    std::string genomeName;
+    int currentModuleIndex;
+};
+struct RenderData {
+    glm::vec4 color;
+    float radius;
+    float type;
+};
+
+struct Adhesion {
+    entt::entity cellA;
+    entt::entity cellB;
+
+    float restLength;
+    float maxLength;
+    float strength;
+};
+
+struct ReproductionCooldown {
+    float timer = 0.0f;
+    float duration = 1.0f;
+};
+
+struct Flagellum {
+    float speed;
+    float atfConsumption;
+    bool enabled;
+};
+</file>
+
+<file path="include/physics/world.hpp">
+#pragma once
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <entt/entt.hpp>
+#include <glm/glm.hpp>
+#include <bridge/renderBridge.hpp>
+#include <resourceManager/worldLoader.hpp>
+#include <resourceManager/genome_registry.hpp>
+#include <resourceManager/cellConfigLoader.hpp>
+
+#include <physics/systems/physicSystem.hpp>
+#include <physics/systems/biologicalSystem.hpp>
+#include <physics/systems/genomeSystem.hpp>
+
+class world {
+    friend class worldApi;
+private:
+    std::unordered_map<std::string, CellTemplate> m_cellTemplates;
+    worldSettings curSettings;
+    entt::registry m_registry;
+    GenomeRegistry& m_genomeRegistry;
+public:
+    world(std::string worldName, GenomeRegistry& registry);
+    void loadCellConfigs(const std::vector<std::string>& filePaths);
+    
+    entt::entity spawnCell(const std::string& type, glm::vec2 pos, glm::vec2 vel, glm::vec4 color);
+    entt::entity spawnCellFromModule(const std::string& genomeName, int moduleIndex, glm::vec2 position);
+    entt::entity makeAdhesin(entt::entity cell1, entt::entity cell2, float restLength, float maxLength, float strength);
+
+    void update(float dt);
+    void prepareRenderer(RenderBridge& rb);
+};
+</file>
+
+<file path="include/physics/worldApi.hpp">
+#pragma once
+#include <glm/glm.hpp>
+#include <string>
+#include <entt/entt.hpp>
+
+#include <physics/world.hpp>
+#include <bridge/renderBridge.hpp>
+#include <physics/components.hpp>
+
+#include <resourceManager/genome_registry.hpp>
+
+class worldApi
+{
+private:
+    world curWorld;
+    GenomeRegistry m_registry;
+public:
+    worldApi() : m_registry(), curWorld("world1.json", m_registry) {
+        m_registry.loadGenome("Genome1");
+    }
+    
+    uint32_t spawnCell(
+        std::string name,
+        float posX, float posY, 
+        float velocityX, float velocityY,
+        glm::vec4 color
+    ) {
+        return (uint32_t)curWorld.spawnCell(
+            name, 
+            glm::vec2(posX, posY), 
+            glm::vec2(velocityX, velocityY),
+            color
+        );
+    }
+
+    uint32_t spawnCellFromModule(std::string genomeName, int moduleIndex, float posX, float posY) {
+        return (uint32_t)curWorld.spawnCellFromModule(
+            genomeName, 
+            moduleIndex, 
+            glm::vec2(posX, posY)
+        );
+    }
+
+    uint32_t createAdhesion(uint32_t id1, uint32_t id2, float rest, float max, float strength) {
+        return (uint32_t)curWorld.makeAdhesin((entt::entity)id1, (entt::entity)id2, rest, max, strength);
+    }
+
+    void update(float dt, RenderBridge& rb) {
+        curWorld.update(dt);
+        curWorld.prepareRenderer(rb);
+    }
+
+    float getCellAtf(uint32_t id) {
+        if (auto* met = curWorld.m_registry.try_get<Methabolism>((entt::entity)id)) {
+            return met->atf;
+        }
+        return 0.0f;
+    }
+};
+</file>
+
+<file path="include/rendering/buffers/EBO.hpp">
+#pragma once
+
+class IndexBuffer {
+public:
+    IndexBuffer(const unsigned int* data, unsigned int count);
+    ~IndexBuffer();
+    void bind() const;
+    void unbind() const;
+    unsigned int getCount() const { return m_count; }
+private:
+    unsigned int m_rendererID;
+    unsigned int m_count;
+};
+</file>
+
+<file path="include/rendering/buffers/instance_buffer.hpp">
+#pragma once
+
+class InstanceBuffer {
+public:
+    InstanceBuffer(const void* data, unsigned int size);
+    ~InstanceBuffer();
+    void bind() const;
+    void updateData(const void* data, unsigned int size);
+private:
+    unsigned int m_rendererID;
+};
+</file>
+
+<file path="include/rendering/buffers/VAO.hpp">
+#pragma once
+#include <cstddef>
+
+#include "VBO.hpp"
+#include "EBO.hpp"
+#include "instance_buffer.hpp"
+
+#include "bridge/instance_data.hpp"
+
+class VertexArray {
+public:
+    VertexArray();
+    ~VertexArray();
+    void bind() const;
+    void unbind() const;
+    void addBuffer(const VertexBuffer& vb);
+    void setIndexBuffer(const IndexBuffer& ib);
+    void addInstanceBuffer(const InstanceBuffer& ib);
+private:
+    unsigned int m_rendererID;
+};
+</file>
+
+<file path="include/rendering/buffers/VBO.hpp">
+#pragma once
+
+class VertexBuffer {
+public:
+    VertexBuffer(const void* data, unsigned int size);
+    ~VertexBuffer();
+    void bind() const;
+    void unbind() const;
+private:
+    unsigned int m_rendererID;
+};
+</file>
+
+<file path="include/rendering/camera.hpp">
+#pragma once
+#include <glm/glm.hpp>
+
+class Camera {
+public:
+    Camera(float width, float height);
+
+    glm::mat4 getViewProjection() const;
+
+    void setPosition(glm::vec2 pos);
+    void setZoom(float zoom);
+
+    glm::vec2 getPosition() const { return m_position; }
+    float getZoom() const { return m_zoom; }
+private:
+    void updateProjection();
+
+    glm::vec2 m_position;
+    float m_zoom;
+    float m_width, m_height;
+    glm::mat4 m_projection;
+};
+</file>
+
+<file path="include/rendering/README.md">
+# Hello
+## If you are reading this, you are maybe a creator of mods or a contributor.
+
+### IMPORTANT: Architectural Integrity
+PLEASE, for your own sanity and the project's health: **DO NOT WRITE LOGIC OR PHYSICS HERE.**
+* If it’s physics/movement, put it in `src/physics/` or `include/physics/`.
+* If it’s cell logic like neurocytes, put it in `src/logic/` or `include/logic/`.
+* If it’s rendering/graphics, put it in `src/rendering/` or `include/rendering/`. (Here)
+
+We follow a strict "Bridge" pattern:
+1. Physics/Logic engines calculate the state.
+2. The Bridge/Systems translate that state into `RenderData`.
+3. The Renderer blindly draws what it's told.
+
+### Project Structure Guide
+* `src/` — Main implementation (C++ source files).
+* `include/` — Public headers and library definitions.
+* `data/` — Non-compiled assets (JSON configs, GLSL shaders).
+* `include/external/` — Third-party libraries (GLM, EnTT, GLFW, etc.).
+
+### Current Status
+* [ ] Started rewriting of the rendering
+</file>
+
+<file path="include/rendering/renderer.hpp">
+#pragma once
+#include <vector>
+#include <memory>
+#include "rendering/camera.hpp"
+#include "rendering/shader.hpp"
+#include "rendering/buffers/VAO.hpp"
+#include "rendering/buffers/VBO.hpp"
+#include "rendering/buffers/EBO.hpp"
+#include "rendering/buffers/instance_buffer.hpp"
+#include "bridge/instance_data.hpp"
+
+class Renderer {
+public:
+    Renderer();
+    ~Renderer() = default;
+
+    void beginScene(const Camera& camera);
+    
+    void drawCells(const std::vector<InstanceData>& cells);
+    void drawRect(glm::vec2 pos, glm::vec2 size, glm::vec4 color);
+
+    void endScene();
+
+private:
+    std::unique_ptr<Shader> m_shader;
+    std::unique_ptr<VertexArray> m_vao;
+    std::unique_ptr<VertexBuffer> m_vbo;
+    std::unique_ptr<IndexBuffer> m_ebo;
+    std::unique_ptr<InstanceBuffer> m_instanceBuffer;
+    
+    size_t m_maxInstances;
+};
+</file>
+
+<file path="include/rendering/shader.hpp">
+#pragma once
+#include <string>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+class Shader {
+public:
+    Shader(const std::string& vertexPath, const std::string& fragmentPath);
+    ~Shader();
+    void use() const;
+    void setMat4(const std::string& name, const glm::mat4& matrix) const;
+    void setVec2(const std::string& name, const glm::vec2& vec) const;
+    void setFloat(const std::string& name, float value) const;
+
+private:
+    unsigned int m_rendererID;
+    unsigned int compileShader(unsigned int type, const std::string& source);
+};
+</file>
+
+<file path="include/rendering/window.hpp">
+#pragma once
+#include <string>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
+class Window {
+public:
+    Window(int width, int height, const std::string& title);
+    ~Window();
+
+    bool shouldClose() const;
+    void swapBuffers();
+    void pollEvents();
+
+    int getWidth() const { return m_width; }
+    int getHeight() const { return m_height; }
+    GLFWwindow* getNativeWindow() const { return m_window; }
+
+private:
+    GLFWwindow* m_window;
+    int m_width, m_height;
+};
+</file>
+
+<file path="include/resourceManager/cellConfigLoader.hpp">
+#pragma once
+
+#include <glm/glm.hpp>
+#include <iostream>
+#include <string>
+#include <nlohmann/json.hpp>
+#include <fstream>
+
+struct CellTemplate {
+    std::string displayName;
+    float maxRadius;
+    float Default_mass;
+    float typeId;
+    float maxCollisionStrength;
+    
+    float maxAtf;
+    float atfConsumptionRate;
+    float massConsumptionRate;
+};
+
+inline CellTemplate loadCellTemplate(const std::string& path) {
+    std::ifstream file(path);
+    nlohmann::json j;
+    
+    if (!file.is_open()) {
+        std::cerr << "Can not open config file: " << path << std::endl;
+        return {}; 
+    }
+    file >> j;
+
+    CellTemplate t;
+    t.displayName = j.value("Display_name", "Unknown");
+    t.maxRadius = j.value("Max_radius", 5.0f);
+    t.Default_mass = j.value("Default_mass", 1.0f);
+    t.typeId = j.value("typeid", 0.0f);
+    t.maxCollisionStrength = j.value("Max_collision strength", 1000.0f);
+    
+    auto metab = j.value("Metabolism", nlohmann::json::object());
+    t.maxAtf = metab.value("maxAtf", 100.0f);
+    t.atfConsumptionRate = metab.value("atfConsumptionRate", 0.1f);
+    t.massConsumptionRate = metab.value("massConsumptionRate", 0.1f);
+    
+    return t;
+}
+</file>
+
+<file path="include/resourceManager/genome_Loader.hpp">
+#pragma once
+#include <fstream>
+#include <iostream>
+#include <nlohmann/json.hpp>
+#include "genome_types.hpp"
+
+using json = nlohmann::json;
+
+class GenomeLoader {
+public:
+    static Genome load(const std::string& genomeName) {
+        std::string path = "data/gameData/genomes/" + genomeName + ".json";
+        std::ifstream file(path);
+        
+        if (!file.is_open()) {
+            throw std::runtime_error("Could not open genome file: " + path);
+        }
+
+        json data;
+        try {
+            file >> data;
+        } catch (const std::exception& e) {
+            std::cerr << "JSON Parse error in " << path << ": " << e.what() << std::endl;
+            throw;
+        }
+
+        Genome genome;
+        genome.name = data.value("Name", "Unknown");
+        genome.startModule = data.value("StartModule", 1);
+        int totalModules = data.value("Modules_total", 0);
+        
+        for (int i = 1; i <= totalModules; ++i) {
+            std::string modKey = "Module" + std::to_string(i);
+            if (!data.contains(modKey)) continue;
+
+            const auto& jMod = data[modKey];
+            Module mod;
+
+            try {
+                mod.cell_type = jMod.value("cell_type", "default");
+                mod.split_mass = jMod.value("split_mass", 1.0f);
+
+                if (jMod.contains("childs")) {
+                    for (auto& [key, val] : jMod["childs"].items()) {
+                        if (!val.is_number()) {
+                            std::cerr << "CRITICAL: Key '" << key << "' in '" << path 
+                                      << "' is not a number! Value: " << val << std::endl;
+                        }
+                        mod.childs[key] = val.get<int>();
+                    }
+                }
+
+                for (auto it = jMod.begin(); it != jMod.end(); ++it) {
+                    std::string key = it.key();
+                    if (key == "cell_type" || key == "split_mass" || key == "childs") continue;
+                    if (it->is_boolean()) mod.flags[key] = it.value();
+                    else if (it->is_number()) mod.params[key] = it.value();
+                }
+            } catch (const std::exception& e) {
+                std::cerr << "Error parsing module " << i << " in " << path << ": " << e.what() << std::endl;
+                throw;
+            }
+            genome.modules.push_back(mod);
+        }
+        return genome;
+    }
+};
+</file>
+
+<file path="include/resourceManager/genome_registry.hpp">
+#pragma once
+#include <string>
+#include <unordered_map>
+#include "genome_types.hpp"
+#include "genome_Loader.hpp"
+
+class GenomeRegistry {
+    std::unordered_map<std::string, Genome> m_registry;
+
+public:
+    void loadGenome(const std::string& name) {
+        if (m_registry.find(name) == m_registry.end()) {
+            m_registry[name] = GenomeLoader::load(name);
+        }
+    }
+
+    const Module& getModule(const std::string& genomeName, int moduleIndex) const {
+        return m_registry.at(genomeName).modules.at(moduleIndex - 1);
+    }
+
+    bool hasGenome(const std::string& name) const {
+        return m_registry.find(name) != m_registry.end();
+    }
+};
+</file>
+
+<file path="include/resourceManager/genome_types.hpp">
+#pragma once
+#include <string>
+#include <vector>
+#include <map>
+
+struct Module {
+    std::string cell_type;
+    float split_mass;
+    std::map<std::string, int> childs;
+
+    std::map<std::string, bool> flags;
+    std::map<std::string, float> params;
+
+    float getParam(const std::string& key, float defaultVal) const {
+        auto it = params.find(key);
+        return (it != params.end()) ? it->second : defaultVal;
+    }
+};
+
+struct Genome {
+    std::string name;
+    int startModule;
+    std::vector<Module> modules;
+};
+</file>
+
+<file path="include/resourceManager/worldLoader.hpp">
+#pragma once
+
+#include "external/nlohmann/json.hpp"
+
+#include <fstream>
+#include <filesystem>
+#include <string>
+#include <stdexcept>
+
+namespace fs = std::filesystem;
+const fs::path pathToWorlds("data/gameData/substrates");
+
+struct worldSettings {
+    std::string name;
+
+    int max_cells;
+    int max_food;
+    float sizeX;
+    float sizeY;
+    float rad_lvl;
+    float viscosity;
+    float myo_disabled_friction;
+    float myo_enabled_friction;
+    float friction;
+    float food_spawn_rate;
+    float food_size;
+    float salinity;
+    float light_amount;
+    float gravity;
+};
+
+inline worldSettings getWorldSettings(const std::string& fileName) {
+    fs::path filePath = pathToWorlds / fs::path(fileName);
+    
+    std::ifstream file(filePath);
+    if (!file.is_open()) {
+        throw std::runtime_error("Could not open world file: " + filePath.string());
+    }
+
+    nlohmann::json j;
+    file >> j;
+
+    worldSettings settings;
+    
+    settings.name = j.at("name").get<std::string>();
+    settings.max_cells = j.at("max_cells").get<int>();
+    settings.max_food = j.at("max_food").get<int>();
+    
+    settings.sizeX = j.at("size").at("size_x").get<float>();
+    settings.sizeY = j.at("size").at("size_y").get<float>();
+    
+    settings.rad_lvl = j.at("rad_lvl").get<float>();
+    settings.viscosity = j.at("viscosity").get<float>();
+    settings.myo_disabled_friction = j.at("myo_disabled_friction").get<float>();
+    settings.myo_enabled_friction = j.at("myo_enabled_friction").get<float>();
+    settings.friction = j.at("friction").get<float>();
+    settings.food_spawn_rate = j.at("food_spawn_rate").get<float>();
+    settings.food_size = j.at("food_size").get<float>();
+    settings.salinity = j.at("salinity").get<float>();
+    settings.light_amount = j.at("light_amount").get<float>();
+    settings.gravity = j.at("gravity").get<float>();
+
+    return settings;
+}
+</file>
+
+<file path="src/physics/systems/cellBehaivors/photocyte.cpp">
+
+</file>
+
+<file path="src/physics/systems/biologicalSystem.cpp">
+#include <physics/systems/biologicalSystem.hpp>
+#include <physics/components.hpp>
+#include <physics/systems/cellBehaivors/photocyte.hpp>
+
+void BiologicalSystem::update(entt::registry& registry, float dt) {
+    updateMetabolism(registry, dt);
+    updateAdhesion(registry, dt);
+}
+
+void BiologicalSystem::updateMetabolism(entt::registry& registry, float dt) {
+    registry.view<Methabolism, RenderData, Mass>().each([&](auto entity, auto& met, auto &renderData, auto & mass) {
+        if (renderData.type == 2.0f) {
+            PhotocyteBehavior::update(registry, entity, met, mass, 1.0f, dt);
+        }
+        if (met.isActive) {
+            if (met.atf > 0) {
+                met.atf -= met.atfConsumptionRate * dt;
+            } else {
+                met.isActive = false;
+            }
+        } else {
+            if (met.atf <= 0) {
+                auto& mass = registry.get<Mass>(entity);
+                mass.value -= met.massConsumptionRate * dt;
+                if (mass.value <= 0) {
+                    registry.destroy(entity);
+                }
+            } else {
+                met.isActive = true;
+            }
+        }
+    });
+}
+
+void BiologicalSystem::updateAdhesion(entt::registry& registry, float dt) {
+    auto view = registry.view<Adhesion>();
+
+    view.each([&](auto entity, auto& adj) {
+        if (!registry.valid(adj.cellA) || !registry.valid(adj.cellB)) {
+            registry.destroy(entity);
+            return;
+        }
+
+        auto& posA = registry.get<Position>(adj.cellA);
+        auto& posB = registry.get<Position>(adj.cellB);
+        auto& velA = registry.get<Velocity>(adj.cellA);
+        auto& velB = registry.get<Velocity>(adj.cellB);
+
+        glm::vec2 delta = posA.value - posB.value;
+        float dist = glm::length(delta);
+
+        if (dist > adj.maxLength) {
+            registry.destroy(entity);
+            return;
+        }
+
+        glm::vec2 direction = (dist > 0.0001f) ? (delta / dist) : glm::vec2(0.0f);
+        float springForce = adj.strength * (dist - adj.restLength);
+
+        glm::vec2 relativeVel = velA.value - velB.value;
+        float dampingFactor = 10.0f;
+        float dampingForce = glm::dot(relativeVel, direction) * dampingFactor;
+
+        float totalForceMag = springForce + dampingForce;
+        glm::vec2 force = -totalForceMag * direction;
+
+        registry.get<Force>(adj.cellA).value += force;
+        registry.get<Force>(adj.cellB).value -= force;
+
+        auto& metA = registry.get<Methabolism>(adj.cellA);
+        auto& metB = registry.get<Methabolism>(adj.cellB);
+        
+        float transferRate = 5.0f;
+        float diff = (metA.atf - metB.atf) * transferRate * dt;
+        
+        metA.atf -= diff;
+        metB.atf += diff;
+    });
+}
+</file>
+
+<file path="src/physics/systems/genomeSystem.cpp">
+#include <physics/systems/genomeSystem.hpp>
+#include <physics/world.hpp>
+#include <physics/components.hpp>
+
+void GenomeSystem::update(world& w, entt::registry& registry, GenomeRegistry& genomeRegistry, float dt) {
+    auto cooldownView = registry.view<ReproductionCooldown>();
+    for (auto entity : cooldownView) {
+        auto& cd = cooldownView.get<ReproductionCooldown>(entity);
+        if (cd.timer > 0.0f) {
+            cd.timer -= dt;
+        }
+    }
+
+    std::vector<entt::entity> toSplit;
+    auto splitView = registry.view<Mass, SplitComponent, ReproductionCooldown>();
+    
+    splitView.each([&](auto entity, auto& mass, auto& split, auto& cd) {
+        if (mass.value >= split.splitMass && cd.timer <= 0.0f) {
+            toSplit.push_back(entity);
+        }
+    });
+
+    for (auto e : toSplit) {
+        if (registry.valid(e)) {
+            forceSplit(w, registry, genomeRegistry, e);
+        }
+    }
+}
+
+void GenomeSystem::forceSplit(world& w, entt::registry& registry, GenomeRegistry& genomeRegistry, entt::entity parent) {
+    if (!registry.all_of<GenomeComponent, Position, Mass, Methabolism, SplitComponent>(parent)) return;
+
+    auto& gen = registry.get<GenomeComponent>(parent);
+    auto& pos = registry.get<Position>(parent);
+    auto& mass = registry.get<Mass>(parent);
+    auto& met  = registry.get<Methabolism>(parent);
+    auto& split = registry.get<SplitComponent>(parent);
+
+    const auto& mod = genomeRegistry.getModule(gen.genomeName, gen.currentModuleIndex);
+    if (mod.childs.empty()) return;
+
+    float splitRatio = mod.getParam("split_ratio", 0.5f);
+    float restLength = mod.getParam("restLength", 7.5f);
+    float maxLength  = mod.getParam("maxLength", 20.0f);
+    float strength   = mod.getParam("strength", 250.0f);
+    float splitAngle = mod.getParam("split_angle", 0.0f);
+
+    float angleRad = glm::radians(splitAngle);
+    glm::vec2 baseDir = glm::vec2(cos(angleRad), sin(angleRad));
+
+    std::vector<entt::entity> children;
+
+    for (auto const& [key, nextModuleIndex] : mod.childs) {
+        float ratio = (key == "child1") ? splitRatio : (1.0f - splitRatio);
+        float childMass = mass.value * ratio;
+        float childAtf  = met.atf * ratio;
+
+        glm::vec2 direction = (key == "child1") ? baseDir : -baseDir;
+        glm::vec2 offset = direction * 10.f; 
+
+        auto child = w.spawnCellFromModule(gen.genomeName, nextModuleIndex, pos.value + offset);
+        
+        if (child != entt::null) {
+            registry.get<Mass>(child).value = childMass;
+            
+            auto* childMet = registry.try_get<Methabolism>(child);
+            if (childMet) childMet->atf = childAtf;
+
+            children.push_back(child);
+        }
+    }
+
+    if (!children.empty()) transferAdhesions(w, registry, parent, children);
+
+    if (split.makeAdhesin && children.size() >= 2) {
+        w.makeAdhesin(children[0], children[1], restLength, maxLength, strength);
+    }
+
+    registry.destroy(parent);
+}
+
+void GenomeSystem::transferAdhesions(world& w, entt::registry& registry, entt::entity oldParent, const std::vector<entt::entity>& children) {
+    auto view = registry.view<Adhesion>();
+    std::vector<Adhesion> newAdhesions;
+
+    for (auto entity : view) {
+        auto& adj = view.get<Adhesion>(entity);
+        if (adj.cellA == oldParent || adj.cellB == oldParent) {
+            entt::entity partner = (adj.cellA == oldParent) ? adj.cellB : adj.cellA;
+            for (auto child : children) {
+                newAdhesions.push_back({child, partner, adj.restLength, adj.maxLength, adj.strength});
+            }
+            registry.destroy(entity);
+        }
+    }
+    for (auto& adj : newAdhesions) w.makeAdhesin(adj.cellA, adj.cellB, adj.restLength, adj.maxLength, adj.strength);
+}
+</file>
+
+<file path="src/physics/systems/physicSystem.cpp">
+#include <physics/systems/physicSystem.hpp>
+
+SpatialGrid PhysicsSystem::m_grid;
+
+void PhysicsSystem::update(entt::registry& registry, const worldSettings& settings, float dt) {
+    applyForces(registry, settings, dt);
+    integratePosition(registry, settings, dt);
+    resolveCollisions(registry, dt);
+}
+
+void PhysicsSystem::applyForces(entt::registry& registry, const worldSettings& settings, float dt) {
+    registry.view<Velocity, Mass, Force>().each([&](auto& vel, auto& mass, auto& force) {
+        glm::vec2 acceleration = (force.value + glm::vec2(0.0f, settings.gravity * mass.value) - (vel.value * settings.viscosity)) / mass.value;
+        vel.value += acceleration * dt;
+        vel.value *= glm::clamp(1.0f - settings.friction * dt, 0.0f, 1.0f);
+        force.value = glm::vec2(0.0f); 
+    });
+}
+
+void PhysicsSystem::integratePosition(entt::registry& registry, const worldSettings& settings, float dt) {
+    registry.view<Position, Velocity>().each([&](auto& pos, auto& vel) {
+        pos.value += vel.value * dt;
+        const float bounce = 0.5f;
+        if (pos.value.x < 0) { pos.value.x = 0; vel.value.x *= -bounce; }
+        else if (pos.value.x > settings.sizeX) { pos.value.x = settings.sizeX; vel.value.x *= -bounce; }
+        if (pos.value.y < 0) { pos.value.y = 0; vel.value.y *= -bounce; }
+        else if (pos.value.y > settings.sizeY) { pos.value.y = settings.sizeY; vel.value.y *= -bounce; }
+    });
+}
+
+void PhysicsSystem::resolveCollisions(entt::registry& registry, float dt) {
+    m_grid.clear();
+    auto view = registry.view<Position, Velocity, Mass, RenderData>();
+    
+    view.each([&](auto entity, auto& pos, auto&, auto&, auto&) { 
+        m_grid.add(entity, pos.value); 
+    });
+
+    view.each([&](auto entityA, auto& posA, auto& velA, auto& massA, auto& rdA) {
+        int neighbors[9];
+        m_grid.getNeighboringCells(posA.value, neighbors);
+        
+        for (int i = 0; i < 9; ++i) {
+            auto it = m_grid.cells.find(neighbors[i]);
+            if (it == m_grid.cells.end()) continue;
+
+            for (auto entityB : it->second) {
+                if (entityA >= entityB) continue;
+
+                auto& posB = registry.get<Position>(entityB);
+                auto& velB = registry.get<Velocity>(entityB);
+                auto& massB = registry.get<Mass>(entityB);
+                auto& rdB = registry.get<RenderData>(entityB);
+
+                glm::vec2 delta = posA.value - posB.value;
+                float distSq = glm::dot(delta, delta);
+                float minDist = rdA.radius + rdB.radius;
+
+                if (distSq < minDist * minDist && distSq > 0.000001f) {
+                    float dist = std::sqrt(distSq);
+                    glm::vec2 normal = delta / dist;
+                    float overlap = minDist - dist;
+
+                    float totalMass = massA.value + massB.value;
+                    float m1Ratio = massB.value / totalMass;
+                    float m2Ratio = massA.value / totalMass;
+
+                    float pushFactor = 0.5f; 
+                    velA.value += normal * (overlap * pushFactor) * m1Ratio;
+                    velB.value -= normal * (overlap * pushFactor) * m2Ratio;
+
+                    glm::vec2 relativeVel = velA.value - velB.value;
+                    float velAlongNormal = glm::dot(relativeVel, normal);
+                    
+                    if (velAlongNormal < 0) {
+                        float restitution = 0.3f;
+                        float j = -(1.0f + restitution) * velAlongNormal;
+                        j /= (1.0f / massA.value + 1.0f / massB.value);
+                        
+                        glm::vec2 impulse = j * normal;
+                        velA.value += (1.0f / massA.value) * impulse;
+                        velB.value -= (1.0f / massB.value) * impulse;
+                    }
+                }
+            }
+        }
+    });
+}
+</file>
+
+<file path="src/physics/world.cpp">
+#include "physics/systems/biologicalSystem.hpp"
+#include "physics/systems/genomeSystem.hpp"
+#include "physics/systems/physicSystem.hpp"
+#include <iostream>
+#include <physics/world.hpp>
+#include <physics/components.hpp>
+
+world::world(std::string name, GenomeRegistry& registry) : m_genomeRegistry(registry){
+    this->curSettings = getWorldSettings(name);
+
+    loadCellConfigs({ "data/configs/phagocyte.json", "data/configs/flagellocyte.json", "data/configs/photocyte.json"});
+}
+
+entt::entity world::spawnCell(const std::string& type, glm::vec2 pos, glm::vec2 vel, glm::vec4 color) {
+    if (m_cellTemplates.find(type) == m_cellTemplates.end()) return entt::null;
+
+    const auto& t = m_cellTemplates[type];
+    
+    auto entity = m_registry.create();
+    m_registry.emplace<Position>(entity, pos);
+    m_registry.emplace<Velocity>(entity, vel);
+    m_registry.emplace<Mass>(entity, t.Default_mass);
+    m_registry.emplace<Force>(entity, glm::vec2(0.0f));
+
+    Methabolism met;
+    met.atf = t.maxAtf;
+    met.maxAtf = t.maxAtf;
+    met.atfConsumptionRate = t.atfConsumptionRate;
+    met.massConsumptionRate = t.massConsumptionRate;
+    
+    m_registry.emplace<Methabolism>(entity, met);
+    m_registry.emplace<RenderData>(entity, color, t.maxRadius, t.typeId);
+
+    return entity;
+}
+
+entt::entity world::spawnCellFromModule(const std::string& genomeName, int moduleIndex, glm::vec2 position) {
+    const auto& mod = m_genomeRegistry.getModule(genomeName, moduleIndex);
+    
+    std::string type = mod.cell_type; 
+    
+    if (m_cellTemplates.find(type) == m_cellTemplates.end()) {
+        std::cerr << "Error: Cell type '" << type << "' not found!" << std::endl;
+        return entt::null;
+    }
+    bool shouldMakeAdhesin = false;
+    if (mod.flags.count("makeAdhesin")) {
+        shouldMakeAdhesin = mod.flags.at("makeAdhesin");
+    }
+    
+    const auto& t = m_cellTemplates.at(type); 
+
+    auto entity = m_registry.create();
+    m_registry.emplace<GenomeComponent>(entity, genomeName, moduleIndex);
+    m_registry.emplace<SplitComponent>(entity, mod.split_mass, shouldMakeAdhesin);
+    m_registry.emplace<ReproductionCooldown>(entity, 0.4f, 0.4f);
+    std::cout << shouldMakeAdhesin << std::endl;
+    m_registry.emplace<Position>(entity, position);
+    m_registry.emplace<Velocity>(entity, glm::vec2(0.0f));
+    m_registry.emplace<Mass>(entity, t.Default_mass);
+    m_registry.emplace<Force>(entity, glm::vec2(0.0f));
+
+    Methabolism met;
+    met.atf = t.maxAtf; 
+    met.maxAtf = t.maxAtf;
+    met.atfConsumptionRate = t.atfConsumptionRate;
+    met.massConsumptionRate = t.massConsumptionRate;
+    m_registry.emplace<Methabolism>(entity, met);
+    
+    auto getColor = [&](const std::string& key, float defaultVal) {
+        auto it = mod.params.find(key);
+        return (it != mod.params.end()) ? it->second : defaultVal;
+    };
+
+    glm::vec4 color(
+        getColor("color_r", 1.0f),
+        getColor("color_g", 0.5f),
+        getColor("color_b", 0.0f),
+        getColor("color_a", 1.0f)
+    );
+
+    m_registry.emplace<RenderData>(entity, color, t.maxRadius, (float)t.typeId);
+
+    if (mod.cell_type == "Flagellocyte") {
+        float speed = mod.getParam("flagellum_speed", 10);
+        float consumption = mod.getParam("flagellum_consumption", 0.5f);
+        m_registry.emplace<Flagellum>(entity, speed, consumption, true);
+    }
+
+    return entity;
+}
+
+entt::entity world::makeAdhesin(entt::entity cell1, entt::entity cell2, float restLength, float maxLength, float strength) {
+    if (!m_registry.valid(cell1) || !m_registry.valid(cell2)) return entt::null;
+
+    if (cell1 == cell2) return entt::null;
+    
+    auto e = m_registry.create();
+    m_registry.emplace<Adhesion>(e, cell1, cell2, restLength, maxLength, strength);
+
+    return e;
+}
+void onCollision(entt::entity e1, entt::entity e2) {
+
+}
+
+
+
+void world::update(float dt) {
+    PhysicsSystem::update(m_registry, curSettings, dt);
+    BiologicalSystem::update(m_registry, dt);
+    GenomeSystem::update(*this, m_registry, m_genomeRegistry, dt);
+}
+
+void world::prepareRenderer(RenderBridge& rb) {
+    auto view = m_registry.view<Position, RenderData>();
+    
+    for (auto entity : view) {
+        auto& pos = view.get<Position>(entity);
+        auto& rd  = view.get<RenderData>(entity);
+        
+        rb.drawCell(pos.value, rd.radius, rd.type, rd.color);
+    }
+}
+
+void world::loadCellConfigs(const std::vector<std::string>& filePaths) {
+    for (const auto& path : filePaths) {
+        CellTemplate t = loadCellTemplate(path);
+        m_cellTemplates[t.displayName] = t;
+    }
+}
+</file>
+
+<file path="src/rendering/buffers/EBO.cpp">
+#include "rendering/buffers/EBO.hpp"
+#include <glad/glad.h>
+
+IndexBuffer::IndexBuffer(const unsigned int* data, unsigned int count) : m_count(count) {
+    glGenBuffers(1, &m_rendererID);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_rendererID);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), data, GL_STATIC_DRAW);
+}
+IndexBuffer::~IndexBuffer() { glDeleteBuffers(1, &m_rendererID); }
+void IndexBuffer::bind() const { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_rendererID); }
+void IndexBuffer::unbind() const { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); }
+</file>
+
+<file path="src/rendering/buffers/instance_buffer.cpp">
+#include "rendering/buffers/instance_buffer.hpp"
+#include <glad/glad.h>
+
+InstanceBuffer::InstanceBuffer(const void* data, unsigned int size) {
+    glGenBuffers(1, &m_rendererID);
+    glBindBuffer(GL_ARRAY_BUFFER, m_rendererID);
+    glBufferData(GL_ARRAY_BUFFER, size, data, GL_DYNAMIC_DRAW);
+}
+
+InstanceBuffer::~InstanceBuffer() { glDeleteBuffers(1, &m_rendererID); }
+void InstanceBuffer::bind() const { glBindBuffer(GL_ARRAY_BUFFER, m_rendererID); }
+
+void InstanceBuffer::updateData(const void* data, unsigned int size) {
+    bind();
+    glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+}
+</file>
+
+<file path="src/rendering/buffers/VAO.cpp">
+#include "rendering/buffers/VAO.hpp"
+#include <glad/glad.h>
+
+VertexArray::VertexArray() { glGenVertexArrays(1, &m_rendererID); }
+VertexArray::~VertexArray() { glDeleteVertexArrays(1, &m_rendererID); }
+
+void VertexArray::bind() const { glBindVertexArray(m_rendererID); }
+void VertexArray::unbind() const { glBindVertexArray(0); }
+
+void VertexArray::addBuffer(const VertexBuffer& vb) {
+    bind();
+    vb.bind();
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+}
+
+void VertexArray::setIndexBuffer(const IndexBuffer& ib) {
+    bind();
+    ib.bind();
+}
+
+void VertexArray::addInstanceBuffer(const InstanceBuffer& ib) {
+    bind();
+    ib.bind();
+
+    size_t stride = sizeof(InstanceData);
+
+    // position
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride, (void*)offsetof(InstanceData, position));
+    glVertexAttribDivisor(1, 1);
+
+    // radius
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, stride, (void*)offsetof(InstanceData, radius));
+    glVertexAttribDivisor(2, 1);
+
+    // cell type
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, stride, (void*)offsetof(InstanceData, cellType));
+    glVertexAttribDivisor(3, 1);
+
+    // color
+    glEnableVertexAttribArray(4);
+    glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, stride, (void*)offsetof(InstanceData, color));
+    glVertexAttribDivisor(4, 1);
+}
+</file>
+
+<file path="src/rendering/buffers/VBO.cpp">
+#include "rendering/buffers/VBO.hpp"
+#include <glad/glad.h>
+
+VertexBuffer::VertexBuffer(const void* data, unsigned int size) {
+    glGenBuffers(1, &m_rendererID);
+    glBindBuffer(GL_ARRAY_BUFFER, m_rendererID);
+    glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+}
+VertexBuffer::~VertexBuffer() { glDeleteBuffers(1, &m_rendererID); }
+void VertexBuffer::bind() const { glBindBuffer(GL_ARRAY_BUFFER, m_rendererID); }
+void VertexBuffer::unbind() const { glBindBuffer(GL_ARRAY_BUFFER, 0); }
+</file>
+
+<file path="src/rendering/camera.cpp">
+#include "rendering/camera.hpp"
+#include <glm/gtc/matrix_transform.hpp>
+
+Camera::Camera(float width, float height) 
+    : m_width(width), m_height(height), m_position(0.0f, 0.0f), m_zoom(1.0f) {
+    updateProjection();
+}
+
+void Camera::updateProjection() {
+    float halfW = (m_width / 2.0f) / m_zoom;
+    float halfH = (m_height / 2.0f) / m_zoom;
+    m_projection = glm::ortho(-halfW, halfW, -halfH, halfH, -1.0f, 1.0f);
+}
+
+glm::mat4 Camera::getViewProjection() const {
+    glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(-m_position, 0.0f));
+    return m_projection * view;
+}
+
+void Camera::setPosition(glm::vec2 pos) {
+    m_position = pos;
+}
+
+void Camera::setZoom(float zoom) {
+    m_zoom = zoom;
+    updateProjection();
+}
+</file>
+
+<file path="src/rendering/renderer.cpp">
+#include "rendering/renderer.hpp"
+#include <glad/glad.h>
+
+Renderer::Renderer() : m_maxInstances(10000) {
+    m_shader = std::make_unique<Shader>("data/shaders/cell.vert", "data/shaders/cell.frag");
+
+    float vertices[] = {
+        -1.0f, -1.0f,
+         1.0f, -1.0f,
+         1.0f,  1.0f,
+        -1.0f,  1.0f
+    };
+    unsigned int indices[] = { 0, 1, 2, 2, 3, 0 };
+
+    m_vao = std::make_unique<VertexArray>();
+    m_vbo = std::make_unique<VertexBuffer>(vertices, sizeof(vertices));
+    m_ebo = std::make_unique<IndexBuffer>(indices, 6);
+
+    m_vao->addBuffer(*m_vbo);
+    m_vao->setIndexBuffer(*m_ebo);
+
+    m_instanceBuffer = std::make_unique<InstanceBuffer>(nullptr, m_maxInstances * sizeof(InstanceData));
+    m_vao->addInstanceBuffer(*m_instanceBuffer);
+}
+
+void Renderer::beginScene(const Camera& camera) {
+    glClearColor(0.1f, 0.1f, 0.11f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    m_shader->use();
+    m_shader->setMat4("u_ViewProj", camera.getViewProjection());
+}
+
+void Renderer::drawCells(const std::vector<InstanceData>& cells) {
+    if (cells.empty()) return;
+
+    if (cells.size() > m_maxInstances) {
+        m_maxInstances = cells.size() * 2;
+        m_instanceBuffer = std::make_unique<InstanceBuffer>(nullptr, m_maxInstances * sizeof(InstanceData));
+        m_vao->addInstanceBuffer(*m_instanceBuffer);
+    }
+
+    m_instanceBuffer->updateData(cells.data(), cells.size() * sizeof(InstanceData));
+
+    m_vao->bind();
+    glDrawElementsInstanced(GL_TRIANGLES, m_ebo->getCount(), GL_UNSIGNED_INT, nullptr, cells.size());
+}
+
+void Renderer::drawRect(glm::vec2 pos, glm::vec2 size, glm::vec4 color) {
+    InstanceData frame(pos + size * 0.5f, size.x * 0.5f, -99.0f, color);
+
+    m_instanceBuffer->updateData(&frame, sizeof(InstanceData));
+    
+    m_vao->bind();
+    glDrawArrays(GL_LINE_LOOP, 0, 4); 
+}
+
+void Renderer::endScene() {
+
+}
+</file>
+
+<file path="src/rendering/shader.cpp">
+#include "rendering/shader.hpp"
+#include <glad/glad.h>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+
+Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath) {
+    std::string vertexCode;
+    std::string fragmentCode;
+    std::ifstream vShaderFile;
+    std::ifstream fShaderFile;
+
+    vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+    fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
+    try {
+        vShaderFile.open(vertexPath);
+        fShaderFile.open(fragmentPath);
+        std::stringstream vShaderStream, fShaderStream;
+        vShaderStream << vShaderFile.rdbuf();
+        fShaderStream << fShaderFile.rdbuf();
+        vertexCode = vShaderStream.str();
+        fragmentCode = fShaderStream.str();
+    } catch (std::ifstream::failure& e) {
+        std::cerr << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ: " << e.what() << std::endl;
+    }
+
+    unsigned int vertex = compileShader(GL_VERTEX_SHADER, vertexCode);
+    unsigned int fragment = compileShader(GL_FRAGMENT_SHADER, fragmentCode);
+
+    m_rendererID = glCreateProgram();
+    glAttachShader(m_rendererID, vertex);
+    glAttachShader(m_rendererID, fragment);
+    glLinkProgram(m_rendererID);
+
+    int success;
+    glGetProgramiv(m_rendererID, GL_LINK_STATUS, &success);
+    if (!success) {
+        char infoLog[512];
+        glGetProgramInfoLog(m_rendererID, 512, NULL, infoLog);
+        std::cerr << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+    }
+
+    glDeleteShader(vertex);
+    glDeleteShader(fragment);
+}
+
+Shader::~Shader() {
+    glDeleteProgram(m_rendererID);
+}
+
+unsigned int Shader::compileShader(unsigned int type, const std::string& source) {
+    unsigned int id = glCreateShader(type);
+    const char* src = source.c_str();
+    glShaderSource(id, 1, &src, nullptr);
+    glCompileShader(id);
+
+    int success;
+    glGetShaderiv(id, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        char infoLog[512];
+        glGetShaderInfoLog(id, 512, NULL, infoLog);
+        std::cerr << "ERROR::SHADER::COMPILE_FAILED: " << infoLog << std::endl;
+    }
+    return id;
+}
+
+void Shader::use() const {
+    glUseProgram(m_rendererID);
+}
+
+void Shader::setMat4(const std::string& name, const glm::mat4& matrix) const {
+    glUniformMatrix4fv(glGetUniformLocation(m_rendererID, name.c_str()), 1, GL_FALSE, glm::value_ptr(matrix));
+}
+
+void Shader::setVec2(const std::string& name, const glm::vec2& vec) const {
+    glUniform2fv(glGetUniformLocation(m_rendererID, name.c_str()), 1, glm::value_ptr(vec));
+}
+
+void Shader::setFloat(const std::string& name, float value) const {
+    glUniform1f(glGetUniformLocation(m_rendererID, name.c_str()), value);
+}
+</file>
+
+<file path="src/rendering/window.cpp">
+#include "rendering/window.hpp"
+#include <stdexcept>
+
+Window::Window(int width, int height, const std::string& title)
+    : m_width(width), m_height(height) {
+    
+    if (!glfwInit()) {
+        throw std::runtime_error("Failed to initialize GLFW");
+    }
+
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+    m_window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
+    if (!m_window) {
+        glfwTerminate();
+        throw std::runtime_error("Failed to create GLFW window");
+    }
+
+    glfwMakeContextCurrent(m_window);
+
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        throw std::runtime_error("Failed to initialize GLAD");
+    }
+}
+
+Window::~Window() {
+    glfwDestroyWindow(m_window);
+    glfwTerminate();
+}
+
+bool Window::shouldClose() const {
+    return glfwWindowShouldClose(m_window);
+}
+
+void Window::swapBuffers() {
+    glfwSwapBuffers(m_window);
+}
+
+void Window::pollEvents() {
+    glfwPollEvents();
+}
+</file>
+
+<file path="README.md">
+
+</file>
+
+<file path="repomix.config.json">
+{
+  "ignore": {
+    "customPatterns": [
+      "build/**",
+      "include/external/**",
+      "src/glad.c"
+    ]
+  }
+}
+</file>
+
+<file path="LICENSE">
+MIT License
+
+Copyright (c) 2026 RychnayaPila2000 (nik2510)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+</file>
+
+<file path="src/main.cpp">
+#include <cstdint>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+
+#include "glm/core/type.hpp"
+#include "rendering/window.hpp"
+#include "rendering/camera.hpp"
+#include "rendering/renderer.hpp"
+
+#include "physics/worldApi.hpp"
+
+#include "bridge/renderBridge.hpp"
+
+void handleCameraInput(Camera& camera, GLFWwindow* window, float dt) {
+    float speed = 500.0f / camera.getZoom(); 
+    glm::vec2 pos = camera.getPosition();
+
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)  pos.x -= speed * dt;
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)  pos.x += speed * dt;
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)  pos.y += speed * dt;
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)  pos.y -= speed * dt;
+
+    camera.setPosition(pos);
+}
+
+static Camera* g_camera = nullptr;
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
+    if (!g_camera) return;
+
+    float zoom = g_camera->getZoom();
+    
+    if (yoffset > 0) {
+        zoom *= 1.1f;
+    } else if (yoffset < 0) {
+        zoom /= 1.1f;
+    }
+
+    zoom = glm::clamp(zoom, 0.1f, 10.0f);
+    g_camera->setZoom(zoom);
+}
+
+int main() {
+    float lastTime = glfwGetTime();
+
+    Window window(1000, 1000, "Cell Lab");
+    Camera camera(1000.0f, 1000.0f);
+
+    g_camera = &camera;
+    glfwSetScrollCallback(window.getNativeWindow(), scroll_callback);
+
+    Renderer renderer;
+    RenderBridge renderBridge(renderer);
+    worldApi world;
+
+    uint32_t cellFromGenome = world.spawnCellFromModule("Genome1", 1, 450.0f, 500.0f);
+
+    uint32_t projectile = world.spawnCell("Phagocyte", 450, 10, 0, 250, glm::vec4(1,1,1,0));
+    
+    while (!window.shouldClose()) {
+        float currentTime = glfwGetTime();
+        float deltaTime = currentTime - lastTime;
+        lastTime = currentTime;
+        
+        renderBridge.clear();
+
+        world.update(deltaTime, renderBridge);
+
+        renderer.beginScene(camera);
+        renderer.drawRect(glm::vec2(0, 0), glm::vec2(1000, 1000), glm::vec4(1.0f));
+        renderer.drawCells(renderBridge.getQueue());
+        renderer.endScene();
+
+        handleCameraInput(camera, window.getNativeWindow(), deltaTime);
+
+        window.swapBuffers();
+        window.pollEvents();
+    }
+
+    return 0;
+}
+</file>
+
+<file path="CMakeLists.txt">
+cmake_minimum_required(VERSION 3.16)
+    project(Cytos LANGUAGES CXX C)
+
+
+    set(CMAKE_CXX_STANDARD 20)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-register")
+
+    include(FetchContent)
+
+    FetchContent_Declare(
+        glfw
+        GIT_REPOSITORY https://github.com/glfw/glfw.git
+        GIT_TAG        3.3.8
+    )
+
+    set(GLFW_BUILD_EXAMPLES OFF CACHE INTERNAL "")
+    set(GLFW_BUILD_TESTS OFF CACHE INTERNAL "")
+    set(GLFW_BUILD_DOCS OFF CACHE INTERNAL "")
+    set(GLFW_INSTALL OFF CACHE INTERNAL "")
+    set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE BOOL "" FORCE)
+
+    FetchContent_MakeAvailable(glfw)
+
+    find_package(OpenGL REQUIRED)
+
+    file(GLOB_RECURSE SOURCE_FILES 
+        "src/*.cpp"
+        "src/*.c"
+    )
+
+    add_executable(Cytos ${SOURCE_FILES})
+
+    target_include_directories(Cytos PRIVATE 
+        include
+        include/external
+    )
+
+    target_link_libraries(Cytos PRIVATE glfw OpenGL::GL)
+</file>
+
+</files>

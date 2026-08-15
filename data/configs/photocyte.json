@@ -1,0 +1,13 @@
+{
+    "Display_name": "Photocyte",
+    "Max_radius": 5,
+    "Default_mass": 1,
+    "typeid": 2,
+
+    "Metabolism": {
+        "maxAtf": 200.0,
+        "atfConsumptionRate": 1,
+        "massConsumptionRate": 0.2
+    },
+    "Max_collision strength": 10000
+}
