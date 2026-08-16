@@ -2,6 +2,37 @@
 
 SpatialGrid PhysicsSystem::m_grid;
 
+bool tryPhagocyteConsumption(entt::registry& registry, entt::entity eater, entt::entity victim) {
+    if (!registry.valid(eater) || !registry.valid(victim)) return false;
+
+    auto* rdEater = registry.try_get<RenderData>(eater);
+    auto* rdVictim = registry.try_get<RenderData>(victim);
+    if (!rdEater || !rdVictim) return false;
+
+    bool isPhagocyte = (rdEater->type == 0.0f && registry.all_of<Methabolism>(eater));
+    bool isDeadCell = (rdVictim->type == 99.0f);
+
+    if (isPhagocyte && isDeadCell) {
+        auto& metEater = registry.get<Methabolism>(eater);
+        auto& massEater = registry.get<Mass>(eater);
+        auto& massVictim = registry.get<Mass>(victim);
+        std::cout << ", Mass before: " << massEater.value << ", ATF: " << metEater.atf << "\n";
+        massEater.value += 0.25f + massVictim.value * 1.0f;
+        metEater.atf = std::min(metEater.maxAtf, metEater.atf + 50.0f);
+
+        if (massEater.value > 15.0f) {
+            massEater.value = 15.0f;
+        }
+
+        std::cout << ", Mass after: " << massEater.value << ", ATF: " << metEater.atf << "\n";
+
+        registry.destroy(victim);
+        return true;
+    }
+
+    return false;
+}
+
 void PhysicsSystem::update(entt::registry& registry, const worldSettings& settings, float dt) {
     applyForces(registry, settings, dt);
     integratePosition(registry, settings, dt);
@@ -70,6 +101,10 @@ void PhysicsSystem::resolveCollisions(entt::registry& registry, float dt) {
                 float minDist = rdA.radius + rdB.radius;
 
                 if (distSq < minDist * minDist && distSq > 0.000001f) {
+
+                    if (tryPhagocyteConsumption(registry, entityA, entityB)) continue;
+                    if (tryPhagocyteConsumption(registry, entityB, entityA)) continue;
+
                     float dist = std::sqrt(distSq);
                     glm::vec2 normal = delta / dist;
                     float overlap = minDist - dist;

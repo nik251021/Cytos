@@ -10,6 +10,9 @@ void BiologicalSystem::update(entt::registry& registry, float dt) {
 
 void BiologicalSystem::updateMetabolism(entt::registry& registry, float dt) {
     registry.view<Methabolism, RenderData, Mass>().each([&](auto entity, auto& met, auto &renderData, auto & mass) {
+        if (mass.value > 15.0f) {
+            mass.value = 15.0f;
+        }
         if (renderData.type == 2.0f) {
             PhotocyteBehavior::update(registry, entity, met, mass, 1.0f, dt);
         }
@@ -23,8 +26,16 @@ void BiologicalSystem::updateMetabolism(entt::registry& registry, float dt) {
             if (met.atf <= 0) {
                 auto& mass = registry.get<Mass>(entity);
                 mass.value -= met.massConsumptionRate * dt;
+                
                 if (mass.value <= 0) {
-                    registry.destroy(entity);
+                    renderData.type = 99.0f;
+                    renderData.color = glm::vec4(0.35f, 0.33f, 0.30f, 1.0f);
+                    
+                    registry.remove<Methabolism>(entity);
+                    registry.remove<SplitComponent>(entity);
+                    if (registry.all_of<Flagellum>(entity)) {
+                        registry.remove<Flagellum>(entity);
+                    }
                 }
             } else {
                 met.isActive = true;

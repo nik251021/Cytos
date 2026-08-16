@@ -1,76 +1,42 @@
 {
-  "Module8":{
-    "maxLength":25.0,
-    "childs":{
-    },
-    "strength":1000.0,
-    "restLength":15.0,
-    "cell_type":"Photocyte"
+  "Name": "Phagocyte Line with Base",
+  "Modules_total": 3,
+  "StartModule": 1,
+  "Module1": {
+    "maxLength": 30.0,
+    "strength": 500.0,
+    "restLength": 20.0,
+    "cell_type": "Phagocyte",
+    "atf_consumption": 2.0,
+    "mass_consumption": 1.0,
+    "split_mass": 10.0,
+    "split_angle": 90.0,
+    "childs": {
+      "child1": 2,
+      "child2": 3
+    }
   },
-  "Module4":{
-    "maxLength":25.0,
-    "childs":{
-    },
-    "strength":1000.0,
-    "restLength":15.0,
-    "cell_type":"Photocyte"
+  "Module2": {
+    "maxLength": 30.0,
+    "strength": 500.0,
+    "restLength": 20.0,
+    "cell_type": "Phagocyte",
+    "atf_consumption": 4.0,
+    "mass_consumption": 2.0,
+    "split_mass": 0.1,
+    "split_angle": 90.0,
+    "childs": {
+      "child1": 2
+    }
   },
-  "Module1":{
-    "maxLength":100.0,
-    "childs":{
-      "branchA":2,
-      "branchC":4,
-      "branchB":3,
-      "branchD":5
-    },
-    "strength":1.0,
-    "restLength":100.0,
-    "cell_type":"Photocyte"
-  },
-  "Name":"Unnamed Organism",
-  "Modules_total":8,
-  "Module3":{
-    "maxLength":25.0,
-    "childs":{
-      "sub3":8
-    },
-    "strength":1000.0,
-    "restLength":15.0,
-    "cell_type":"Photocyte"
-  },
-  "Module6":{
-    "maxLength":25.0,
-    "childs":{
-    },
-    "strength":1000.0,
-    "restLength":15.0,
-    "cell_type":"Photocyte"
-  },
-  "Module2":{
-    "maxLength":25.0,
-    "childs":{
-      "sub2":7,
-      "sub1":6
-    },
-    "strength":1000.0,
-    "restLength":15.0,
-    "cell_type":"Photocyte"
-  },
-  "Module7":{
-    "maxLength":25.0,
-    "childs":{
-    },
-    "strength":1000.0,
-    "restLength":15.0,
-    "cell_type":"Photocyte"
-  },
-  "Module5":{
-    "maxLength":25.0,
-    "childs":{
-    },
-    "strength":1000.0,
-    "restLength":15.0,
-    "cell_type":"Photocyte"
-  },
-  "StartModule":1
+  "Module3": {
+    "maxLength": 30.0,
+    "strength": 500.0,
+    "restLength": 20.0,
+    "cell_type": "Phagocyte",
+    "atf_consumption": 2.0,
+    "mass_consumption": 1.0,
+    "split_mass": 999.0,
+    "childs": {}
+  }
 }

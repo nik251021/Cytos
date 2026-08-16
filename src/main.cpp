@@ -56,7 +56,7 @@ int main() {
 
     uint32_t cellFromGenome = world.spawnCellFromModule("Genome1", 1, 450.0f, 500.0f);
 
-    uint32_t projectile = world.spawnCell("Phagocyte", 450, 10, 0, 1, glm::vec4(1,1,1,0));
+    uint32_t projectile = world.spawnCell("Phagocyte", 450, 10, 0, 50, glm::vec4(1,1,1,0));
     
     while (!window.shouldClose()) {
         float currentTime = glfwGetTime();

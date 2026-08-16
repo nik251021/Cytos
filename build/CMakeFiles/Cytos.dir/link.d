@@ -5,7 +5,6 @@ Cytos: \
   CMakeFiles/Cytos.dir/src/glad.c.o \
   CMakeFiles/Cytos.dir/src/main.cpp.o \
   CMakeFiles/Cytos.dir/src/physics/systems/biologicalSystem.cpp.o \
-  CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.o \
   CMakeFiles/Cytos.dir/src/physics/systems/genomeSystem.cpp.o \
   CMakeFiles/Cytos.dir/src/physics/systems/physicSystem.cpp.o \
   CMakeFiles/Cytos.dir/src/physics/world.cpp.o \
@@ -79,8 +78,6 @@ CMakeFiles/Cytos.dir/src/glad.c.o:
 CMakeFiles/Cytos.dir/src/main.cpp.o:
 
 CMakeFiles/Cytos.dir/src/physics/systems/biologicalSystem.cpp.o:
-
-CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.o:
 
 CMakeFiles/Cytos.dir/src/physics/systems/genomeSystem.cpp.o:
 

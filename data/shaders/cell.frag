@@ -17,12 +17,17 @@ void main() {
     float innerGlow = 0.0;
 
     switch(type) {
-        case -1: // Dead cell
-            if (dist < 0.85) discard;
-            alpha = smoothstep(0.85, 0.9, dist);
-            shapeColor = v_Color.rgb * 0.5;
-            break;
+        case 99: // dead cell
+            {
+                if (dist > 0.92) discard;
 
+                alpha = (1.0 - smoothstep(0.4, 0.9, dist)) * 0.45;
+
+                shapeColor = vec3(0.30, 0.28, 0.26);
+
+                border = smoothstep(0.7, 0.9, dist) * 0.2;
+            }
+            break;
         case 0: // Standart
             border = smoothstep(0.75, 0.95, dist);
             innerGlow = 1.0 - smoothstep(0.0, 0.8, dist);
