@@ -4,8 +4,8 @@
     "max_cells": 1000,
     "max_food": 3500,
     "size": {
-        "size_x": 1000,
-        "size_y": 1000
+        "size_x": 4000,
+        "size_y": 4000
     },
 
     "rad_lvl": 0,

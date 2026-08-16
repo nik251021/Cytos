@@ -5,6 +5,8 @@
 #include <physics/world.hpp>
 #include <physics/components.hpp>
 
+#include <benchmark.hpp>
+
 world::world(std::string name, GenomeRegistry& registry) : m_genomeRegistry(registry){
     this->curSettings = getWorldSettings(name);
 
@@ -113,9 +115,24 @@ void onCollision(entt::entity e1, entt::entity e2) {
 
 
 void world::update(float dt) {
-    PhysicsSystem::update(m_registry, curSettings, dt);
-    BiologicalSystem::update(m_registry, dt);
-    GenomeSystem::update(*this, m_registry, m_genomeRegistry, dt);
+    int entityCount = (int)m_registry.storage<Position>().size();
+
+    {
+        ZONE_SCOPED("1. PhysicsSystem");
+        PhysicsSystem::update(m_registry, curSettings, dt);
+    }
+
+    {
+        ZONE_SCOPED("2. BiologicalSystem");
+        BiologicalSystem::update(m_registry, dt);
+    }
+
+    {
+        ZONE_SCOPED("3. GenomeSystem");
+        GenomeSystem::update(*this, m_registry, m_genomeRegistry, dt);
+    }
+
+    getBenchmark().tick(entityCount);
 }
 
 void world::prepareRenderer(RenderBridge& rb) {

@@ -1,42 +1,441 @@
-{
-  "Name": "Phagocyte Line with Base",
-  "Modules_total": 3,
-  "StartModule": 1,
-  "Module1": {
-    "maxLength": 30.0,
-    "strength": 500.0,
-    "restLength": 20.0,
-    "cell_type": "Phagocyte",
-    "atf_consumption": 2.0,
-    "mass_consumption": 1.0,
-    "split_mass": 10.0,
-    "split_angle": 90.0,
-    "childs": {
-      "child1": 2,
-      "child2": 3
-    }
-  },
-  "Module2": {
-    "maxLength": 30.0,
-    "strength": 500.0,
-    "restLength": 20.0,
-    "cell_type": "Phagocyte",
-    "atf_consumption": 4.0,
-    "mass_consumption": 2.0,
-    "split_mass": 0.1,
-    "split_angle": 90.0,
-    "childs": {
-      "child1": 2
-    }
-  },
-  "Module3": {
-    "maxLength": 30.0,
-    "strength": 500.0,
-    "restLength": 20.0,
-    "cell_type": "Phagocyte",
-    "atf_consumption": 2.0,
-    "mass_consumption": 1.0,
-    "split_mass": 999.0,
-    "childs": {}
-  }
+ {
+
+"Name": "18-Module Flexible Photocyte Chain",
+
+"Modules_total": 18,
+
+"StartModule": 1,
+
+"Module1": {
+
+"maxLength": 45.0,
+
+"strength": 150.0,
+
+"restLength": 15.0,
+
+"cell_type": "Photocyte",
+
+"makeAdhesin": true,
+
+"atf_consumption": 1.2,
+
+"mass_consumption": 0.6,
+
+"split_mass": 3.0,
+
+"split_angle": 0.0,
+
+"childs": { "child1": 2, "child2": 2 }
+
+},
+
+"Module2": {
+
+"maxLength": 45.0,
+
+"strength": 150.0,
+
+"restLength": 15.0,
+
+"cell_type": "Photocyte",
+
+"makeAdhesin": true,
+
+"atf_consumption": 1.2,
+
+"mass_consumption": 0.6,
+
+"split_mass": 3.0,
+
+"split_angle": 90.0,
+
+"childs": { "child1": 3, "child2": 3 }
+
+},
+
+"Module3": {
+
+"maxLength": 45.0,
+
+"strength": 150.0,
+
+"restLength": 15.0,
+
+"cell_type": "Photocyte",
+
+"makeAdhesin": true,
+
+"atf_consumption": 1.2,
+
+"mass_consumption": 0.6,
+
+"split_mass": 3.0,
+
+"split_angle": 0.0,
+
+"childs": { "child1": 4, "child2": 4 }
+
+},
+
+"Module4": {
+
+"maxLength": 45.0,
+
+"strength": 150.0,
+
+"restLength": 15.0,
+
+"cell_type": "Photocyte",
+
+"makeAdhesin": true,
+
+"atf_consumption": 1.2,
+
+"mass_consumption": 0.6,
+
+"split_mass": 3.0,
+
+"split_angle": 90.0,
+
+"childs": { "child1": 5, "child2": 5 }
+
+},
+
+"Module5": {
+
+"maxLength": 45.0,
+
+"strength": 150.0,
+
+"restLength": 15.0,
+
+"cell_type": "Photocyte",
+
+"makeAdhesin": true,
+
+"atf_consumption": 1.2,
+
+"mass_consumption": 0.6,
+
+"split_mass": 3.0,
+
+"split_angle": 0.0,
+
+"childs": { "child1": 6, "child2": 6 }
+
+},
+
+"Module6": {
+
+"maxLength": 45.0,
+
+"strength": 150.0,
+
+"restLength": 15.0,
+
+"cell_type": "Photocyte",
+
+"makeAdhesin": true,
+
+"atf_consumption": 1.2,
+
+"mass_consumption": 0.6,
+
+"split_mass": 3.0,
+
+"split_angle": 90.0,
+
+"childs": { "child1": 7, "child2": 7 }
+
+},
+
+"Module7": {
+
+"maxLength": 45.0,
+
+"strength": 150.0,
+
+"restLength": 15.0,
+
+"cell_type": "Photocyte",
+
+"makeAdhesin": true,
+
+"atf_consumption": 1.2,
+
+"mass_consumption": 0.6,
+
+"split_mass": 3.0,
+
+"split_angle": 0.0,
+
+"childs": { "child1": 8, "child2": 8 }
+
+},
+
+"Module8": {
+
+"maxLength": 45.0,
+
+"strength": 150.0,
+
+"restLength": 15.0,
+
+"cell_type": "Photocyte",
+
+"makeAdhesin": true,
+
+"atf_consumption": 1.2,
+
+"mass_consumption": 0.6,
+
+"split_mass": 3.0,
+
+"split_angle": 90.0,
+
+"childs": { "child1": 9, "child2": 9 }
+
+},
+
+"Module9": {
+
+"maxLength": 45.0,
+
+"strength": 150.0,
+
+"restLength": 15.0,
+
+"cell_type": "Photocyte",
+
+"makeAdhesin": true,
+
+"atf_consumption": 1.2,
+
+"mass_consumption": 0.6,
+
+"split_mass": 3.0,
+
+"split_angle": 0.0,
+
+"childs": { "child1": 10, "child2": 10 }
+
+},
+
+"Module10": {
+
+"maxLength": 45.0,
+
+"strength": 150.0,
+
+"restLength": 15.0,
+
+"cell_type": "Photocyte",
+
+"makeAdhesin": true,
+
+"atf_consumption": 1.2,
+
+"mass_consumption": 0.6,
+
+"split_mass": 3.0,
+
+"split_angle": 90.0,
+
+"childs": { "child1": 11, "child2": 11 }
+
+},
+
+"Module11": {
+
+"maxLength": 45.0,
+
+"strength": 150.0,
+
+"restLength": 15.0,
+
+"cell_type": "Photocyte",
+
+"makeAdhesin": true,
+
+"atf_consumption": 1.2,
+
+"mass_consumption": 0.6,
+
+"split_mass": 3.0,
+
+"split_angle": 0.0,
+
+"childs": { "child1": 12, "child2": 12 }
+
+},
+
+"Module12": {
+
+"maxLength": 45.0,
+
+"strength": 150.0,
+
+"restLength": 15.0,
+
+"cell_type": "Photocyte",
+
+"makeAdhesin": true,
+
+"atf_consumption": 1.2,
+
+"mass_consumption": 0.6,
+
+"split_mass": 3.0,
+
+"split_angle": 90.0,
+
+"childs": { "child1": 13, "child2": 13 }
+
+},
+
+"Module13": {
+
+"maxLength": 45.0,
+
+"strength": 150.0,
+
+"restLength": 15.0,
+
+"cell_type": "Photocyte",
+
+"makeAdhesin": true,
+
+"atf_consumption": 1.2,
+
+"mass_consumption": 0.6,
+
+"split_mass": 3.0,
+
+"split_angle": 0.0,
+
+"childs": { "child1": 14, "child2": 14 }
+
+},
+
+"Module14": {
+
+"maxLength": 45.0,
+
+"strength": 150.0,
+
+"restLength": 15.0,
+
+"cell_type": "Photocyte",
+
+"makeAdhesin": true,
+
+"atf_consumption": 1.2,
+
+"mass_consumption": 0.6,
+
+"split_mass": 3.0,
+
+"split_angle": 90.0,
+
+"childs": { "child1": 15, "child2": 15 }
+
+},
+
+"Module15": {
+
+"maxLength": 45.0,
+
+"strength": 150.0,
+
+"restLength": 15.0,
+
+"cell_type": "Photocyte",
+
+"makeAdhesin": true,
+
+"atf_consumption": 1.2,
+
+"mass_consumption": 0.6,
+
+"split_mass": 3.0,
+
+"split_angle": 0.0,
+
+"childs": { "child1": 16, "child2": 16 }
+
+},
+
+"Module16": {
+
+"maxLength": 45.0,
+
+"strength": 150.0,
+
+"restLength": 15.0,
+
+"cell_type": "Photocyte",
+
+"makeAdhesin": true,
+
+"atf_consumption": 1.2,
+
+"mass_consumption": 0.6,
+
+"split_mass": 3.0,
+
+"split_angle": 90.0,
+
+"childs": { "child1": 17, "child2": 17 }
+
+},
+
+"Module17": {
+
+"maxLength": 45.0,
+
+"strength": 150.0,
+
+"restLength": 15.0,
+
+"cell_type": "Photocyte",
+
+"makeAdhesin": true,
+
+"atf_consumption": 1.2,
+
+"mass_consumption": 0.6,
+
+"split_mass": 3.0,
+
+"split_angle": 0.0,
+
+"childs": { "child1": 18, "child2": 18 }
+
+},
+
+"Module18": {
+
+"maxLength": 45.0,
+
+"strength": 150.0,
+
+"restLength": 15.0,
+
+"cell_type": "Photocyte",
+
+"makeAdhesin": true,
+
+"atf_consumption": 1.2,
+
+"mass_consumption": 0.6,
+
+"split_mass": 99999.0,
+
+"split_angle": 90.0,
+
+"childs": { "child1": 18, "child2": 18 }
+
 }
+
+} 

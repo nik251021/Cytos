@@ -1,9 +1,0 @@
-/home/nik2510/Documents/cytos/build/CMakeFiles/Cytos.dir
-/home/nik2510/Documents/cytos/build/CMakeFiles/edit_cache.dir
-/home/nik2510/Documents/cytos/build/CMakeFiles/rebuild_cache.dir
-/home/nik2510/Documents/cytos/build/_deps/glfw-build/CMakeFiles/edit_cache.dir
-/home/nik2510/Documents/cytos/build/_deps/glfw-build/CMakeFiles/rebuild_cache.dir
-/home/nik2510/Documents/cytos/build/_deps/glfw-build/src/CMakeFiles/update_mappings.dir
-/home/nik2510/Documents/cytos/build/_deps/glfw-build/src/CMakeFiles/glfw.dir
-/home/nik2510/Documents/cytos/build/_deps/glfw-build/src/CMakeFiles/edit_cache.dir
-/home/nik2510/Documents/cytos/build/_deps/glfw-build/src/CMakeFiles/rebuild_cache.dir

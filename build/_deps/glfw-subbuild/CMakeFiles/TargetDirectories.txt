@@ -1,3 +1,0 @@
-/home/nik2510/Documents/cytos/build/_deps/glfw-subbuild/CMakeFiles/glfw-populate.dir
-/home/nik2510/Documents/cytos/build/_deps/glfw-subbuild/CMakeFiles/edit_cache.dir
-/home/nik2510/Documents/cytos/build/_deps/glfw-subbuild/CMakeFiles/rebuild_cache.dir

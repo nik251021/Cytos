@@ -1,6 +1,73 @@
+#include "benchmark.hpp"
 #include <physics/systems/physicSystem.hpp>
+#include <cmath>
 
-SpatialGrid PhysicsSystem::m_grid;
+SpatialGrid PhysicsSystem::m_grid(glm::vec3(2000.0f, 2000.0f, 1.0f), 50.0f);
+
+SpatialGrid::SpatialGrid(const glm::vec3& worldSize, float cellSize) : cellSize(cellSize) {
+    resize(worldSize, cellSize);
+}
+
+void SpatialGrid::resize(const glm::vec3& worldSize, float newCellSize) {
+    if (newCellSize > 0) cellSize = newCellSize;
+    size.x = static_cast<uint32_t>(worldSize.x / cellSize) + 2;
+    size.y = static_cast<uint32_t>(worldSize.y / cellSize) + 2;
+    size.z = 1;
+    countCells = size.x * size.y * size.z;
+
+    offsets.resize(countCells + 1);
+    counts_.resize(countCells, 0);
+}
+
+int SpatialGrid::index(int x, int y, int z) const noexcept {
+    return (z * size.y + y) * size.x + x;
+}
+
+int SpatialGrid::getCellId(glm::vec2 pos) const {
+    int x = static_cast<int>(pos.x / cellSize) + 1;
+    int y = static_cast<int>(pos.y / cellSize) + 1;
+    x = std::clamp(x, 0, static_cast<int>(size.x) - 1);
+    y = std::clamp(y, 0, static_cast<int>(size.y) - 1);
+    return index(x, y, 0);
+}
+
+void SpatialGrid::clear() {}
+
+void SpatialGrid::rebuild(entt::registry& registry) {
+    auto view = registry.view<Position>();
+    size_t numEntities = view.size();
+
+    cellIndices_.resize(numEntities);
+    entitiesInCells.resize(numEntities);
+    std::fill(counts_.begin(), counts_.end(), 0);
+
+    size_t idx = 0;
+    view.each([&](auto entity, auto& pos) {
+        int cellId = getCellId(pos.value);
+        cellIndices_[idx++] = cellId;
+        counts_[cellId]++;
+    });
+
+    offsets[0] = 0;
+    for (size_t i = 0; i < countCells; ++i) {
+        offsets[i + 1] = offsets[i] + counts_[i];
+    }
+
+    std::fill(counts_.begin(), counts_.end(), 0);
+    idx = 0;
+    view.each([&](auto entity, auto& pos) {
+        int cellId = cellIndices_[idx++];
+        uint32_t destIdx = offsets[cellId] + counts_[cellId]++;
+        entitiesInCells[destIdx] = entity;
+    });
+}
+
+std::span<const entt::entity> SpatialGrid::entitiesInCell(int x, int y) const noexcept {
+    int cellId = index(x, y, 0);
+    size_t begin = offsets[cellId];
+    size_t end = offsets[cellId + 1];
+    return std::span<const entt::entity>(entitiesInCells.data() + begin, end - begin);
+}
 
 bool tryPhagocyteConsumption(entt::registry& registry, entt::entity eater, entt::entity victim) {
     if (!registry.valid(eater) || !registry.valid(victim)) return false;
@@ -16,15 +83,13 @@ bool tryPhagocyteConsumption(entt::registry& registry, entt::entity eater, entt:
         auto& metEater = registry.get<Methabolism>(eater);
         auto& massEater = registry.get<Mass>(eater);
         auto& massVictim = registry.get<Mass>(victim);
-        std::cout << ", Mass before: " << massEater.value << ", ATF: " << metEater.atf << "\n";
+        
         massEater.value += 0.25f + massVictim.value * 1.0f;
         metEater.atf = std::min(metEater.maxAtf, metEater.atf + 50.0f);
 
         if (massEater.value > 15.0f) {
             massEater.value = 15.0f;
         }
-
-        std::cout << ", Mass after: " << massEater.value << ", ATF: " << metEater.atf << "\n";
 
         registry.destroy(victim);
         return true;
@@ -34,9 +99,22 @@ bool tryPhagocyteConsumption(entt::registry& registry, entt::entity eater, entt:
 }
 
 void PhysicsSystem::update(entt::registry& registry, const worldSettings& settings, float dt) {
-    applyForces(registry, settings, dt);
-    integratePosition(registry, settings, dt);
-    resolveCollisions(registry, dt);
+    ZONE_SCOPED("1. PhysicsSystem (Total)"); // Замеряет общую работу системы
+
+    {
+        ZONE_SCOPED("1.1. applyForces");
+        applyForces(registry, settings, dt);
+    }
+
+    {
+        ZONE_SCOPED("1.2. integratePosition");
+        integratePosition(registry, settings, dt);
+    }
+
+    {
+        ZONE_SCOPED("1.3. resolveCollisions");
+        resolveCollisions(registry, dt);
+    }
 }
 
 void PhysicsSystem::applyForces(entt::registry& registry, const worldSettings& settings, float dt) {
@@ -73,64 +151,56 @@ void PhysicsSystem::integratePosition(entt::registry& registry, const worldSetti
 }
 
 void PhysicsSystem::resolveCollisions(entt::registry& registry, float dt) {
-    m_grid.clear();
+    m_grid.rebuild(registry);
+
     auto view = registry.view<Position, Velocity, Mass, RenderData>();
-    
-    view.each([&](auto entity, auto& pos, auto&, auto&, auto&) { 
-        m_grid.add(entity, pos.value); 
-    });
 
     view.each([&](auto entityA, auto& posA, auto& velA, auto& massA, auto& rdA) {
-        int neighbors[9];
-        m_grid.getNeighboringCells(posA.value, neighbors);
-        
-        for (int i = 0; i < 9; ++i) {
-            auto it = m_grid.cells.find(neighbors[i]);
-            if (it == m_grid.cells.end()) continue;
+        m_grid.forEachNeighborEntity(posA.value, [&](entt::entity entityB) {
+            if (entityA >= entityB) return;
 
-            for (auto entityB : it->second) {
-                if (entityA >= entityB) continue;
+            auto& posB = registry.get<Position>(entityB);
+            auto& rdB = registry.get<RenderData>(entityB);
 
-                auto& posB = registry.get<Position>(entityB);
+            float minDist = rdA.radius + rdB.radius;
+            float dx = posA.value.x - posB.value.x;
+            if (std::abs(dx) > minDist) return;
+            float dy = posA.value.y - posB.value.y;
+            if (std::abs(dy) > minDist) return;
+
+            float distSq = dx * dx + dy * dy;
+            if (distSq < minDist * minDist && distSq > 0.000001f) {
                 auto& velB = registry.get<Velocity>(entityB);
                 auto& massB = registry.get<Mass>(entityB);
-                auto& rdB = registry.get<RenderData>(entityB);
 
-                glm::vec2 delta = posA.value - posB.value;
-                float distSq = glm::dot(delta, delta);
-                float minDist = rdA.radius + rdB.radius;
+                if (tryPhagocyteConsumption(registry, entityA, entityB)) return;
+                if (tryPhagocyteConsumption(registry, entityB, entityA)) return;
 
-                if (distSq < minDist * minDist && distSq > 0.000001f) {
+                float dist = std::sqrt(distSq);
+                glm::vec2 normal = glm::vec2(dx, dy) / dist;
+                float overlap = minDist - dist;
 
-                    if (tryPhagocyteConsumption(registry, entityA, entityB)) continue;
-                    if (tryPhagocyteConsumption(registry, entityB, entityA)) continue;
+                float totalMass = massA.value + massB.value;
+                float m1Ratio = massB.value / totalMass;
+                float m2Ratio = massA.value / totalMass;
 
-                    float dist = std::sqrt(distSq);
-                    glm::vec2 normal = delta / dist;
-                    float overlap = minDist - dist;
+                float pushFactor = 0.5f; 
+                velA.value += normal * (overlap * pushFactor) * m1Ratio;
+                velB.value -= normal * (overlap * pushFactor) * m2Ratio;
 
-                    float totalMass = massA.value + massB.value;
-                    float m1Ratio = massB.value / totalMass;
-                    float m2Ratio = massA.value / totalMass;
-
-                    float pushFactor = 0.5f; 
-                    velA.value += normal * (overlap * pushFactor) * m1Ratio;
-                    velB.value -= normal * (overlap * pushFactor) * m2Ratio;
-
-                    glm::vec2 relativeVel = velA.value - velB.value;
-                    float velAlongNormal = glm::dot(relativeVel, normal);
+                glm::vec2 relativeVel = velA.value - velB.value;
+                float velAlongNormal = glm::dot(relativeVel, normal);
+                
+                if (velAlongNormal < 0) {
+                    float restitution = 0.3f;
+                    float j = -(1.0f + restitution) * velAlongNormal;
+                    j /= (1.0f / massA.value + 1.0f / massB.value);
                     
-                    if (velAlongNormal < 0) {
-                        float restitution = 0.3f;
-                        float j = -(1.0f + restitution) * velAlongNormal;
-                        j /= (1.0f / massA.value + 1.0f / massB.value);
-                        
-                        glm::vec2 impulse = j * normal;
-                        velA.value += (1.0f / massA.value) * impulse;
-                        velB.value -= (1.0f / massB.value) * impulse;
-                    }
+                    glm::vec2 impulse = j * normal;
+                    velA.value += (1.0f / massA.value) * impulse;
+                    velB.value -= (1.0f / massB.value) * impulse;
                 }
             }
-        }
+        });
     });
 }
