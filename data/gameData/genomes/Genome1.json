@@ -1,18 +1,76 @@
 {
-    "Name": "Photocyte",
-    "StartModule": 1,
-    "Modules_total": 1,
-
-    "Module1": {
-        "cell_type": "Photocyte",
-        "split_mass": 3.0,
-        "split_ratio": 0.5,
-        "split_angle": 0.0,
-        "childs": { "child1": 1, "child2": 1 },
-        "makeAdhesin": true,
-        "restLength": 14.0,
-        "maxLength": 30.0,
-        "strength": 150.0,
-        "color_r": 0.2, "color_g": 0.75, "color_b": 0.0, "color_a": 1.0
-    }
+  "Module8":{
+    "maxLength":25.0,
+    "childs":{
+    },
+    "strength":1000.0,
+    "restLength":15.0,
+    "cell_type":"Photocyte"
+  },
+  "Module4":{
+    "maxLength":25.0,
+    "childs":{
+    },
+    "strength":1000.0,
+    "restLength":15.0,
+    "cell_type":"Photocyte"
+  },
+  "Module1":{
+    "maxLength":100.0,
+    "childs":{
+      "branchA":2,
+      "branchC":4,
+      "branchB":3,
+      "branchD":5
+    },
+    "strength":1.0,
+    "restLength":100.0,
+    "cell_type":"Photocyte"
+  },
+  "Name":"Unnamed Organism",
+  "Modules_total":8,
+  "Module3":{
+    "maxLength":25.0,
+    "childs":{
+      "sub3":8
+    },
+    "strength":1000.0,
+    "restLength":15.0,
+    "cell_type":"Photocyte"
+  },
+  "Module6":{
+    "maxLength":25.0,
+    "childs":{
+    },
+    "strength":1000.0,
+    "restLength":15.0,
+    "cell_type":"Photocyte"
+  },
+  "Module2":{
+    "maxLength":25.0,
+    "childs":{
+      "sub2":7,
+      "sub1":6
+    },
+    "strength":1000.0,
+    "restLength":15.0,
+    "cell_type":"Photocyte"
+  },
+  "Module7":{
+    "maxLength":25.0,
+    "childs":{
+    },
+    "strength":1000.0,
+    "restLength":15.0,
+    "cell_type":"Photocyte"
+  },
+  "Module5":{
+    "maxLength":25.0,
+    "childs":{
+    },
+    "strength":1000.0,
+    "restLength":15.0,
+    "cell_type":"Photocyte"
+  },
+  "StartModule":1
 }

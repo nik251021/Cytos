@@ -1,0 +1,71 @@
+{
+  "StartModule": 1,
+  "Modules_total": 99,
+  "Module1": {
+    "cell_type": "Photocyte",
+    "strength": -50.0,
+    "restLength": 100.0,
+    "maxLength": 10.0,
+    "childs": {
+      "branchA": 2,
+      "branchB": 3,
+      "branchC": 4,
+      "branchD": 5,
+      "ghostBranch": 999
+    }
+  },
+  "Module2": {
+    "cell_type": "Photocyte",
+    "strength": 1000.0,
+    "restLength": 15.0,
+    "maxLength": 25.0,
+    "childs": {
+      "sub1": 6,
+      "sub2": 7
+    }
+  },
+  "Module3": {
+    "cell_type": "Photocyte",
+    "strength": 1000.0,
+    "restLength": 15.0,
+    "maxLength": 25.0,
+    "childs": {
+      "sub3": 8
+    }
+  },
+  "Module4": {
+    "cell_type": "Photocyte",
+    "strength": 1000.0,
+    "restLength": 15.0,
+    "maxLength": 25.0,
+    "childs": {}
+  },
+  "Module5": {
+    "cell_type": "Photocyte",
+    "strength": 1000.0,
+    "restLength": 15.0,
+    "maxLength": 25.0,
+    "childs": {}
+  },
+  "Module6": {
+    "cell_type": "Photocyte",
+    "strength": 1000.0,
+    "restLength": 15.0,
+    "maxLength": 25.0,
+    "childs": {}
+  },
+  "Module7": {
+    "cell_type": "Photocyte",
+    "strength": 1000.0,
+    "restLength": 15.0,
+    "maxLength": 25.0,
+    "childs": {}
+  },
+  "Module8": {
+    "cell_type": "Photocyte",
+    "strength": 1000.0,
+    "restLength": 15.0,
+    "maxLength": 25.0,
+    "childs": {}
+  }
+}
