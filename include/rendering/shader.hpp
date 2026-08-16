@@ -11,6 +11,7 @@ public:
     void setMat4(const std::string& name, const glm::mat4& matrix) const;
     void setVec2(const std::string& name, const glm::vec2& vec) const;
     void setFloat(const std::string& name, float value) const;
+    void setInt(const std::string& name, int value) const;
 
 private:
     unsigned int m_rendererID;

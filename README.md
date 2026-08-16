@@ -41,7 +41,7 @@ lua src/genomeRedactor/main.lua # For redactor things
 * [x] Adding debug output for systems and a little refactor of physics
 * [] Adding comments -- in progress
 * [] Adding devorocite (Cell which robs other cells and takes ATF), and ceratinocyte (Protector from devorocites which works like shield)
-* [] World shaders, full rewrite of shaders
+* [x] World shaders, full rewrite of shaders
 * [x] Mouse drag
 * [] Genome spawn button
 * [] Random genome generator in redactor

@@ -127,14 +127,15 @@ void onCollision(entt::entity e1, entt::entity e2) {
 
 }
 
-
-
 void world::update(float dt) {
     int entityCount = (int)m_registry.storage<Position>().size();
+    //Using subSteps for fix collision on big velocity
+    const int subSteps = 2;
+    float subDt = dt / (float)subSteps;
 
-    {
-        ZONE_SCOPED("1. PhysicsSystem");
-        PhysicsSystem::update(m_registry, curSettings, dt);
+    for (int i = 0; i < subSteps; ++i) {
+        ZONE_SCOPED("1. PhysicsSystem_Substep");
+        PhysicsSystem::update(m_registry, curSettings, subDt);
     }
 
     {

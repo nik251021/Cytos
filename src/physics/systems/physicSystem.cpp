@@ -2,7 +2,7 @@
 #include <physics/systems/physicSystem.hpp>
 #include <cmath>
 
-SpatialGrid PhysicsSystem::m_grid(glm::vec3(2000.0f, 2000.0f, 1.0f), 50.0f);
+SpatialGrid PhysicsSystem::m_grid(glm::vec3(4000.0f, 4000.0f, 1.0f), 50.0f);
 
 SpatialGrid::SpatialGrid(const glm::vec3& worldSize, float cellSize) : cellSize(cellSize) {
     resize(worldSize, cellSize);
@@ -151,56 +151,68 @@ void PhysicsSystem::integratePosition(entt::registry& registry, const worldSetti
 }
 
 void PhysicsSystem::resolveCollisions(entt::registry& registry, float dt) {
-    m_grid.rebuild(registry);
+    const int collisionIterations = 3;
+    
+    for (int iter = 0; iter < collisionIterations; ++iter) {
+        // 1. Перестраиваем сетку КАЖДУЮ итерацию, чтобы знать актуальные позиции
+        m_grid.rebuild(registry);
 
-    auto view = registry.view<Position, Velocity, Mass, RenderData>();
+        auto view = registry.view<Position, Velocity, Mass, RenderData>();
 
-    view.each([&](auto entityA, auto& posA, auto& velA, auto& massA, auto& rdA) {
-        m_grid.forEachNeighborEntity(posA.value, [&](entt::entity entityB) {
-            if (entityA >= entityB) return;
-
-            auto& posB = registry.get<Position>(entityB);
-            auto& rdB = registry.get<RenderData>(entityB);
-
-            float minDist = rdA.radius + rdB.radius;
-            float dx = posA.value.x - posB.value.x;
-            if (std::abs(dx) > minDist) return;
-            float dy = posA.value.y - posB.value.y;
-            if (std::abs(dy) > minDist) return;
-
-            float distSq = dx * dx + dy * dy;
-            if (distSq < minDist * minDist && distSq > 0.000001f) {
-                auto& velB = registry.get<Velocity>(entityB);
-                auto& massB = registry.get<Mass>(entityB);
-
-                if (tryPhagocyteConsumption(registry, entityA, entityB)) return;
-                if (tryPhagocyteConsumption(registry, entityB, entityA)) return;
-
-                float dist = std::sqrt(distSq);
-                glm::vec2 normal = glm::vec2(dx, dy) / dist;
-                float overlap = minDist - dist;
-
-                float totalMass = massA.value + massB.value;
-                float m1Ratio = massB.value / totalMass;
-                float m2Ratio = massA.value / totalMass;
-
-                float pushFactor = 0.5f; 
-                velA.value += normal * (overlap * pushFactor) * m1Ratio;
-                velB.value -= normal * (overlap * pushFactor) * m2Ratio;
-
-                glm::vec2 relativeVel = velA.value - velB.value;
-                float velAlongNormal = glm::dot(relativeVel, normal);
+        view.each([&](auto entityA, auto& posA, auto& velA, auto& massA, auto& rdA) {
+            m_grid.forEachNeighborEntity(posA.value, [&](entt::entity entityB) {
+                if (entityA >= entityB) return;
                 
-                if (velAlongNormal < 0) {
-                    float restitution = 0.3f;
-                    float j = -(1.0f + restitution) * velAlongNormal;
-                    j /= (1.0f / massA.value + 1.0f / massB.value);
+                // Проверка на случай, если entityB была уничтожена в этот же кадр
+                if (!registry.valid(entityB)) return;
+
+                auto& posB = registry.get<Position>(entityB);
+                auto& rdB = registry.get<RenderData>(entityB);
+
+                float minDist = rdA.radius + rdB.radius;
+                float dx = posA.value.x - posB.value.x;
+                if (std::abs(dx) > minDist) return;
+                float dy = posA.value.y - posB.value.y;
+                if (std::abs(dy) > minDist) return;
+
+                float distSq = dx * dx + dy * dy;
+                if (distSq < minDist * minDist && distSq > 0.000001f) {
+                    // Сначала проверяем поедание
+                    if (tryPhagocyteConsumption(registry, entityA, entityB)) return;
+                    if (tryPhagocyteConsumption(registry, entityB, entityA)) return;
+
+                    // Если не съели, разрешаем коллизию
+                    auto& velB = registry.get<Velocity>(entityB);
+                    auto& massB = registry.get<Mass>(entityB);
+
+                    float dist = std::sqrt(distSq);
+                    glm::vec2 normal = glm::vec2(dx, dy) / dist;
+                    float overlap = minDist - dist;
+
+                    float totalMass = massA.value + massB.value;
+                    float m1Ratio = massB.value / totalMass;
+                    float m2Ratio = massA.value / totalMass;
+
+                    // Позиционная коррекция (меньше итераций = меньше фактор)
+                    float pushFactor = 0.4f; 
+                    posA.value += normal * (overlap * pushFactor) * m1Ratio;
+                    posB.value -= normal * (overlap * pushFactor) * m2Ratio;
+
+                    // Импульсы (упрощенно)
+                    glm::vec2 relativeVel = velA.value - velB.value;
+                    float velAlongNormal = glm::dot(relativeVel, normal);
                     
-                    glm::vec2 impulse = j * normal;
-                    velA.value += (1.0f / massA.value) * impulse;
-                    velB.value -= (1.0f / massB.value) * impulse;
+                    if (velAlongNormal < 0) {
+                        float restitution = 0.2f;
+                        float j = -(1.0f + restitution) * velAlongNormal;
+                        j /= (1.0f / massA.value + 1.0f / massB.value);
+                        
+                        glm::vec2 impulse = j * normal;
+                        velA.value += (1.0f / massA.value) * impulse;
+                        velB.value -= (1.0f / massB.value) * impulse;
+                    }
                 }
-            }
+            });
         });
-    });
+    }
 }
