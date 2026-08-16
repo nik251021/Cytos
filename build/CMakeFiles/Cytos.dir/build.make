@@ -114,24 +114,10 @@ CMakeFiles/Cytos.dir/src/physics/systems/biologicalSystem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Cytos.dir/src/physics/systems/biologicalSystem.cpp.s"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nik2510/Documents/cytos/src/physics/systems/biologicalSystem.cpp -o CMakeFiles/Cytos.dir/src/physics/systems/biologicalSystem.cpp.s
 
-CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.o: CMakeFiles/Cytos.dir/flags.make
-CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.o: /home/nik2510/Documents/cytos/src/physics/systems/cellBehaivors/photocyte.cpp
-CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.o: CMakeFiles/Cytos.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.o"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.o -MF CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.o.d -o CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.o -c /home/nik2510/Documents/cytos/src/physics/systems/cellBehaivors/photocyte.cpp
-
-CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.i"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nik2510/Documents/cytos/src/physics/systems/cellBehaivors/photocyte.cpp > CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.i
-
-CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.s"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nik2510/Documents/cytos/src/physics/systems/cellBehaivors/photocyte.cpp -o CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.s
-
 CMakeFiles/Cytos.dir/src/physics/systems/genomeSystem.cpp.o: CMakeFiles/Cytos.dir/flags.make
 CMakeFiles/Cytos.dir/src/physics/systems/genomeSystem.cpp.o: /home/nik2510/Documents/cytos/src/physics/systems/genomeSystem.cpp
 CMakeFiles/Cytos.dir/src/physics/systems/genomeSystem.cpp.o: CMakeFiles/Cytos.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Cytos.dir/src/physics/systems/genomeSystem.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Cytos.dir/src/physics/systems/genomeSystem.cpp.o"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Cytos.dir/src/physics/systems/genomeSystem.cpp.o -MF CMakeFiles/Cytos.dir/src/physics/systems/genomeSystem.cpp.o.d -o CMakeFiles/Cytos.dir/src/physics/systems/genomeSystem.cpp.o -c /home/nik2510/Documents/cytos/src/physics/systems/genomeSystem.cpp
 
 CMakeFiles/Cytos.dir/src/physics/systems/genomeSystem.cpp.i: cmake_force
@@ -145,7 +131,7 @@ CMakeFiles/Cytos.dir/src/physics/systems/genomeSystem.cpp.s: cmake_force
 CMakeFiles/Cytos.dir/src/physics/systems/physicSystem.cpp.o: CMakeFiles/Cytos.dir/flags.make
 CMakeFiles/Cytos.dir/src/physics/systems/physicSystem.cpp.o: /home/nik2510/Documents/cytos/src/physics/systems/physicSystem.cpp
 CMakeFiles/Cytos.dir/src/physics/systems/physicSystem.cpp.o: CMakeFiles/Cytos.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Cytos.dir/src/physics/systems/physicSystem.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Cytos.dir/src/physics/systems/physicSystem.cpp.o"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Cytos.dir/src/physics/systems/physicSystem.cpp.o -MF CMakeFiles/Cytos.dir/src/physics/systems/physicSystem.cpp.o.d -o CMakeFiles/Cytos.dir/src/physics/systems/physicSystem.cpp.o -c /home/nik2510/Documents/cytos/src/physics/systems/physicSystem.cpp
 
 CMakeFiles/Cytos.dir/src/physics/systems/physicSystem.cpp.i: cmake_force
@@ -159,7 +145,7 @@ CMakeFiles/Cytos.dir/src/physics/systems/physicSystem.cpp.s: cmake_force
 CMakeFiles/Cytos.dir/src/physics/world.cpp.o: CMakeFiles/Cytos.dir/flags.make
 CMakeFiles/Cytos.dir/src/physics/world.cpp.o: /home/nik2510/Documents/cytos/src/physics/world.cpp
 CMakeFiles/Cytos.dir/src/physics/world.cpp.o: CMakeFiles/Cytos.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Cytos.dir/src/physics/world.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Cytos.dir/src/physics/world.cpp.o"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Cytos.dir/src/physics/world.cpp.o -MF CMakeFiles/Cytos.dir/src/physics/world.cpp.o.d -o CMakeFiles/Cytos.dir/src/physics/world.cpp.o -c /home/nik2510/Documents/cytos/src/physics/world.cpp
 
 CMakeFiles/Cytos.dir/src/physics/world.cpp.i: cmake_force
@@ -173,7 +159,7 @@ CMakeFiles/Cytos.dir/src/physics/world.cpp.s: cmake_force
 CMakeFiles/Cytos.dir/src/rendering/buffers/EBO.cpp.o: CMakeFiles/Cytos.dir/flags.make
 CMakeFiles/Cytos.dir/src/rendering/buffers/EBO.cpp.o: /home/nik2510/Documents/cytos/src/rendering/buffers/EBO.cpp
 CMakeFiles/Cytos.dir/src/rendering/buffers/EBO.cpp.o: CMakeFiles/Cytos.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/Cytos.dir/src/rendering/buffers/EBO.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Cytos.dir/src/rendering/buffers/EBO.cpp.o"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Cytos.dir/src/rendering/buffers/EBO.cpp.o -MF CMakeFiles/Cytos.dir/src/rendering/buffers/EBO.cpp.o.d -o CMakeFiles/Cytos.dir/src/rendering/buffers/EBO.cpp.o -c /home/nik2510/Documents/cytos/src/rendering/buffers/EBO.cpp
 
 CMakeFiles/Cytos.dir/src/rendering/buffers/EBO.cpp.i: cmake_force
@@ -187,7 +173,7 @@ CMakeFiles/Cytos.dir/src/rendering/buffers/EBO.cpp.s: cmake_force
 CMakeFiles/Cytos.dir/src/rendering/buffers/VAO.cpp.o: CMakeFiles/Cytos.dir/flags.make
 CMakeFiles/Cytos.dir/src/rendering/buffers/VAO.cpp.o: /home/nik2510/Documents/cytos/src/rendering/buffers/VAO.cpp
 CMakeFiles/Cytos.dir/src/rendering/buffers/VAO.cpp.o: CMakeFiles/Cytos.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/Cytos.dir/src/rendering/buffers/VAO.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/Cytos.dir/src/rendering/buffers/VAO.cpp.o"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Cytos.dir/src/rendering/buffers/VAO.cpp.o -MF CMakeFiles/Cytos.dir/src/rendering/buffers/VAO.cpp.o.d -o CMakeFiles/Cytos.dir/src/rendering/buffers/VAO.cpp.o -c /home/nik2510/Documents/cytos/src/rendering/buffers/VAO.cpp
 
 CMakeFiles/Cytos.dir/src/rendering/buffers/VAO.cpp.i: cmake_force
@@ -201,7 +187,7 @@ CMakeFiles/Cytos.dir/src/rendering/buffers/VAO.cpp.s: cmake_force
 CMakeFiles/Cytos.dir/src/rendering/buffers/VBO.cpp.o: CMakeFiles/Cytos.dir/flags.make
 CMakeFiles/Cytos.dir/src/rendering/buffers/VBO.cpp.o: /home/nik2510/Documents/cytos/src/rendering/buffers/VBO.cpp
 CMakeFiles/Cytos.dir/src/rendering/buffers/VBO.cpp.o: CMakeFiles/Cytos.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/Cytos.dir/src/rendering/buffers/VBO.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/Cytos.dir/src/rendering/buffers/VBO.cpp.o"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Cytos.dir/src/rendering/buffers/VBO.cpp.o -MF CMakeFiles/Cytos.dir/src/rendering/buffers/VBO.cpp.o.d -o CMakeFiles/Cytos.dir/src/rendering/buffers/VBO.cpp.o -c /home/nik2510/Documents/cytos/src/rendering/buffers/VBO.cpp
 
 CMakeFiles/Cytos.dir/src/rendering/buffers/VBO.cpp.i: cmake_force
@@ -215,7 +201,7 @@ CMakeFiles/Cytos.dir/src/rendering/buffers/VBO.cpp.s: cmake_force
 CMakeFiles/Cytos.dir/src/rendering/buffers/instance_buffer.cpp.o: CMakeFiles/Cytos.dir/flags.make
 CMakeFiles/Cytos.dir/src/rendering/buffers/instance_buffer.cpp.o: /home/nik2510/Documents/cytos/src/rendering/buffers/instance_buffer.cpp
 CMakeFiles/Cytos.dir/src/rendering/buffers/instance_buffer.cpp.o: CMakeFiles/Cytos.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/Cytos.dir/src/rendering/buffers/instance_buffer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/Cytos.dir/src/rendering/buffers/instance_buffer.cpp.o"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Cytos.dir/src/rendering/buffers/instance_buffer.cpp.o -MF CMakeFiles/Cytos.dir/src/rendering/buffers/instance_buffer.cpp.o.d -o CMakeFiles/Cytos.dir/src/rendering/buffers/instance_buffer.cpp.o -c /home/nik2510/Documents/cytos/src/rendering/buffers/instance_buffer.cpp
 
 CMakeFiles/Cytos.dir/src/rendering/buffers/instance_buffer.cpp.i: cmake_force
@@ -229,7 +215,7 @@ CMakeFiles/Cytos.dir/src/rendering/buffers/instance_buffer.cpp.s: cmake_force
 CMakeFiles/Cytos.dir/src/rendering/camera.cpp.o: CMakeFiles/Cytos.dir/flags.make
 CMakeFiles/Cytos.dir/src/rendering/camera.cpp.o: /home/nik2510/Documents/cytos/src/rendering/camera.cpp
 CMakeFiles/Cytos.dir/src/rendering/camera.cpp.o: CMakeFiles/Cytos.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/Cytos.dir/src/rendering/camera.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/Cytos.dir/src/rendering/camera.cpp.o"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Cytos.dir/src/rendering/camera.cpp.o -MF CMakeFiles/Cytos.dir/src/rendering/camera.cpp.o.d -o CMakeFiles/Cytos.dir/src/rendering/camera.cpp.o -c /home/nik2510/Documents/cytos/src/rendering/camera.cpp
 
 CMakeFiles/Cytos.dir/src/rendering/camera.cpp.i: cmake_force
@@ -243,7 +229,7 @@ CMakeFiles/Cytos.dir/src/rendering/camera.cpp.s: cmake_force
 CMakeFiles/Cytos.dir/src/rendering/renderer.cpp.o: CMakeFiles/Cytos.dir/flags.make
 CMakeFiles/Cytos.dir/src/rendering/renderer.cpp.o: /home/nik2510/Documents/cytos/src/rendering/renderer.cpp
 CMakeFiles/Cytos.dir/src/rendering/renderer.cpp.o: CMakeFiles/Cytos.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/Cytos.dir/src/rendering/renderer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/Cytos.dir/src/rendering/renderer.cpp.o"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Cytos.dir/src/rendering/renderer.cpp.o -MF CMakeFiles/Cytos.dir/src/rendering/renderer.cpp.o.d -o CMakeFiles/Cytos.dir/src/rendering/renderer.cpp.o -c /home/nik2510/Documents/cytos/src/rendering/renderer.cpp
 
 CMakeFiles/Cytos.dir/src/rendering/renderer.cpp.i: cmake_force
@@ -257,7 +243,7 @@ CMakeFiles/Cytos.dir/src/rendering/renderer.cpp.s: cmake_force
 CMakeFiles/Cytos.dir/src/rendering/shader.cpp.o: CMakeFiles/Cytos.dir/flags.make
 CMakeFiles/Cytos.dir/src/rendering/shader.cpp.o: /home/nik2510/Documents/cytos/src/rendering/shader.cpp
 CMakeFiles/Cytos.dir/src/rendering/shader.cpp.o: CMakeFiles/Cytos.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/Cytos.dir/src/rendering/shader.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/Cytos.dir/src/rendering/shader.cpp.o"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Cytos.dir/src/rendering/shader.cpp.o -MF CMakeFiles/Cytos.dir/src/rendering/shader.cpp.o.d -o CMakeFiles/Cytos.dir/src/rendering/shader.cpp.o -c /home/nik2510/Documents/cytos/src/rendering/shader.cpp
 
 CMakeFiles/Cytos.dir/src/rendering/shader.cpp.i: cmake_force
@@ -271,7 +257,7 @@ CMakeFiles/Cytos.dir/src/rendering/shader.cpp.s: cmake_force
 CMakeFiles/Cytos.dir/src/rendering/window.cpp.o: CMakeFiles/Cytos.dir/flags.make
 CMakeFiles/Cytos.dir/src/rendering/window.cpp.o: /home/nik2510/Documents/cytos/src/rendering/window.cpp
 CMakeFiles/Cytos.dir/src/rendering/window.cpp.o: CMakeFiles/Cytos.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/Cytos.dir/src/rendering/window.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/Cytos.dir/src/rendering/window.cpp.o"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Cytos.dir/src/rendering/window.cpp.o -MF CMakeFiles/Cytos.dir/src/rendering/window.cpp.o.d -o CMakeFiles/Cytos.dir/src/rendering/window.cpp.o -c /home/nik2510/Documents/cytos/src/rendering/window.cpp
 
 CMakeFiles/Cytos.dir/src/rendering/window.cpp.i: cmake_force
@@ -287,7 +273,6 @@ Cytos_OBJECTS = \
 "CMakeFiles/Cytos.dir/src/glad.c.o" \
 "CMakeFiles/Cytos.dir/src/main.cpp.o" \
 "CMakeFiles/Cytos.dir/src/physics/systems/biologicalSystem.cpp.o" \
-"CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.o" \
 "CMakeFiles/Cytos.dir/src/physics/systems/genomeSystem.cpp.o" \
 "CMakeFiles/Cytos.dir/src/physics/systems/physicSystem.cpp.o" \
 "CMakeFiles/Cytos.dir/src/physics/world.cpp.o" \
@@ -306,7 +291,6 @@ Cytos_EXTERNAL_OBJECTS =
 Cytos: CMakeFiles/Cytos.dir/src/glad.c.o
 Cytos: CMakeFiles/Cytos.dir/src/main.cpp.o
 Cytos: CMakeFiles/Cytos.dir/src/physics/systems/biologicalSystem.cpp.o
-Cytos: CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.o
 Cytos: CMakeFiles/Cytos.dir/src/physics/systems/genomeSystem.cpp.o
 Cytos: CMakeFiles/Cytos.dir/src/physics/systems/physicSystem.cpp.o
 Cytos: CMakeFiles/Cytos.dir/src/physics/world.cpp.o
@@ -327,7 +311,7 @@ Cytos: /usr/lib/x86_64-linux-gnu/libX11.so
 Cytos: /usr/lib/x86_64-linux-gnu/libGLX.so
 Cytos: /usr/lib/x86_64-linux-gnu/libOpenGL.so
 Cytos: CMakeFiles/Cytos.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable Cytos"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/nik2510/Documents/cytos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX executable Cytos"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Cytos.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

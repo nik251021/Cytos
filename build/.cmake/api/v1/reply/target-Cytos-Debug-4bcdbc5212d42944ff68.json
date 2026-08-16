@@ -154,8 +154,7 @@
 				10,
 				11,
 				12,
-				13,
-				14
+				13
 			]
 		}
 	],
@@ -242,8 +241,7 @@
 				10,
 				11,
 				12,
-				13,
-				14
+				13
 			]
 		}
 	],
@@ -265,12 +263,6 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 1,
 			"path" : "src/physics/systems/biologicalSystem.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 1,
-			"path" : "src/physics/systems/cellBehaivors/photocyte.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{

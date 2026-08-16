@@ -6,8 +6,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/Cytos.dir/src/main.cpp.o.d"
   "CMakeFiles/Cytos.dir/src/physics/systems/biologicalSystem.cpp.o"
   "CMakeFiles/Cytos.dir/src/physics/systems/biologicalSystem.cpp.o.d"
-  "CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.o"
-  "CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.o.d"
   "CMakeFiles/Cytos.dir/src/physics/systems/genomeSystem.cpp.o"
   "CMakeFiles/Cytos.dir/src/physics/systems/genomeSystem.cpp.o.d"
   "CMakeFiles/Cytos.dir/src/physics/systems/physicSystem.cpp.o"

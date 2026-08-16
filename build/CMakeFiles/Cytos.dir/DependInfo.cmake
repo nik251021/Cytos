@@ -11,7 +11,6 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/nik2510/Documents/cytos/src/glad.c" "CMakeFiles/Cytos.dir/src/glad.c.o" "gcc" "CMakeFiles/Cytos.dir/src/glad.c.o.d"
   "/home/nik2510/Documents/cytos/src/main.cpp" "CMakeFiles/Cytos.dir/src/main.cpp.o" "gcc" "CMakeFiles/Cytos.dir/src/main.cpp.o.d"
   "/home/nik2510/Documents/cytos/src/physics/systems/biologicalSystem.cpp" "CMakeFiles/Cytos.dir/src/physics/systems/biologicalSystem.cpp.o" "gcc" "CMakeFiles/Cytos.dir/src/physics/systems/biologicalSystem.cpp.o.d"
-  "/home/nik2510/Documents/cytos/src/physics/systems/cellBehaivors/photocyte.cpp" "CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.o" "gcc" "CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.o.d"
   "/home/nik2510/Documents/cytos/src/physics/systems/genomeSystem.cpp" "CMakeFiles/Cytos.dir/src/physics/systems/genomeSystem.cpp.o" "gcc" "CMakeFiles/Cytos.dir/src/physics/systems/genomeSystem.cpp.o.d"
   "/home/nik2510/Documents/cytos/src/physics/systems/physicSystem.cpp" "CMakeFiles/Cytos.dir/src/physics/systems/physicSystem.cpp.o" "gcc" "CMakeFiles/Cytos.dir/src/physics/systems/physicSystem.cpp.o.d"
   "/home/nik2510/Documents/cytos/src/physics/world.cpp" "CMakeFiles/Cytos.dir/src/physics/world.cpp.o" "gcc" "CMakeFiles/Cytos.dir/src/physics/world.cpp.o.d"

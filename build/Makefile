@@ -227,30 +227,6 @@ src/physics/systems/biologicalSystem.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Cytos.dir/build.make CMakeFiles/Cytos.dir/src/physics/systems/biologicalSystem.cpp.s
 .PHONY : src/physics/systems/biologicalSystem.cpp.s
 
-src/physics/systems/cellBehaivors/photocyte.o: src/physics/systems/cellBehaivors/photocyte.cpp.o
-.PHONY : src/physics/systems/cellBehaivors/photocyte.o
-
-# target to build an object file
-src/physics/systems/cellBehaivors/photocyte.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Cytos.dir/build.make CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.o
-.PHONY : src/physics/systems/cellBehaivors/photocyte.cpp.o
-
-src/physics/systems/cellBehaivors/photocyte.i: src/physics/systems/cellBehaivors/photocyte.cpp.i
-.PHONY : src/physics/systems/cellBehaivors/photocyte.i
-
-# target to preprocess a source file
-src/physics/systems/cellBehaivors/photocyte.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Cytos.dir/build.make CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.i
-.PHONY : src/physics/systems/cellBehaivors/photocyte.cpp.i
-
-src/physics/systems/cellBehaivors/photocyte.s: src/physics/systems/cellBehaivors/photocyte.cpp.s
-.PHONY : src/physics/systems/cellBehaivors/photocyte.s
-
-# target to generate assembly for a file
-src/physics/systems/cellBehaivors/photocyte.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Cytos.dir/build.make CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.s
-.PHONY : src/physics/systems/cellBehaivors/photocyte.cpp.s
-
 src/physics/systems/genomeSystem.o: src/physics/systems/genomeSystem.cpp.o
 .PHONY : src/physics/systems/genomeSystem.o
 
@@ -535,9 +511,6 @@ help:
 	@echo "... src/physics/systems/biologicalSystem.o"
 	@echo "... src/physics/systems/biologicalSystem.i"
 	@echo "... src/physics/systems/biologicalSystem.s"
-	@echo "... src/physics/systems/cellBehaivors/photocyte.o"
-	@echo "... src/physics/systems/cellBehaivors/photocyte.i"
-	@echo "... src/physics/systems/cellBehaivors/photocyte.s"
 	@echo "... src/physics/systems/genomeSystem.o"
 	@echo "... src/physics/systems/genomeSystem.i"
 	@echo "... src/physics/systems/genomeSystem.s"

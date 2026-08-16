@@ -19,12 +19,6 @@
 },
 {
   "directory": "/home/nik2510/Documents/cytos/build",
-  "command": "/usr/bin/clang++  -I/home/nik2510/Documents/cytos/include -I/home/nik2510/Documents/cytos/include/external -I/home/nik2510/Documents/cytos/build/_deps/glfw-src/include  -Wno-register -g -std=gnu++20 -o CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.o -c /home/nik2510/Documents/cytos/src/physics/systems/cellBehaivors/photocyte.cpp",
-  "file": "/home/nik2510/Documents/cytos/src/physics/systems/cellBehaivors/photocyte.cpp",
-  "output": "CMakeFiles/Cytos.dir/src/physics/systems/cellBehaivors/photocyte.cpp.o"
-},
-{
-  "directory": "/home/nik2510/Documents/cytos/build",
   "command": "/usr/bin/clang++  -I/home/nik2510/Documents/cytos/include -I/home/nik2510/Documents/cytos/include/external -I/home/nik2510/Documents/cytos/build/_deps/glfw-src/include  -Wno-register -g -std=gnu++20 -o CMakeFiles/Cytos.dir/src/physics/systems/genomeSystem.cpp.o -c /home/nik2510/Documents/cytos/src/physics/systems/genomeSystem.cpp",
   "file": "/home/nik2510/Documents/cytos/src/physics/systems/genomeSystem.cpp",
   "output": "CMakeFiles/Cytos.dir/src/physics/systems/genomeSystem.cpp.o"
