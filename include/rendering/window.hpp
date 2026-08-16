@@ -12,6 +12,9 @@ public:
     void swapBuffers();
     void pollEvents();
 
+    bool isMouseButtonPressed(int button) const;
+    bool isKeyPressed(int key) const;
+
     int getWidth() const { return m_width; }
     int getHeight() const { return m_height; }
     GLFWwindow* getNativeWindow() const { return m_window; }

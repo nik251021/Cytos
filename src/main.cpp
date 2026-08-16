@@ -9,7 +9,6 @@
 #include "rendering/renderer.hpp"
 
 #include "physics/worldApi.hpp"
-
 #include "bridge/renderBridge.hpp"
 
 void handleCameraInput(Camera& camera, GLFWwindow* window, float dt) {
@@ -22,6 +21,32 @@ void handleCameraInput(Camera& camera, GLFWwindow* window, float dt) {
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)  pos.y -= speed * dt;
 
     camera.setPosition(pos);
+}
+
+void handleControls(Window* window, Camera& camera, worldApi& world) {
+    if (window->isMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
+        double mouseX, mouseY;
+        glfwGetCursorPos(window->getNativeWindow(), &mouseX, &mouseY);
+
+        float winWidth = (float)window->getWidth();
+        float winHeight = (float)window->getHeight();
+
+        glm::vec2 mouseScreenPos(
+            (float)mouseX - winWidth * 0.5f,
+            (winHeight - (float)mouseY) - winHeight * 0.5f
+        );
+        glm::vec2 mouseWorldPos = mouseScreenPos / camera.getZoom() + camera.getPosition();
+
+        world.handleMouseInput(true, mouseWorldPos);
+    } else {
+        world.handleMouseInput(false, glm::vec2(0.0f));
+    }
+
+    if (window->isMouseButtonPressed(GLFW_MOUSE_BUTTON_RIGHT)) {
+        double mouseX, mouseY;
+        glfwGetCursorPos(window->getNativeWindow(), &mouseX, &mouseY);
+        // TODO: integrate gui for inspect cells properties
+    }
 }
 
 static Camera* g_camera = nullptr;
@@ -55,7 +80,6 @@ int main() {
     worldApi world;
 
     uint32_t cellFromGenome = world.spawnCellFromModule("Genome1", 1, 450.0f, 500.0f);
-
     uint32_t projectile = world.spawnCell("Phagocyte", 450, 10, 0.1, 10000, glm::vec4(1,1,1,0));
     
     while (!window.shouldClose()) {
@@ -64,6 +88,8 @@ int main() {
         lastTime = currentTime;
         
         renderBridge.clear();
+
+        handleControls(&window, camera, world);
 
         world.update(deltaTime, renderBridge);
 

@@ -108,6 +108,21 @@ entt::entity world::makeAdhesin(entt::entity cell1, entt::entity cell2, float re
 
     return e;
 }
+
+entt::entity world::getCellAtPosition(glm::vec2 worldPos) {
+    auto view = m_registry.view<Position, RenderData>();
+    for (auto entity : view) {
+        auto& pos = view.get<Position>(entity).value;
+        auto& rd = view.get<RenderData>(entity);
+        
+        float dist = glm::distance(pos, worldPos);
+        if (dist <= rd.radius) {
+            return entity;
+        }
+    }
+    return entt::null;
+}
+
 void onCollision(entt::entity e1, entt::entity e2) {
 
 }
@@ -150,5 +165,17 @@ void world::loadCellConfigs(const std::vector<std::string>& filePaths) {
     for (const auto& path : filePaths) {
         CellTemplate t = loadCellTemplate(path);
         m_cellTemplates[t.displayName] = t;
+    }
+}
+
+void world::applyDrag(entt::entity entity, glm::vec2 targetPos) {
+    if (!m_registry.valid(entity)) return;
+
+    if (m_registry.all_of<Position, Velocity>(entity)) {
+        auto& pos = m_registry.get<Position>(entity).value;
+        auto& vel = m_registry.get<Velocity>(entity).value;
+        
+        glm::vec2 direction = targetPos - pos;
+        vel = direction * 15.0f;
     }
 }

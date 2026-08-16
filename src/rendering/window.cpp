@@ -41,3 +41,11 @@ void Window::swapBuffers() {
 void Window::pollEvents() {
     glfwPollEvents();
 }
+
+bool Window::isMouseButtonPressed(int button) const {
+    return glfwGetMouseButton(m_window, button) == GLFW_PRESS;
+}
+
+bool Window::isKeyPressed(int key) const {
+    return glfwGetKey(m_window, key) == GLFW_PRESS;
+}

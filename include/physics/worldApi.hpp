@@ -14,6 +14,9 @@ class worldApi
 private:
     world curWorld;
     GenomeRegistry m_registry;
+
+    uint32_t m_draggedEntity = (uint32_t)entt::null;
+    bool m_isDragging = false;
 public:
     worldApi() : m_registry(), curWorld("world1.json", m_registry) {
         m_registry.loadGenome("Genome1");
@@ -55,5 +58,22 @@ public:
             return met->atf;
         }
         return 0.0f;
+    }
+
+    void handleMouseInput(bool isPressed, glm::vec2 mouseWorldPos) {
+        if (isPressed) {
+            if (!m_isDragging) {
+                entt::entity found = curWorld.getCellAtPosition(mouseWorldPos);
+                if (found != entt::null) {
+                    m_draggedEntity = (uint32_t)found;
+                    m_isDragging = true;
+                }
+            } else {
+                curWorld.applyDrag((entt::entity)m_draggedEntity, mouseWorldPos);
+            }
+        } else {
+            m_isDragging = false;
+            m_draggedEntity = (uint32_t)entt::null;
+        }
     }
 };

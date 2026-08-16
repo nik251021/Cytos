@@ -28,6 +28,10 @@ public:
     entt::entity spawnCellFromModule(const std::string& genomeName, int moduleIndex, glm::vec2 position);
     entt::entity makeAdhesin(entt::entity cell1, entt::entity cell2, float restLength, float maxLength, float strength);
 
+    entt::entity getCellAtPosition(glm::vec2 worldPos);
+
     void update(float dt);
     void prepareRenderer(RenderBridge& rb);
+
+    void applyDrag(entt::entity entity, glm::vec2 targetPos);
 };
