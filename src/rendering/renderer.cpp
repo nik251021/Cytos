@@ -3,7 +3,6 @@
 
 Renderer::Renderer() : m_maxInstances(10000) {
     m_shader = std::make_unique<Shader>("data/shaders/cell.vert", "data/shaders/cell.frag");
-    // Загружаем шейдер постпроцессинга (пути подставь свои)
     m_postShader = std::make_unique<Shader>("data/shaders/microscope.vert", "data/shaders/microscope.frag");
 
     float vertices[] = {
@@ -24,34 +23,28 @@ Renderer::Renderer() : m_maxInstances(10000) {
     m_instanceBuffer = std::make_unique<InstanceBuffer>(nullptr, m_maxInstances * sizeof(InstanceData));
     m_vao->addInstanceBuffer(*m_instanceBuffer);
 
-    // --- НАСТРОЙКА FBO ДЛЯ ПОСТПРОЦЕССИНГА ---
-    // Создаем FBO
     glGenFramebuffers(1, &m_fbo);
     glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
 
-    // Создаем текстуру цвета
     glGenTextures(1, &m_textureColorBuffer);
     glBindTexture(GL_TEXTURE_2D, m_textureColorBuffer);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1000, 1000, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr); // Задай начальное разрешение окна
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1000, 1000, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // Важно для искажений линзы!
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_textureColorBuffer, 0);
 
-    // Создаем Renderbuffer для буфера глубины и трафарета
     glGenRenderbuffers(1, &m_rbo);
     glBindRenderbuffer(GL_RENDERBUFFER, m_rbo);
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, 1000, 1000);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_rbo);
 
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-        // Обработка ошибки FBO, если нужно
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-    // --- НАСТРОЙКА КВАДРАТА ДЛЯ ПОСТПРОЦЕССИНГА ---
-    float quadVertices[] = { // Позиции     // TexCoords
+    float quadVertices[] = { // positions     // TexCoords
         -1.0f,  1.0f,  0.0f, 1.0f,
         -1.0f, -1.0f,  0.0f, 0.0f,
          1.0f, -1.0f,  1.0f, 0.0f,
@@ -108,15 +101,13 @@ void Renderer::drawRect(glm::vec2 pos, glm::vec2 size, glm::vec4 color) {
 }
 
 void Renderer::endScene() {
-    // 2. Возвращаем отрисовку на экран по умолчанию
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glad_glDisable(GL_DEPTH_TEST); // Для постпроцессинга тест глубины не нужен
+    glad_glDisable(GL_DEPTH_TEST);
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    // 3. Рисуем полноэкранный квадрат с шейдером микроскопа
     m_postShader->use();
-    m_postShader->setVec2("u_resolution", m_screenResolution); // Передай текущий размер экрана
+    m_postShader->setVec2("u_resolution", m_screenResolution);
     
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, m_textureColorBuffer);

@@ -1,8 +1,10 @@
 #include "benchmark.hpp"
 #include <physics/systems/physicSystem.hpp>
 #include <cmath>
+#include <algorithm>
 
 SpatialGrid PhysicsSystem::m_grid(glm::vec3(4000.0f, 4000.0f, 1.0f), 50.0f);
+WorldSOA PhysicsSystem::m_soa;
 
 SpatialGrid::SpatialGrid(const glm::vec3& worldSize, float cellSize) : cellSize(cellSize) {
     resize(worldSize, cellSize);
@@ -33,20 +35,18 @@ int SpatialGrid::getCellId(glm::vec2 pos) const {
 
 void SpatialGrid::clear() {}
 
-void SpatialGrid::rebuild(entt::registry& registry) {
-    auto view = registry.view<Position>();
-    size_t numEntities = view.size();
+void SpatialGrid::rebuild(const std::vector<glm::vec2>& positions, const std::vector<entt::entity>& entities) {
+    size_t numEntities = entities.size();
 
     cellIndices_.resize(numEntities);
     entitiesInCells.resize(numEntities);
     std::fill(counts_.begin(), counts_.end(), 0);
 
-    size_t idx = 0;
-    view.each([&](auto entity, auto& pos) {
-        int cellId = getCellId(pos.value);
-        cellIndices_[idx++] = cellId;
+    for (size_t i = 0; i < numEntities; ++i) {
+        int cellId = getCellId(positions[i]);
+        cellIndices_[i] = cellId;
         counts_[cellId]++;
-    });
+    }
 
     offsets[0] = 0;
     for (size_t i = 0; i < countCells; ++i) {
@@ -54,12 +54,11 @@ void SpatialGrid::rebuild(entt::registry& registry) {
     }
 
     std::fill(counts_.begin(), counts_.end(), 0);
-    idx = 0;
-    view.each([&](auto entity, auto& pos) {
-        int cellId = cellIndices_[idx++];
+    for (size_t i = 0; i < numEntities; ++i) {
+        int cellId = cellIndices_[i];
         uint32_t destIdx = offsets[cellId] + counts_[cellId]++;
-        entitiesInCells[destIdx] = entity;
-    });
+        entitiesInCells[destIdx] = entities[i];
+    }
 }
 
 std::span<const entt::entity> SpatialGrid::entitiesInCell(int x, int y) const noexcept {
@@ -87,132 +86,226 @@ bool tryPhagocyteConsumption(entt::registry& registry, entt::entity eater, entt:
         massEater.value += 0.25f + massVictim.value * 1.0f;
         metEater.atf = std::min(metEater.maxAtf, metEater.atf + 50.0f);
 
-        if (massEater.value > 15.0f) {
-            massEater.value = 15.0f;
-        }
+        if (massEater.value > 15.0f) massEater.value = 15.0f;
 
         registry.destroy(victim);
         return true;
     }
-
     return false;
 }
 
 void PhysicsSystem::update(entt::registry& registry, const worldSettings& settings, float dt) {
-    ZONE_SCOPED("1. PhysicsSystem (Total)"); // Замеряет общую работу системы
+    ZONE_SCOPED("1. PhysicsSystem (Total)");
 
     {
-        ZONE_SCOPED("1.1. applyForces");
-        applyForces(registry, settings, dt);
+        ZONE_SCOPED("1.0. Pull from Registry to SOA");
+        pullFromRegistry(registry);
     }
 
     {
-        ZONE_SCOPED("1.2. integratePosition");
-        integratePosition(registry, settings, dt);
+        ZONE_SCOPED("1.1. applyForces (SOA)");
+        applyForces(settings, dt);
+    }
+
+    {
+        ZONE_SCOPED("1.2. integratePosition (SOA)");
+        integratePosition(settings, dt);
+    }
+
+    {
+        ZONE_SCOPED("1.2.1. Grid Rebuild");
+        m_grid.rebuild(m_soa.pos, m_soa.entities);
     }
 
     {
         ZONE_SCOPED("1.3. resolveCollisions");
         resolveCollisions(registry, dt);
     }
+
+    {
+        ZONE_SCOPED("1.4. Push back to Registry");
+        pushToRegistry(registry);
+    }
 }
 
-void PhysicsSystem::applyForces(entt::registry& registry, const worldSettings& settings, float dt) {
-    registry.view<Velocity, Mass, Force>().each([&](auto& vel, auto& mass, auto& force) {
-        glm::vec2 acceleration = (force.value + glm::vec2(0.0f, settings.gravity * mass.value) - (vel.value * settings.viscosity)) / mass.value;
-        vel.value += acceleration * dt;
-        vel.value *= glm::clamp(1.0f - settings.friction * dt, 0.0f, 1.0f);
-        force.value = glm::vec2(0.0f); 
+void PhysicsSystem::pullFromRegistry(entt::registry& registry) {
+    auto view = registry.view<Position, Velocity, Mass, Force, RenderData>();
+    
+    size_t count = registry.storage<Position>().size();
+
+    m_soa.resize(count);
+
+    size_t maxEntityId = 0;
+    view.each([&](entt::entity entity, auto&, auto&, auto&, auto&, auto&) {
+        maxEntityId = std::max(maxEntityId, static_cast<size_t>(entt::to_entity(entity)));
+    });
+
+    if (m_soa.entityToIndex.size() <= maxEntityId) {
+        m_soa.entityToIndex.resize(maxEntityId + 1000, SIZE_MAX);
+    }
+
+    size_t idx = 0;
+    view.each([&](entt::entity entity, auto& pos, auto& vel, auto& mass, auto& force, auto& rd) {
+        m_soa.entities[idx] = entity;
+        m_soa.pos[idx] = pos.value;
+        m_soa.vel[idx] = vel.value;
+        m_soa.force[idx] = force.value;
+        m_soa.mass[idx] = mass.value;
+        m_soa.radius[idx] = rd.radius;
+        m_soa.renderType[idx] = rd.type;
+
+        uint32_t id = static_cast<uint32_t>(entt::to_entity(entity));
+        m_soa.entityToIndex[id] = idx;
+        idx++;
     });
 }
 
-void PhysicsSystem::integratePosition(entt::registry& registry, const worldSettings& settings, float dt) {
-    registry.view<Position, Velocity>().each([&](auto& pos, auto& vel) {
-        pos.value += vel.value * dt;
-        const float bounce = 0.5f;
-        if (pos.value.x < 0) { pos.value.x = 0; vel.value.x *= -bounce; }
-        else if (pos.value.x > settings.sizeX) { pos.value.x = settings.sizeX; vel.value.x *= -bounce; }
-        if (pos.value.y < 0) { pos.value.y = 0; vel.value.y *= -bounce; }
-        else if (pos.value.y > settings.sizeY) { pos.value.y = settings.sizeY; vel.value.y *= -bounce; }
-    });
+void PhysicsSystem::pushToRegistry(entt::registry& registry) {
+    for (size_t i = 0; i < m_soa.entities.size(); ++i) {
+        auto entity = m_soa.entities[i];
+        if (!registry.valid(entity)) continue;
 
-    registry.view<Position, Rotation, Adhesion>().each([&](auto entity, auto& pos, auto& rot, auto& adj) {
-        entt::entity partner = (adj.cellA == entity) ? adj.cellB : adj.cellA;
-        
-        if (registry.valid(partner) && registry.all_of<Position>(partner)) {
-            glm::vec2 partnerPos = registry.get<Position>(partner).value;
-            glm::vec2 diff = pos.value - partnerPos;
-            
-            if (glm::dot(diff, diff) > 0.0001f) {
-                rot.angle = std::atan2(diff.y, diff.x);
-            }
+        if (registry.all_of<Position>(entity)) registry.get<Position>(entity).value = m_soa.pos[i];
+        if (registry.all_of<Velocity>(entity)) registry.get<Velocity>(entity).value = m_soa.vel[i];
+        if (registry.all_of<Force>(entity))    registry.get<Force>(entity).value = m_soa.force[i];
+        if (registry.all_of<Mass>(entity))     registry.get<Mass>(entity).value = m_soa.mass[i];
+    }
+    
+    for (size_t i = 0; i < m_soa.entities.size(); ++i) {
+        uint32_t id = static_cast<uint32_t>(entt::to_entity(m_soa.entities[i]));
+        if (id < m_soa.entityToIndex.size()) {
+            m_soa.entityToIndex[id] = SIZE_MAX;
         }
-    });
+    }
 }
+
+void PhysicsSystem::applyForces(const worldSettings& settings, float dt) {
+    size_t count = m_soa.entities.size();
+    for (size_t i = 0; i < count; ++i) {
+        float m = m_soa.mass[i];
+        glm::vec2& v = m_soa.vel[i];
+        glm::vec2& f = m_soa.force[i];
+
+        glm::vec2 acceleration = (f + glm::vec2(0.0f, settings.gravity * m) - (v * settings.viscosity)) / m;
+        v += acceleration * dt;
+        v *= glm::clamp(1.0f - settings.friction * dt, 0.0f, 1.0f);
+        f = glm::vec2(0.0f);
+    }
+}
+
+void PhysicsSystem::integratePosition(const worldSettings& settings, float dt) {
+    size_t count = m_soa.entities.size();
+    const float bounce = 0.5f;
+
+    for (size_t i = 0; i < count; ++i) {
+        glm::vec2& p = m_soa.pos[i];
+        glm::vec2& v = m_soa.vel[i];
+
+        p += v * dt;
+
+        if (p.x < 0) { p.x = 0; v.x *= -bounce; }
+        else if (p.x > settings.sizeX) { p.x = settings.sizeX; v.x *= -bounce; }
+        
+        if (p.y < 0) { p.y = 0; v.y *= -bounce; }
+        else if (p.y > settings.sizeY) { p.y = settings.sizeY; v.y *= -bounce; }
+    }
+}
+
+struct CollisionPair {
+    size_t idxA;
+    size_t idxB;
+    entt::entity entityA;
+    entt::entity entityB;
+};
 
 void PhysicsSystem::resolveCollisions(entt::registry& registry, float dt) {
     const int collisionIterations = 3;
-    
-    for (int iter = 0; iter < collisionIterations; ++iter) {
-        // 1. Перестраиваем сетку КАЖДУЮ итерацию, чтобы знать актуальные позиции
-        m_grid.rebuild(registry);
+    size_t count = m_soa.entities.size();
 
-        auto view = registry.view<Position, Velocity, Mass, RenderData>();
+    thread_local std::vector<float> invMasses;
+    invMasses.resize(count);
+    for (size_t i = 0; i < count; ++i) {
+        invMasses[i] = 1.0f / m_soa.mass[i];
+    }
 
-        view.each([&](auto entityA, auto& posA, auto& velA, auto& massA, auto& rdA) {
-            m_grid.forEachNeighborEntity(posA.value, [&](entt::entity entityB) {
+    thread_local std::vector<CollisionPair> pairs;
+    {
+        pairs.clear();
+        pairs.reserve(count * 6);
+
+        for (size_t i = 0; i < count; ++i) {
+            entt::entity entityA = m_soa.entities[i];
+            glm::vec2 posA = m_soa.pos[i];
+
+            m_grid.forEachNeighborEntity(posA, [&](entt::entity entityB) {
                 if (entityA >= entityB) return;
-                
-                // Проверка на случай, если entityB была уничтожена в этот же кадр
-                if (!registry.valid(entityB)) return;
 
-                auto& posB = registry.get<Position>(entityB);
-                auto& rdB = registry.get<RenderData>(entityB);
+                uint32_t idB = static_cast<uint32_t>(entt::to_entity(entityB));
+                if (idB >= m_soa.entityToIndex.size() || m_soa.entityToIndex[idB] == SIZE_MAX) return;
+                size_t idxB = m_soa.entityToIndex[idB];
 
-                float minDist = rdA.radius + rdB.radius;
-                float dx = posA.value.x - posB.value.x;
+                float minDist = m_soa.radius[i] + m_soa.radius[idxB];
+                float dx = posA.x - m_soa.pos[idxB].x;
                 if (std::abs(dx) > minDist) return;
-                float dy = posA.value.y - posB.value.y;
+                float dy = posA.y - m_soa.pos[idxB].y;
                 if (std::abs(dy) > minDist) return;
 
                 float distSq = dx * dx + dy * dy;
                 if (distSq < minDist * minDist && distSq > 0.000001f) {
-                    // Сначала проверяем поедание
-                    if (tryPhagocyteConsumption(registry, entityA, entityB)) return;
-                    if (tryPhagocyteConsumption(registry, entityB, entityA)) return;
-
-                    // Если не съели, разрешаем коллизию
-                    auto& velB = registry.get<Velocity>(entityB);
-                    auto& massB = registry.get<Mass>(entityB);
-
-                    float dist = std::sqrt(distSq);
-                    glm::vec2 normal = glm::vec2(dx, dy) / dist;
-                    float overlap = minDist - dist;
-
-                    float totalMass = massA.value + massB.value;
-                    float m1Ratio = massB.value / totalMass;
-                    float m2Ratio = massA.value / totalMass;
-
-                    // Позиционная коррекция (меньше итераций = меньше фактор)
-                    float pushFactor = 0.4f; 
-                    posA.value += normal * (overlap * pushFactor) * m1Ratio;
-                    posB.value -= normal * (overlap * pushFactor) * m2Ratio;
-
-                    // Импульсы (упрощенно)
-                    glm::vec2 relativeVel = velA.value - velB.value;
-                    float velAlongNormal = glm::dot(relativeVel, normal);
-                    
-                    if (velAlongNormal < 0) {
-                        float restitution = 0.2f;
-                        float j = -(1.0f + restitution) * velAlongNormal;
-                        j /= (1.0f / massA.value + 1.0f / massB.value);
-                        
-                        glm::vec2 impulse = j * normal;
-                        velA.value += (1.0f / massA.value) * impulse;
-                        velB.value -= (1.0f / massB.value) * impulse;
-                    }
+                    pairs.push_back({i, idxB, entityA, entityB});
                 }
             });
-        });
+        }
+    }
+
+    for (int iter = 0; iter < collisionIterations; ++iter) {
+        for (auto& pair : pairs) {
+            size_t idxA = pair.idxA;
+            size_t idxB = pair.idxB;
+
+            if (iter == 0) {
+                if (registry.valid(pair.entityA) && registry.valid(pair.entityB)) {
+                    if (tryPhagocyteConsumption(registry, pair.entityA, pair.entityB)) continue;
+                    if (tryPhagocyteConsumption(registry, pair.entityB, pair.entityA)) continue;
+                } else {
+                    continue;
+                }
+            }
+
+            float minDist = m_soa.radius[idxA] + m_soa.radius[idxB];
+            float dx = m_soa.pos[idxA].x - m_soa.pos[idxB].x;
+            float dy = m_soa.pos[idxA].y - m_soa.pos[idxB].y;
+            float distSq = dx * dx + dy * dy;
+
+            if (distSq < minDist * minDist && distSq > 0.000001f) {
+                float dist = std::sqrt(distSq);
+                glm::vec2 normal = glm::vec2(dx, dy) / dist;
+                float overlap = minDist - dist;
+
+                float m1 = m_soa.mass[idxA];
+                float m2 = m_soa.mass[idxB];
+                float totalMass = m1 + m2;
+
+                float m1Ratio = m2 / totalMass;
+                float m2Ratio = m1 / totalMass;
+
+                float pushFactor = 0.4f;
+                m_soa.pos[idxA] += normal * (overlap * pushFactor) * m1Ratio;
+                m_soa.pos[idxB] -= normal * (overlap * pushFactor) * m2Ratio;
+
+                glm::vec2 relativeVel = m_soa.vel[idxA] - m_soa.vel[idxB];
+                float velAlongNormal = glm::dot(relativeVel, normal);
+                
+                if (velAlongNormal < 0) {
+                    float restitution = 0.2f;
+                    float j = -(1.0f + restitution) * velAlongNormal;
+                    j /= (invMasses[idxA] + invMasses[idxB]);
+                    
+                    glm::vec2 impulse = j * normal;
+                    m_soa.vel[idxA] += invMasses[idxA] * impulse;
+                    m_soa.vel[idxB] -= invMasses[idxB] * impulse;
+                }
+            }
+        }
     }
 }
