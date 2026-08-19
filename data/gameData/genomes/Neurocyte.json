@@ -1,0 +1,17 @@
+{
+  "Name": "Neurocyte",
+  "Modules_total": 1,
+  "StartModule": 1,
+  "Module1": {
+    "maxLength": 45.0,
+    "strength": 150.0,
+    "restLength": 15.0,
+    "cell_type": "Neurocyte",
+    "makeAdhesin": true,
+    "atf_consumption": 1.2,
+    "mass_consumption": 0.6,
+    "split_mass": 99.0,
+    "split_angle": 0.0,
+    "childs": { "child1": 1, "child2": 1 }
+  }
+}

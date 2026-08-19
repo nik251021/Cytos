@@ -81,6 +81,26 @@ void main() {
                 alpha = 0.98;
             }
             break;
+        case 5: // Neurocyte (Нейроцит)
+            {
+                border = smoothstep(0.70, 0.96, dist);
+                
+                // Фишка нейрона: яркое концентрическое ядро и мягкие радиальные «лучи-импульсы» (как разветвленные дендриты внутри)
+                float angle = atan(v_LocalPos.y, v_LocalPos.x);
+                float rays = sin(angle * 5.0) * 0.5 + 0.5; // 5 лучей
+                
+                // Кольцевые импульсы (эффект волны сигнала из центра)
+                float ringWave = abs(sin(dist * 12.0)); 
+                
+                // Смешиваем цвет: благородный глубокий электрик / бирюзово-синий нервный оттенок
+                shapeColor = mix(v_Color.rgb, vec3(0.05, 0.25, 0.35), 0.6);
+                
+                // Внутреннее свечение концентрируется в центре и подсвечивает лучи
+                innerGlow = (1.0 - dist) * 0.7 + (rays * ringWave) * 0.3;
+                
+                alpha *= 0.90;
+            }
+            break;
 
         default:
             border = smoothstep(0.7, 0.95, dist);

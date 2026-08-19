@@ -66,3 +66,23 @@ struct Devorocite {
 };
 
 struct Keratinocite {};
+
+//Signals
+struct Signal {
+    int number;
+    float value;
+};
+struct Signals {
+    float coefficient = 0.75f; // May be in settings of game in future
+    std::vector<Signal> Signals;
+};
+//Neurocyte
+struct NeuronChannel {
+    int inputNumber;
+    int outputNumber;
+
+    std::function<float(float inputStrength)> formule;
+};
+struct NeuronComponent {
+    std::vector<NeuronChannel> channells;
+};

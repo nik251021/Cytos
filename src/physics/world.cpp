@@ -10,7 +10,13 @@
 world::world(std::string name, GenomeRegistry& registry) : m_genomeRegistry(registry){
     this->curSettings = getWorldSettings(name);
 
-    loadCellConfigs({ "data/configs/phagocyte.json", "data/configs/flagellocyte.json", "data/configs/photocyte.json", "data/configs/devorocite.json", "data/configs/keratinocite.json"});
+    loadCellConfigs({ "data/configs/phagocyte.json", 
+        "data/configs/flagellocyte.json", 
+        "data/configs/photocyte.json", 
+        "data/configs/devorocite.json",
+        "data/configs/keratinocite.json",
+        "data/configs/neurocyte.json"
+    });
 }
 
 entt::entity world::spawnCell(const std::string& type, glm::vec2 pos, glm::vec2 vel, glm::vec4 color) {

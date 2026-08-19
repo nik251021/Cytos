@@ -22,6 +22,7 @@ public:
         m_registry.loadGenome("Genome1");
         m_registry.loadGenome("Devorocite");
         m_registry.loadGenome("Keratinocite");
+        m_registry.loadGenome("Neurocyte");
     }
     
     uint32_t spawnCell(
