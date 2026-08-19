@@ -3,7 +3,9 @@
 #include <cmath>
 #include <algorithm>
 
-SpatialGrid PhysicsSystem::m_grid(glm::vec3(4000.0f, 4000.0f, 1.0f), 50.0f);
+const int subSteps = 2;
+
+SpatialGrid PhysicsSystem::m_grid(glm::vec3(4000.0f, 4000.0f, 1.0f), 12.0f);
 WorldSOA PhysicsSystem::m_soa;
 
 SpatialGrid::SpatialGrid(const glm::vec3& worldSize, float cellSize) : cellSize(cellSize) {
@@ -68,7 +70,7 @@ std::span<const entt::entity> SpatialGrid::entitiesInCell(int x, int y) const no
     return std::span<const entt::entity>(entitiesInCells.data() + begin, end - begin);
 }
 
-bool tryPhagocyteConsumption(entt::registry& registry, entt::entity eater, entt::entity victim) {
+bool PhysicsSystem::tryPhagocyteConsumption(entt::registry& registry, entt::entity eater, entt::entity victim) {
     if (!registry.valid(eater) || !registry.valid(victim)) return false;
 
     auto* rdEater = registry.try_get<RenderData>(eater);
@@ -88,14 +90,89 @@ bool tryPhagocyteConsumption(entt::registry& registry, entt::entity eater, entt:
 
         if (massEater.value > 15.0f) massEater.value = 15.0f;
 
+        uint32_t idEater = static_cast<uint32_t>(entt::to_entity(eater));
+        if (idEater < PhysicsSystem::m_soa.entityToIndex.size()) {
+            size_t idxEater = PhysicsSystem::m_soa.entityToIndex[idEater];
+            if (idxEater != SIZE_MAX) {
+                PhysicsSystem::m_soa.mass[idxEater] = massEater.value;
+            }
+        }
+
         registry.destroy(victim);
         return true;
     }
     return false;
 }
 
+bool PhysicsSystem::tryDevourEnergy(entt::registry& registry, entt::entity eater, entt::entity victim, float dt) {
+    if (!registry.valid(eater) || !registry.valid(victim)) return false;
+    if (eater == victim) return false;
+
+    auto* devorocite = registry.try_get<Devorocite>(eater);
+    auto* metEater = registry.try_get<Methabolism>(eater);
+    auto* metVictim = registry.try_get<Methabolism>(victim);
+
+    if (!devorocite || !metEater || !metVictim) return false;
+
+    auto* rdVictim = registry.try_get<RenderData>(victim);
+
+    if (!rdVictim || rdVictim->type == 99.0f || rdVictim->type == 4.0f) return false;
+
+    float desiredSteal = devorocite->stealRate * dt;
+    float gainedAtf = 0.0f;
+    float gainedMass = 0.0f;
+
+    if (metVictim->atf > 0.0f) {
+        gainedAtf = std::min(metVictim->atf, desiredSteal);
+        metVictim->atf -= gainedAtf;
+        desiredSteal -= gainedAtf;
+    }
+
+    if (desiredSteal > 0.0f && registry.all_of<Mass>(victim) && registry.all_of<Mass>(eater)) {
+        auto& massVictim = registry.get<Mass>(victim);
+        auto& massEater = registry.get<Mass>(eater);
+
+        float massStealAmount = desiredSteal * 2.0f; 
+        gainedMass = std::min(massVictim.value, massStealAmount);
+
+        if (gainedMass > 0.0f) {
+            massVictim.value -= gainedMass;
+            massEater.value += gainedMass * devorocite->stealEfficiency;
+        }
+    }
+
+    if (gainedAtf > 0.0f) {
+        float effectiveAtfGain = gainedAtf * devorocite->stealEfficiency;
+        
+        metEater->atf += effectiveAtfGain;
+
+        if (metEater->atf > metEater->maxAtf) {
+            float excessAtf = metEater->atf - metEater->maxAtf;
+            metEater->atf = metEater->maxAtf;
+
+            if (registry.all_of<Mass>(eater)) {
+                auto& massEater = registry.get<Mass>(eater);
+                float efficiency = 0.95f;
+                
+                massEater.value += excessAtf * efficiency;
+                if (massEater.value > 15.0f) massEater.value = 15.0f;
+
+                uint32_t idEater = static_cast<uint32_t>(entt::to_entity(eater));
+                if (idEater < PhysicsSystem::m_soa.entityToIndex.size()) {
+                    size_t idxEater = PhysicsSystem::m_soa.entityToIndex[idEater];
+                    if (idxEater != SIZE_MAX) {
+                        PhysicsSystem::m_soa.mass[idxEater] = massEater.value;
+                    }
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
 void PhysicsSystem::update(entt::registry& registry, const worldSettings& settings, float dt) {
-    ZONE_SCOPED("1. PhysicsSystem (Total)");
+    float subDt = dt / (float)subSteps;
 
     {
         ZONE_SCOPED("1.0. Pull from Registry to SOA");
@@ -103,23 +180,27 @@ void PhysicsSystem::update(entt::registry& registry, const worldSettings& settin
     }
 
     {
-        ZONE_SCOPED("1.1. applyForces (SOA)");
-        applyForces(settings, dt);
-    }
-
-    {
-        ZONE_SCOPED("1.2. integratePosition (SOA)");
-        integratePosition(settings, dt);
-    }
-
-    {
         ZONE_SCOPED("1.2.1. Grid Rebuild");
         m_grid.rebuild(m_soa.pos, m_soa.entities);
     }
 
-    {
-        ZONE_SCOPED("1.3. resolveCollisions");
-        resolveCollisions(registry, dt);
+    for (int i = 0; i < subSteps; i++) {
+        ZONE_SCOPED("1. PhysicsSystem Substep");
+
+        {
+            ZONE_SCOPED("1.1. applyForces (SOA)");
+            applyForces(settings, subDt);
+        }
+
+        {
+            ZONE_SCOPED("1.2. integratePosition (SOA)");
+            integratePosition(settings, subDt);
+        }
+
+        {
+            ZONE_SCOPED("1.3. resolveCollisions");
+            resolveCollisions(registry, subDt);
+        }
     }
 
     {
@@ -219,7 +300,7 @@ struct CollisionPair {
 };
 
 void PhysicsSystem::resolveCollisions(entt::registry& registry, float dt) {
-    const int collisionIterations = 3;
+    const int collisionIterations = 2;
     size_t count = m_soa.entities.size();
 
     thread_local std::vector<float> invMasses;
@@ -267,6 +348,9 @@ void PhysicsSystem::resolveCollisions(entt::registry& registry, float dt) {
                 if (registry.valid(pair.entityA) && registry.valid(pair.entityB)) {
                     if (tryPhagocyteConsumption(registry, pair.entityA, pair.entityB)) continue;
                     if (tryPhagocyteConsumption(registry, pair.entityB, pair.entityA)) continue;
+
+                    if (tryDevourEnergy(registry, pair.entityA, pair.entityB, dt)) continue;
+                    if (tryDevourEnergy(registry, pair.entityB, pair.entityA, dt)) continue;
                 } else {
                     continue;
                 }

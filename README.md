@@ -40,7 +40,7 @@ lua src/genomeRedactor/main.lua # For redactor things
 * [x] Adding logic for phagocyte and adding dead cells (Cells which are not functional and can be eated with phagocyte)
 * [x] Adding debug output for systems and a little refactor of physics
 * [] Adding comments -- in progress
-* [] Adding devorocite (Cell which robs other cells and takes ATF), and ceratinocyte (Protector from devorocites which works like shield)
+* [x] Adding devorocite (Cell which robs other cells and takes ATF), and ceratinocyte (Protector from devorocites which works like shield) -- in progress
 * [x] World shaders, full rewrite of shaders
 * [x] Mouse drag
 * [] Genome spawn button

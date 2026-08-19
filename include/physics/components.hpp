@@ -59,3 +59,10 @@ struct Flagellum {
     float atfConsumption;
     bool enabled;
 };
+
+struct Devorocite {
+    float stealRate = 50.0f;
+    float stealEfficiency = 0.95f;
+};
+
+struct Keratinocite {};

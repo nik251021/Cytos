@@ -2,6 +2,7 @@
 #include <physics/components.hpp>
 #include <physics/systems/cellBehaivors/photocyte.hpp>
 #include <physics/systems/cellBehaivors/flagellocyte.hpp>
+#include <vector>
 
 void BiologicalSystem::update(entt::registry& registry, float dt) {
     updateMetabolism(registry, dt);
@@ -9,13 +10,20 @@ void BiologicalSystem::update(entt::registry& registry, float dt) {
 }
 
 void BiologicalSystem::updateMetabolism(entt::registry& registry, float dt) {
-    registry.view<Methabolism, RenderData, Mass>().each([&](auto entity, auto& met, auto &renderData, auto & mass) {
+    thread_local std::vector<entt::entity> deadEntities;
+    deadEntities.clear();
+
+    auto view = registry.view<Methabolism, RenderData, Mass>();
+
+    view.each([&](entt::entity entity, auto& met, auto& renderData, auto& mass) {
         if (mass.value > 15.0f) {
             mass.value = 15.0f;
         }
+
         if (renderData.type == 2.0f) {
             PhotocyteBehavior::update(registry, entity, met, mass, 1.0f, dt);
         }
+
         if (met.isActive) {
             if (met.atf > 0) {
                 met.atf -= met.atfConsumptionRate * dt;
@@ -24,37 +32,51 @@ void BiologicalSystem::updateMetabolism(entt::registry& registry, float dt) {
             }
         } else {
             if (met.atf <= 0) {
-                auto& mass = registry.get<Mass>(entity);
                 mass.value -= met.massConsumptionRate * dt;
                 
-                if (mass.value <= 0) {
+                if (mass.value <= 0.5) {
                     renderData.type = 99.0f;
                     renderData.color = glm::vec4(0.35f, 0.33f, 0.30f, 1.0f);
                     
-                    registry.remove<Methabolism>(entity);
-                    registry.remove<SplitComponent>(entity);
-                    if (registry.all_of<Flagellum>(entity)) {
-                        registry.remove<Flagellum>(entity);
-                    }
+                    mass.value = 3.0f;
+
+                    deadEntities.push_back(entity);
+                    return;
                 }
             } else {
                 met.isActive = true;
             }
         }
-    });
-    registry.view<Methabolism, Force, Flagellum, Rotation>().each([&](auto entity, auto& met, auto& force, auto& flag, auto rot) {
-        if (flag.enabled) {
-            FlagellocyteBehavior::update(registry, entity, met, force, flag, rot, dt);
+
+        if (registry.all_of<Flagellum, Force, Rotation>(entity)) {
+            auto& flag = registry.get<Flagellum>(entity);
+            if (flag.enabled) {
+                auto& force = registry.get<Force>(entity);
+                auto rot = registry.get<Rotation>(entity);
+                FlagellocyteBehavior::update(registry, entity, met, force, flag, rot, dt);
+            }
         }
     });
+
+    for (auto entity : deadEntities) {
+        if (!registry.valid(entity)) continue;
+        
+        registry.remove<Methabolism>(entity);
+        registry.remove<SplitComponent>(entity);
+        if (registry.all_of<Flagellum>(entity)) {
+            registry.remove<Flagellum>(entity);
+        }
+    }
 }
 
 void BiologicalSystem::updateAdhesion(entt::registry& registry, float dt) {
     auto view = registry.view<Adhesion>();
+    thread_local std::vector<entt::entity> deadAdhesions;
+    deadAdhesions.clear();
 
-    view.each([&](auto entity, auto& adj) {
+    view.each([&](entt::entity entity, auto& adj) {
         if (!registry.valid(adj.cellA) || !registry.valid(adj.cellB)) {
-            registry.destroy(entity);
+            deadAdhesions.push_back(entity);
             return;
         }
 
@@ -67,7 +89,7 @@ void BiologicalSystem::updateAdhesion(entt::registry& registry, float dt) {
         float dist = glm::length(delta);
 
         if (dist > adj.maxLength) {
-            registry.destroy(entity);
+            deadAdhesions.push_back(entity);
             return;
         }
 
@@ -93,4 +115,8 @@ void BiologicalSystem::updateAdhesion(entt::registry& registry, float dt) {
         metA.atf -= diff;
         metB.atf += diff;
     });
+
+    for (auto entity : deadAdhesions) {
+        registry.destroy(entity);
+    }
 }

@@ -84,7 +84,6 @@ private:
 
 public:
     static void update(entt::registry& registry, const worldSettings& settings, float dt);
-
 private:
     static void pullFromRegistry(entt::registry& registry);
     static void pushToRegistry(entt::registry& registry);
@@ -92,4 +91,7 @@ private:
     static void applyForces(const worldSettings& settings, float dt);
     static void integratePosition(const worldSettings& settings, float dt);
     static void resolveCollisions(entt::registry& registry, float dt);
+
+    static bool tryPhagocyteConsumption(entt::registry& registry, entt::entity eater, entt::entity victim);
+    static bool tryDevourEnergy(entt::registry& registry, entt::entity eater, entt::entity victim, float dt);
 };

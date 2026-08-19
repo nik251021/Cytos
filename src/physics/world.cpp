@@ -10,7 +10,7 @@
 world::world(std::string name, GenomeRegistry& registry) : m_genomeRegistry(registry){
     this->curSettings = getWorldSettings(name);
 
-    loadCellConfigs({ "data/configs/phagocyte.json", "data/configs/flagellocyte.json", "data/configs/photocyte.json"});
+    loadCellConfigs({ "data/configs/phagocyte.json", "data/configs/flagellocyte.json", "data/configs/photocyte.json", "data/configs/devorocite.json", "data/configs/keratinocite.json"});
 }
 
 entt::entity world::spawnCell(const std::string& type, glm::vec2 pos, glm::vec2 vel, glm::vec4 color) {
@@ -74,6 +74,14 @@ entt::entity world::spawnCellFromModule(const std::string& genomeName, int modul
         m_registry.emplace<Flagellum>(entity, speed, consumption, true);
     }
 
+    if (mod.cell_type == "Devorocite") {
+        m_registry.emplace<Devorocite>(entity);
+    }
+
+    if (mod.cell_type == "Keratinocite") {
+        m_registry.emplace<Keratinocite>(entity);
+    }
+
     Methabolism met;
     met.atf = t.maxAtf; 
     met.maxAtf = t.maxAtf;
@@ -129,13 +137,10 @@ void onCollision(entt::entity e1, entt::entity e2) {
 
 void world::update(float dt) {
     int entityCount = (int)m_registry.storage<Position>().size();
-    //Using subSteps for fix collision on big velocity
-    const int subSteps = 2;
-    float subDt = dt / (float)subSteps;
 
-    for (int i = 0; i < subSteps; ++i) {
+    {
         ZONE_SCOPED("1. PhysicsSystem_Substep");
-        PhysicsSystem::update(m_registry, curSettings, subDt);
+        PhysicsSystem::update(m_registry, curSettings, dt);
     }
 
     {

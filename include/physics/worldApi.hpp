@@ -20,6 +20,8 @@ private:
 public:
     worldApi() : m_registry(), curWorld("world1.json", m_registry) {
         m_registry.loadGenome("Genome1");
+        m_registry.loadGenome("Devorocite");
+        m_registry.loadGenome("Keratinocite");
     }
     
     uint32_t spawnCell(
