@@ -2,6 +2,8 @@
 #include <physics/components.hpp>
 #include <physics/systems/cellBehaivors/photocyte.hpp>
 #include <physics/systems/cellBehaivors/flagellocyte.hpp>
+#include <physics/systems/cellBehaivors/signals.hpp>
+#include <physics/systems/cellBehaivors/neurocyte.hpp>
 #include <vector>
 
 void BiologicalSystem::update(entt::registry& registry, float dt) {
@@ -23,6 +25,10 @@ void BiologicalSystem::updateMetabolism(entt::registry& registry, float dt) {
         if (renderData.type == 2.0f) {
             PhotocyteBehavior::update(registry, entity, met, mass, 1.0f, dt);
         }
+        if (renderData.type == 5.0f) {
+            NeurocyteBehavior::updateNeurocytes(registry, dt);
+        }
+        SignalsBehaivor::updateSignals(registry, dt);
 
         if (met.isActive) {
             if (met.atf > 0) {

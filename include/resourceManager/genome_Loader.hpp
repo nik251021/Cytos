@@ -40,6 +40,18 @@ public:
                 mod.cell_type = jMod.value("cell_type", "default");
                 mod.split_mass = jMod.value("split_mass", 1.0f);
 
+                if (jMod.contains("channels") && jMod["channels"].is_array()) {
+                    for (const auto& jChan : jMod["channels"]) {
+                        NeuronChannelData cData;
+                        cData.inputNumber = jChan.value("inputNumber", 0);
+                        cData.outputNumber = jChan.value("outputNumber", 0);
+                        cData.formulaType = jChan.value("formulaType", "multiply");
+                        cData.argument = jChan.value("argument", 1.0f);
+                        
+                        mod.channels.push_back(cData);
+                    }
+                }
+
                 if (jMod.contains("childs")) {
                     for (auto& [key, val] : jMod["childs"].items()) {
                         if (!val.is_number()) {
@@ -52,7 +64,7 @@ public:
 
                 for (auto it = jMod.begin(); it != jMod.end(); ++it) {
                     std::string key = it.key();
-                    if (key == "cell_type" || key == "split_mass" || key == "childs") continue;
+                    if (key == "cell_type" || key == "split_mass" || key == "childs" || key == "channels") continue;
                     if (it->is_boolean()) mod.flags[key] = it.value();
                     else if (it->is_number()) mod.params[key] = it.value();
                 }

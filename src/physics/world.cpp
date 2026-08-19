@@ -88,6 +88,52 @@ entt::entity world::spawnCellFromModule(const std::string& genomeName, int modul
         m_registry.emplace<Keratinocite>(entity);
     }
 
+    if (mod.cell_type == "Axonocyte") { //Currently not used
+        m_registry.emplace<Signals>(entity);
+    }
+
+    if (mod.cell_type == "Neurocyte") {
+        m_registry.emplace<Signals>(entity);
+        
+        NeuronComponent neuronComp;
+        
+        for (const auto& cData : mod.channels) {
+            std::function<float(float)> formula;
+            
+            float arg = cData.argument;
+
+            if (cData.formulaType == "multiply") {
+                formula = [arg](float val) { return val * arg; };
+            }
+            else if (cData.formulaType == "add") {
+                formula = [arg](float val) { return val + arg; };
+            }
+            else if (cData.formulaType == "divide") {
+                formula = [arg](float val) { return (arg != 0.0f) ? (val / arg) : val; };
+            }
+            else if (cData.formulaType == "power") {
+                formula = [arg](float val) { return std::pow(val, arg); };
+            }
+            else if (cData.formulaType == "threshold") {
+                formula = [arg](float val) { return (val >= arg) ? val : 0.0f; };
+            }
+            else if (cData.formulaType == "clamp") {
+                formula = [arg](float val) { return std::clamp(val, 0.0f, arg); };
+            }
+            else {
+                formula = [](float val) { return val; };
+            }
+
+        neuronComp.channells.push_back({
+            .inputNumber = cData.inputNumber,
+            .outputNumber = cData.outputNumber,
+            .formule = formula
+        });
+        }
+        
+        m_registry.emplace<NeuronComponent>(entity, neuronComp);
+    }
+
     Methabolism met;
     met.atf = t.maxAtf; 
     met.maxAtf = t.maxAtf;
