@@ -72,12 +72,17 @@ std::span<const entt::entity> SpatialGrid::entitiesInCell(int x, int y) const no
 
 bool PhysicsSystem::tryPhagocyteConsumption(entt::registry& registry, entt::entity eater, entt::entity victim) {
     if (!registry.valid(eater) || !registry.valid(victim)) return false;
+    if (eater == victim) return false;
+
+    if (!registry.all_of<RenderData, Methabolism, Mass>(eater) || !registry.all_of<RenderData, Mass>(victim)) {
+        return false;
+    }
 
     auto* rdEater = registry.try_get<RenderData>(eater);
     auto* rdVictim = registry.try_get<RenderData>(victim);
     if (!rdEater || !rdVictim) return false;
 
-    bool isPhagocyte = (rdEater->type == 0.0f && registry.all_of<Methabolism>(eater));
+    bool isPhagocyte = (rdEater->type == 0.0f);
     bool isDeadCell = (rdVictim->type == 99.0f);
 
     if (isPhagocyte && isDeadCell) {
@@ -108,15 +113,19 @@ bool PhysicsSystem::tryDevourEnergy(entt::registry& registry, entt::entity eater
     if (!registry.valid(eater) || !registry.valid(victim)) return false;
     if (eater == victim) return false;
 
+    if (!registry.all_of<Devorocite, Methabolism, Mass, RenderData>(eater) || 
+        !registry.all_of<Methabolism, Mass, RenderData>(victim)) {
+        return false;
+    }
+
+    auto* rdVictim = registry.try_get<RenderData>(victim);
+    if (!rdVictim || rdVictim->type == 99.0f || rdVictim->type == 4.0f) return false;
+
     auto* devorocite = registry.try_get<Devorocite>(eater);
     auto* metEater = registry.try_get<Methabolism>(eater);
     auto* metVictim = registry.try_get<Methabolism>(victim);
 
     if (!devorocite || !metEater || !metVictim) return false;
-
-    auto* rdVictim = registry.try_get<RenderData>(victim);
-
-    if (!rdVictim || rdVictim->type == 99.0f || rdVictim->type == 4.0f) return false;
 
     float desiredSteal = devorocite->stealRate * dt;
     float gainedAtf = 0.0f;
@@ -128,7 +137,12 @@ bool PhysicsSystem::tryDevourEnergy(entt::registry& registry, entt::entity eater
         desiredSteal -= gainedAtf;
     }
 
-    if (desiredSteal > 0.0f && registry.all_of<Mass>(victim) && registry.all_of<Mass>(eater)) {
+    if (!registry.valid(victim) || !registry.valid(eater) || 
+        !registry.all_of<Mass>(victim) || !registry.all_of<Mass>(eater)) {
+        return (gainedAtf > 0.0f);
+    }
+
+    if (desiredSteal > 0.0f) {
         auto& massVictim = registry.get<Mass>(victim);
         auto& massEater = registry.get<Mass>(eater);
 
@@ -150,7 +164,7 @@ bool PhysicsSystem::tryDevourEnergy(entt::registry& registry, entt::entity eater
             float excessAtf = metEater->atf - metEater->maxAtf;
             metEater->atf = metEater->maxAtf;
 
-            if (registry.all_of<Mass>(eater)) {
+            if (registry.valid(eater) && registry.all_of<Mass>(eater)) {
                 auto& massEater = registry.get<Mass>(eater);
                 float efficiency = 0.95f;
                 
@@ -168,7 +182,7 @@ bool PhysicsSystem::tryDevourEnergy(entt::registry& registry, entt::entity eater
         }
     }
 
-    return false;
+    return (gainedAtf > 0.0f || gainedMass > 0.0f);
 }
 
 void PhysicsSystem::update(entt::registry& registry, const worldSettings& settings, float dt) {

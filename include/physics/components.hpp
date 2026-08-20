@@ -61,7 +61,7 @@ struct Flagellum {
 };
 
 struct Devorocite {
-    float stealRate = 50.0f;
+    float stealRate = 100.0f;
     float stealEfficiency = 0.95f;
 };
 
@@ -85,4 +85,18 @@ struct NeuronChannel {
 };
 struct NeuronComponent {
     std::vector<NeuronChannel> channells;
+};
+//Sensors
+enum class sensorType : int {
+    Light = 0,
+    Velocity = 1,
+    Touch = 2,
+    Energy = 3,
+    Nutrient = 4
+};
+
+struct SensorocyteComponent {
+    int sensorType = 0;
+    int outputNumber = 0;
+    float sensitivity = 1.0f; // Исправлено с sensivity
 };

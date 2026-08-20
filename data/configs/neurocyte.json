@@ -1,11 +1,11 @@
 {
     "Display_name": "Neurocyte",
     "Max_radius": 5,
-    "Default_mass": 10,
+    "Default_mass": 1.0,
     "typeid": 5,
     "Metabolism": {
-        "maxAtf": 100.0,
-        "atfConsumptionRate": 0.75,
-        "massConsumptionRate": 0.1
+        "maxAtf": 60.0,
+        "atfConsumptionRate": 0.7,
+        "massConsumptionRate": 0.15
     }
 }

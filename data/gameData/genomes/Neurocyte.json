@@ -37,30 +37,19 @@
     "maxLength": 45.0,
     "strength": 150.0,
     "restLength": 15.0,
-    "cell_type": "Neurocyte",
+    "cell_type": "Sensorocyte",
     "makeAdhesin": true,
     "atf_consumption": 1.0,
     "mass_consumption": 0.5,
-    "split_mass": 1.0,
+    "split_mass": 4.0,
     "split_angle": 0.0,
     "color_r": 1.0,
     "color_g": 0.4,
     "color_b": 0.2,
 
-    "channels": [
-      {
-        "inputNumber": 2,
-        "outputNumber": 3,
-        "formulaType": "clamp",
-        "argument": 10.0
-      },
-      {
-        "inputNumber": 3,
-        "outputNumber": 0,
-        "formulaType": "add",
-        "argument": -1.0
-      }
-    ],
+    "sensorType": 1,       
+    "outputNumber": 0,     
+    "sensitivity": 1.5,
 
     "childs": { "child1": 2, "child2": 3 }
   },
@@ -74,9 +63,9 @@
     "mass_consumption": 0.5,
     "split_mass": 99.0,
     "split_angle": 0.0,
-    "color_r": 1.0,
-    "color_g": 0.4,
-    "color_b": 0.2,
+    "color_r": 0.0,
+    "color_g": 0.7,
+    "color_b": 0.0,
 
     "childs": { "child1": 3, "child2": 3 }
   }

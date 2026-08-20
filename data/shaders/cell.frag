@@ -102,14 +102,23 @@ void main() {
         case 6: // Axonocyte (Аксоноцит - проводящий жилок)
             {
                 border = smoothstep(0.70, 0.96, dist);
-                
-                // Эффект волокон/жил по оси X (параллельные линии сигнала)
                 float fiber = abs(sin(v_LocalPos.x * 18.0));
-                
                 shapeColor = mix(v_Color.rgb, vec3(0.1, 0.3, 0.2), 0.5);
                 innerGlow = fiber * 0.5;
-                
                 alpha *= 0.88;
+            }
+            break;
+
+        case 7: // Sensorycyte (Универсальный сенсор / Рецептор)
+            {
+                border = smoothstep(0.65, 0.95, dist);
+                float radarRings = abs(sin(dist * 16.0));
+                float coreLens = 1.0 - smoothstep(0.0, 0.4, dist);
+                
+                shapeColor = mix(v_Color.rgb, vec3(0.35, 0.3, 0.05), 0.5);
+                innerGlow = coreLens * 0.8 + radarRings * 0.3;
+                
+                alpha *= 0.92;
             }
             break;
 

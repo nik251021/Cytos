@@ -1,11 +1,11 @@
 {
     "Display_name": "Devorocite",
     "Max_radius": 5,
-    "Default_mass": 15,
+    "Default_mass": 4.5,
     "typeid": 3,
     "Metabolism": {
-        "maxAtf": 200.0,
-        "atfConsumptionRate": 0.5,
+        "maxAtf": 150.0,
+        "atfConsumptionRate": 1.2,
         "massConsumptionRate": 0.1
     }
 }

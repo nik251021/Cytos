@@ -16,7 +16,8 @@ world::world(std::string name, GenomeRegistry& registry) : m_genomeRegistry(regi
         "data/configs/devorocite.json",
         "data/configs/keratinocite.json",
         "data/configs/axonocyte.json",
-        "data/configs/neurocyte.json"
+        "data/configs/neurocyte.json",
+        "data/configs/sensorocyte.json"
     });
 }
 
@@ -89,7 +90,7 @@ entt::entity world::spawnCellFromModule(const std::string& genomeName, int modul
         m_registry.emplace<Keratinocite>(entity);
     }
 
-    if (mod.cell_type == "Axonocyte") { //Currently not used
+    if (mod.cell_type == "Axonocyte") {
         m_registry.emplace<Signals>(entity);
     }
 
@@ -133,6 +134,31 @@ entt::entity world::spawnCellFromModule(const std::string& genomeName, int modul
         }
         
         m_registry.emplace<NeuronComponent>(entity, neuronComp);
+    }
+
+    if (mod.cell_type == "Sensorocyte") {
+        SensorocyteComponent sensorComp;
+        
+        std::cout << "[Spawn] Creating Sensorocyte. Params count: " << mod.params.size() << std::endl;
+        for (const auto& [key, val] : mod.params) {
+            std::cout << "  Param -> " << key << ": " << val << std::endl;
+        }
+
+        if (mod.params.count("sensorType")) {
+            sensorComp.sensorType = static_cast<int>(mod.getParam("sensorType", 0.0f));
+        }
+        if (mod.params.count("outputNumber")) {
+            sensorComp.outputNumber = static_cast<int>(mod.getParam("outputNumber", 0.0f));
+        }
+        if (mod.params.count("sensitivity")) {
+            sensorComp.sensitivity = mod.getParam("sensitivity", 1.0f);
+        }
+
+        std::cout << "  -> Final Sensor: type=" << sensorComp.sensorType 
+                  << ", channel=" << sensorComp.outputNumber << std::endl;
+
+        m_registry.emplace<SensorocyteComponent>(entity, sensorComp);
+        m_registry.emplace<Signals>(entity);
     }
 
     Methabolism met;

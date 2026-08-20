@@ -8,4 +8,5 @@ public:
 private:
     static void updateMetabolism(entt::registry& registry, float dt);
     static void updateAdhesion(entt::registry& registry, float dt);
+    static void processPendingDeaths(entt::registry& registry);
 };
