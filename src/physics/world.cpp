@@ -1,3 +1,6 @@
+#include <filesystem>
+namespace fs = std::filesystem;
+
 #include "physics/systems/biologicalSystem.hpp"
 #include "physics/systems/genomeSystem.hpp"
 #include "physics/systems/physicSystem.hpp"
@@ -10,15 +13,19 @@
 world::world(std::string name, GenomeRegistry& registry) : m_genomeRegistry(registry){
     this->curSettings = getWorldSettings(name);
 
-    loadCellConfigs({ "data/configs/phagocyte.json", 
-        "data/configs/flagellocyte.json", 
-        "data/configs/photocyte.json", 
-        "data/configs/devorocite.json",
-        "data/configs/keratinocite.json",
-        "data/configs/axonocyte.json",
-        "data/configs/neurocyte.json",
-        "data/configs/sensorocyte.json"
-    });
+    std::string configsDir = "data/configs";
+    if (fs::exists(configsDir) && fs::is_directory(configsDir)) {
+        for (const auto& entry : fs::directory_iterator(configsDir)) {
+            if (entry.is_regular_file() && entry.path().extension() == ".json") {
+                std::string pathStr = entry.path().string();
+                CellTemplate t = loadCellTemplate(pathStr);
+                m_cellTemplates[t.displayName] = t;
+                std::cout << "[World] Auto-loaded cell config: " << t.displayName << std::endl;
+            }
+        }
+    } else {
+        std::cerr << "[World] Warning: Configs directory not found: " << configsDir << std::endl;
+    }
 }
 
 entt::entity world::spawnCell(const std::string& type, glm::vec2 pos, glm::vec2 vel, glm::vec4 color) {
@@ -210,10 +217,6 @@ entt::entity world::getCellAtPosition(glm::vec2 worldPos) {
     return entt::null;
 }
 
-void onCollision(entt::entity e1, entt::entity e2) {
-
-}
-
 void world::update(float dt) {
     int entityCount = (int)m_registry.storage<Position>().size();
 
@@ -243,13 +246,6 @@ void world::prepareRenderer(RenderBridge& rb) {
         auto& rd  = view.get<RenderData>(entity);
         
         rb.drawCell(pos.value, rd.radius, rd.type, rd.color);
-    }
-}
-
-void world::loadCellConfigs(const std::vector<std::string>& filePaths) {
-    for (const auto& path : filePaths) {
-        CellTemplate t = loadCellTemplate(path);
-        m_cellTemplates[t.displayName] = t;
     }
 }
 
