@@ -18,12 +18,7 @@ private:
     uint32_t m_draggedEntity = (uint32_t)entt::null;
     bool m_isDragging = false;
 public:
-    worldApi() : m_registry(), curWorld("world1.json", m_registry) {
-        m_registry.loadGenome("Genome1");
-        m_registry.loadGenome("Devorocite");
-        m_registry.loadGenome("Keratinocite");
-        m_registry.loadGenome("Neurocyte");
-    }
+    worldApi() : m_registry(), curWorld("world1.json", m_registry) {}
     
     uint32_t spawnCell(
         std::string name,
