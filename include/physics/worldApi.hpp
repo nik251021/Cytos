@@ -46,6 +46,10 @@ public:
         return (uint32_t)curWorld.makeAdhesin((entt::entity)id1, (entt::entity)id2, rest, max, strength);
     }
 
+    uint32_t getCellAtPosition(glm::vec2 mouseWorldPos) {
+        return (uint32_t)curWorld.getCellAtPosition(mouseWorldPos);
+    }
+
     void update(float dt, RenderBridge& rb) {
         curWorld.update(dt);
         curWorld.prepareRenderer(rb);
@@ -73,5 +77,41 @@ public:
             m_isDragging = false;
             m_draggedEntity = (uint32_t)entt::null;
         }
+    }
+
+    entt::registry& getRegistry() {
+        return curWorld.m_registry;
+    }
+
+    Position* getCellPosition(uint32_t id) {
+        return curWorld.m_registry.try_get<Position>((entt::entity)id);
+    }
+
+    Velocity* getCellVelocity(uint32_t id) {
+        return curWorld.m_registry.try_get<Velocity>((entt::entity)id);
+    }
+
+    Mass* getCellMass(uint32_t id) {
+        return curWorld.m_registry.try_get<Mass>((entt::entity)id);
+    }
+
+    Methabolism* getCellMetabolism(uint32_t id) {
+        return curWorld.m_registry.try_get<Methabolism>((entt::entity)id);
+    }
+
+    GenomeComponent* getCellGenome(uint32_t id) {
+        return curWorld.m_registry.try_get<GenomeComponent>((entt::entity)id);
+    }
+
+    RenderData* getCellRenderData(uint32_t id) {
+        return curWorld.m_registry.try_get<RenderData>((entt::entity)id);
+    }
+
+    Flagellum* getCellFlagellum(uint32_t id) {
+        return curWorld.m_registry.try_get<Flagellum>((entt::entity)id);
+    }
+
+    SensorocyteComponent* getCellSensor(uint32_t id) {
+        return curWorld.m_registry.try_get<SensorocyteComponent>((entt::entity)id);
     }
 };

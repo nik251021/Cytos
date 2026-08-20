@@ -41,11 +41,19 @@ file(GLOB_RECURSE SOURCE_FILES
     "src/*.c"
 )
 
-add_executable(Cytos ${SOURCE_FILES})
+file(GLOB IMGUI_FILES 
+    "include/external/imgui/*.cpp"
+    "include/external/imgui/backends/imgui_impl_glfw.cpp"
+    "include/external/imgui/backends/imgui_impl_opengl3.cpp"
+)
+
+add_executable(Cytos ${SOURCE_FILES} ${IMGUI_FILES})
 
 target_include_directories(Cytos PRIVATE 
     include
     include/external
+    include/external/imgui
+    include/external/imgui/backends
 )
 
 if(MINGW OR (WIN32 AND NOT MSVC))

@@ -11,6 +11,8 @@
 #include "physics/worldApi.hpp"
 #include "bridge/renderBridge.hpp"
 
+#include <gameGUI/gui.hpp>
+
 void handleCameraInput(Camera& camera, GLFWwindow* window, float dt) {
     float speed = 500.0f / camera.getZoom(); 
     glm::vec2 pos = camera.getPosition();
@@ -23,7 +25,7 @@ void handleCameraInput(Camera& camera, GLFWwindow* window, float dt) {
     camera.setPosition(pos);
 }
 
-void handleControls(Window* window, Camera& camera, worldApi& world) {
+void handleControls(Window* window, Camera& camera, worldApi& world, gameGUI& gui) {
     if (window->isMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
         double mouseX, mouseY;
         glfwGetCursorPos(window->getNativeWindow(), &mouseX, &mouseY);
@@ -45,10 +47,20 @@ void handleControls(Window* window, Camera& camera, worldApi& world) {
     if (window->isMouseButtonPressed(GLFW_MOUSE_BUTTON_RIGHT)) {
         double mouseX, mouseY;
         glfwGetCursorPos(window->getNativeWindow(), &mouseX, &mouseY);
-        // TODO: integrate gui for inspect cells properties
+
+        float winWidth = (float)window->getWidth();
+        float winHeight = (float)window->getHeight();
+
+        glm::vec2 mouseScreenPos(
+            (float)mouseX - winWidth * 0.5f,
+            (winHeight - (float)mouseY) - winHeight * 0.5f
+        );
+        glm::vec2 mouseWorldPos = mouseScreenPos / camera.getZoom() + camera.getPosition();
+
+        uint32_t clicked = world.getCellAtPosition(mouseWorldPos);
+        gui.setSelectedEntity(clicked);
     }
 }
-
 static Camera* g_camera = nullptr;
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
@@ -79,6 +91,9 @@ int main() {
     RenderBridge renderBridge(renderer);
     worldApi world;
 
+    gameGUI gui;
+    gui.init(window.getNativeWindow());
+
     uint32_t cellFromGenome = world.spawnCellFromModule("Genome1", 1, 450.0f, 500.0f);
     uint32_t devorociteGenome = world.spawnCellFromModule("Devorocite", 1, 425, 500);
     uint32_t keratinociteGenome = world.spawnCellFromModule("Keratinocite", 1, 410, 500);
@@ -93,7 +108,7 @@ int main() {
         
         renderBridge.clear();
 
-        handleControls(&window, camera, world);
+        handleControls(&window, camera, world, gui);
 
         world.update(deltaTime, renderBridge);
 
@@ -104,9 +119,13 @@ int main() {
 
         handleCameraInput(camera, window.getNativeWindow(), deltaTime);
 
+        gui.update(world);
+
         window.swapBuffers();
         window.pollEvents();
     }
+
+    gui.onClose();
 
     return 0;
 }
