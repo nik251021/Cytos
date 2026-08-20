@@ -9,14 +9,16 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 endif()
 
 if(MSVC)
-    add_compile_options(/O2 /Oi /Gy /fp:fast)
+    add_compile_options(/O2 /Oi /Gy /fp:fast /W3)
     add_link_options(/OPT:REF /OPT:ICF)
+    add_definitions(_CRT_SECURE_NO_WARNINGS)
+elseif(MINGW OR WIN32)
+    add_compile_options(-O3 -march=native -ffast-math)
+    add_link_options(-O3)
 else()
-    add_compile_options(-O3 -march=native -flto -ffast-math)
+    add_compile_options(-O3 -march=native -flto -ffast-math -Wno-register)
     add_link_options(-O3 -march=native -flto)
 endif()
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-register")
 
 include(FetchContent)
 
@@ -34,8 +36,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE BOOL "" FORCE)
 
 FetchContent_MakeAvailable(glfw)
 
-find_package(OpenGL REQUIRED)
-
 file(GLOB_RECURSE SOURCE_FILES 
     "src/*.cpp"
     "src/*.c"
@@ -48,4 +48,14 @@ target_include_directories(Cytos PRIVATE
     include/external
 )
 
-target_link_libraries(Cytos PRIVATE glfw OpenGL::GL)
+if(MINGW OR (WIN32 AND NOT MSVC))
+    target_link_libraries(Cytos PRIVATE glfw opengl32 gdi32)
+elseif(MSVC)
+    target_link_libraries(Cytos PRIVATE glfw opengl32)
+elseif(APPLE)
+    find_package(OpenGL REQUIRED)
+    target_link_libraries(Cytos PRIVATE glfw OpenGL::OpenGL)
+else()
+    find_package(OpenGL REQUIRED)
+    target_link_libraries(Cytos PRIVATE glfw OpenGL::GL)
+endif()
