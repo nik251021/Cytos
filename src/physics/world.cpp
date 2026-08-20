@@ -15,6 +15,7 @@ world::world(std::string name, GenomeRegistry& registry) : m_genomeRegistry(regi
         "data/configs/photocyte.json", 
         "data/configs/devorocite.json",
         "data/configs/keratinocite.json",
+        "data/configs/axonocyte.json",
         "data/configs/neurocyte.json"
     });
 }

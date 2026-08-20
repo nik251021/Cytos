@@ -81,6 +81,7 @@ void main() {
                 alpha = 0.98;
             }
             break;
+
         case 5: // Neurocyte (Нейроцит)
             {
                 border = smoothstep(0.70, 0.96, dist);
@@ -95,6 +96,20 @@ void main() {
                 innerGlow = (1.0 - dist) * 0.7 + (rays * ringWave) * 0.3;
                 
                 alpha *= 0.90;
+            }
+            break;
+
+        case 6: // Axonocyte (Аксоноцит - проводящий жилок)
+            {
+                border = smoothstep(0.70, 0.96, dist);
+                
+                // Эффект волокон/жил по оси X (параллельные линии сигнала)
+                float fiber = abs(sin(v_LocalPos.x * 18.0));
+                
+                shapeColor = mix(v_Color.rgb, vec3(0.1, 0.3, 0.2), 0.5);
+                innerGlow = fiber * 0.5;
+                
+                alpha *= 0.88;
             }
             break;
 

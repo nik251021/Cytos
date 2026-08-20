@@ -1,6 +1,6 @@
 {
   "Name": "OscillatorNeurocyte",
-  "Modules_total": 2,
+  "Modules_total": 3,
   "StartModule": 1,
   "Module1": {
     "maxLength": 45.0,
@@ -41,7 +41,7 @@
     "makeAdhesin": true,
     "atf_consumption": 1.0,
     "mass_consumption": 0.5,
-    "split_mass": 99.0,
+    "split_mass": 1.0,
     "split_angle": 0.0,
     "color_r": 1.0,
     "color_g": 0.4,
@@ -62,6 +62,22 @@
       }
     ],
 
-    "childs": { "child1": 2, "child2": 2 }
+    "childs": { "child1": 2, "child2": 3 }
+  },
+  "Module3": {
+    "maxLength": 45.0,
+    "strength": 150.0,
+    "restLength": 15.0,
+    "cell_type": "Axonocyte",
+    "makeAdhesin": true,
+    "atf_consumption": 1.0,
+    "mass_consumption": 0.5,
+    "split_mass": 99.0,
+    "split_angle": 0.0,
+    "color_r": 1.0,
+    "color_g": 0.4,
+    "color_b": 0.2,
+
+    "childs": { "child1": 3, "child2": 3 }
   }
 }

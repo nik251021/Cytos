@@ -39,11 +39,13 @@ lua src/genomeRedactor/main.lua # For redactor things
 * [x] Writing new shaders
 * [x] Adding logic for phagocyte and adding dead cells (Cells which are not functional and can be eated with phagocyte)
 * [x] Adding debug output for systems and a little refactor of physics
-* [] Adding comments -- in progress
 * [x] Adding devorocite (Cell which robs other cells and takes ATF), and ceratinocyte (Protector from devorocites which works like shield) -- in progress
-* [] Finish neurocytes, add axonocytes -- in progress
 * [x] World shaders, full rewrite of shaders
 * [x] Mouse drag
+* [x] Finish neurocytes, add axonocytes
+* [] Add sensors -- In progress
+* [] Adding comments -- in progress
+* [] Add input blocks and modificate current (Flagellocytes, myocytes and etc.)
 * [] Genome spawn button
 * [] Random genome generator in redactor
 * [] Redactor GUI and pre-simulation view
