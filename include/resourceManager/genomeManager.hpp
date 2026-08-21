@@ -47,6 +47,19 @@ private:
     std::string m_genomesDir;
 
 public:
+    std::vector<std::string> getGenomeNames() const {
+        std::vector<std::string> names;
+        names.reserve(m_registry.size());
+        for (const auto& [name, genome] : m_registry) {
+            names.push_back(name);
+        }
+        return names;
+    }
+
+    const Genome& getGenome(const std::string& name) const {
+        return m_registry.at(name);
+    }
+    
     explicit genomeManager(const std::string& dirPath = "data/gameData/genomes") 
         : m_genomesDir(dirPath) {
         loadAllFromDirectory(m_genomesDir);

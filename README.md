@@ -40,7 +40,7 @@ lua src/genomeRedactor/main.lua # For redactor things
 * [x] Adding inspect on mousebutton2
 * [x] Rewrite of resourceManager
 * [x] Event system
-* [] Genome spawn button -- in progress
+* [x] Genome spawn button
 * [] Add input blocks and modificate current (Flagellocytes, myocytes and etc.)
 * [] Random genome generator in redactor
 * [] Redactor GUI and pre-simulation view

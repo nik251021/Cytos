@@ -93,11 +93,6 @@ int main() {
 
     gameGUI gui;
     gui.init(window.getNativeWindow());
-
-    uint32_t cellFromGenome = world.spawnCellFromModule("Genome1", 1, 450.0f, 500.0f);
-    uint32_t devorociteGenome = world.spawnCellFromModule("Devorocite", 1, 425, 500);
-    uint32_t keratinociteGenome = world.spawnCellFromModule("Keratinocite", 1, 410, 500);
-    uint32_t neurocyteGenome = world.spawnCellFromModule("Neurocyte", 1, 400, 500);
     
     uint32_t projectile = world.spawnCell("Phagocyte", 450, 10, 0.1, 10000, glm::vec4(1,1,1,0));
     
@@ -119,7 +114,7 @@ int main() {
 
         handleCameraInput(camera, window.getNativeWindow(), deltaTime);
 
-        gui.update(world);
+        gui.update(world, window.getNativeWindow(), camera);
 
         window.swapBuffers();
         window.pollEvents();

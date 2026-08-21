@@ -21,6 +21,25 @@ private:
 public:
     worldApi() : m_resManager(), curWorld("world1.json", m_resManager) {}
     
+    genomeManager& getGenomeManager() {
+        return m_resManager.getGenomeManager();
+    }
+
+    glm::vec2 screenToWorld(glm::vec2 screenPos) {
+        return screenPos; 
+    }
+
+    void spawnCellFromGenome(int genomeIndex, glm::vec2 worldPos) {
+        auto names = getGenomeManager().getGenomeNames();
+        if (genomeIndex >= 0 && genomeIndex < static_cast<int>(names.size())) {
+            spawnCellFromGenome(names[genomeIndex], worldPos);
+        }
+    }
+
+    void spawnCellFromGenome(const std::string& genomeName, glm::vec2 worldPos) {
+        curWorld.spawnCellFromModule(genomeName, 1, worldPos);
+    }
+
     uint32_t spawnCell(
         std::string name,
         float posX, float posY, 
@@ -33,6 +52,12 @@ public:
             glm::vec2(velocityX, velocityY),
             color
         );
+    }
+
+    void spawnCellFromScreenPos(const std::string& genomeName, glm::vec2 mouseScreenPos, float winWidth, float winHeight) {
+        glm::vec2 mouseWorldPos = mouseScreenPos;
+
+        curWorld.spawnCellFromModule(genomeName, 1, mouseWorldPos);
     }
 
     uint32_t spawnCellFromModule(std::string genomeName, int moduleIndex, float posX, float posY) {

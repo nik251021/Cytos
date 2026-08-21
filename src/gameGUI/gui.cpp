@@ -3,6 +3,7 @@
 #include <imgui.h>
 
 #include <gameGUI/gui.hpp>
+#include <gameGUI/spawngui.hpp>
 
 void gameGUI::init(GLFWwindow* window) {
     IMGUI_CHECKVERSION();
@@ -13,22 +14,22 @@ void gameGUI::init(GLFWwindow* window) {
 
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 330");
-};
+}
 
-void gameGUI::update(worldApi& world) {
+void gameGUI::update(worldApi& world, GLFWwindow* window, Camera& camera) {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    //Other elements
     ImGui::Begin("My Window");
     ImGui::Text("Hello from GameGUI!");
     ImGui::End();
 
+    spawngui.update(world, window, camera);
+
     if (m_selectedEntity != (uint32_t)-1) {
         inspectgui.update(world, m_selectedEntity);
     }
-    //
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
