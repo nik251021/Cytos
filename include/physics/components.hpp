@@ -58,6 +58,7 @@ struct Flagellum {
     float speed;
     float atfConsumption;
     bool enabled;
+    int inputNumber = -1;
 };
 
 struct Devorocite {
@@ -92,11 +93,18 @@ enum class sensorType : int {
     Velocity = 1,
     Touch = 2,
     Energy = 3,
-    Nutrient = 4
+    Nutrient = 4,
+    DistanceToColor = 5,
+    DistanceToType = 6,
 };
 
 struct SensorocyteComponent {
     int sensorType = 0;
     int outputNumber = 0;
-    float sensitivity = 1.0f; // Исправлено с sensivity
+    float sensitivity = 1.0f;
+    
+    float maxRange = 200.0f;
+    glm::vec4 targetColor{0.0f, 0.0f, 0.0f, 0.0f};
+    float colorTolerance = 0.1f;
+    float targetType = 0.0f;
 };

@@ -76,7 +76,13 @@ entt::entity world::spawnCellFromModule(const std::string& genomeName, int modul
     if (mod.cell_type == "Flagellocyte") {
         float speed = mod.getParam("flagellum_speed", 10.0f);
         float consumption = mod.getParam("flagellum_consumption", 0.5f);
-        m_registry.emplace<Flagellum>(entity, speed, consumption, true);
+        int inputNum = static_cast<int>(mod.getParam("flagellum_input", -1.0f));
+        
+        m_registry.emplace<Flagellum>(entity, speed, consumption, true, inputNum);
+        
+        if (inputNum >= 0 && !m_registry.all_of<Signals>(entity)) {
+            m_registry.emplace<Signals>(entity);
+        }
     }
     else if (mod.cell_type == "Devorocite") {
         m_registry.emplace<Devorocite>(entity);
@@ -130,6 +136,17 @@ entt::entity world::spawnCellFromModule(const std::string& genomeName, int modul
         sensorComp.sensorType = static_cast<int>(mod.getParam("sensorType", 0.0f));
         sensorComp.outputNumber = static_cast<int>(mod.getParam("outputNumber", 0.0f));
         sensorComp.sensitivity = mod.getParam("sensitivity", 1.0f);
+
+        sensorComp.maxRange = mod.getParam("maxRange", 200.0f);
+        sensorComp.colorTolerance = mod.getParam("colorTolerance", 0.1f);
+        sensorComp.targetType = mod.getParam("targetType", 0.0f);
+
+        sensorComp.targetColor = glm::vec4(
+            mod.getParam("target_r", 0.0f),
+            mod.getParam("target_g", 0.0f),
+            mod.getParam("target_b", 0.0f),
+            mod.getParam("target_a", 1.0f)
+        );
 
         m_registry.emplace<SensorocyteComponent>(entity, sensorComp);
         m_registry.emplace<Signals>(entity);

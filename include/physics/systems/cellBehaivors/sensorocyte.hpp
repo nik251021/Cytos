@@ -3,6 +3,7 @@
 #include <entt/entt.hpp>
 #include <iostream>
 #include <algorithm>
+#include <glm/glm.hpp>
 
 class SensorocyteSystem {
 public:
@@ -41,12 +42,65 @@ public:
                     }
                     break;
 
+                case 5: // DistanceToColor
+                    {
+                        float minDist = sensor.maxRange;
+                        bool targetFound = false;
+                        auto targetView = registry.view<Position, RenderData>();
+                        
+                        targetView.each([&](entt::entity otherEntity, auto& otherPos, auto& otherRender) {
+                            if (otherEntity == entity) return;
+
+                            float colorDiff = glm::length(otherRender.color - sensor.targetColor);
+                            if (colorDiff <= sensor.colorTolerance) {
+                                float dist = glm::distance(position.value, otherPos.value);
+                                if (dist < minDist) {
+                                    minDist = dist;
+                                    targetFound = true;
+                                }
+                            }
+                        });
+
+                        if (targetFound) {
+                            float normalizedDist = 1.0f - (minDist / sensor.maxRange);
+                            sensedValue = std::clamp(normalizedDist * 10.0f * sensor.sensitivity, 0.0f, 10.0f);
+                        } else {
+                            sensedValue = 0.0f;
+                        }
+                    }
+                    break;
+
+                case 6: // DistanceToType
+                    {
+                        float minDist = sensor.maxRange;
+                        bool targetFound = false;
+                        auto targetView = registry.view<Position, RenderData>();
+                        
+                        targetView.each([&](entt::entity otherEntity, auto& otherPos, auto& otherRender) {
+                            if (otherEntity == entity) return;
+
+                            if (otherRender.type == sensor.targetType) {
+                                float dist = glm::distance(position.value, otherPos.value);
+                                if (dist < minDist) {
+                                    minDist = dist;
+                                    targetFound = true;
+                                }
+                            }
+                        });
+
+                        if (targetFound) {
+                            float normalizedDist = 1.0f - (minDist / sensor.maxRange);
+                            sensedValue = std::clamp(normalizedDist * 10.0f * sensor.sensitivity, 0.0f, 10.0f);
+                        } else {
+                            sensedValue = 0.0f;
+                        }
+                    }
+                    break;
+
                 default:
                     sensedValue = 0.0f;
                     break;
             }
-
-            if (sensedValue <= 0.01f) return;
 
             bool found = false;
             for (auto& signal : sigComp.Signals) {

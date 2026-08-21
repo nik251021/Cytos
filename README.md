@@ -41,7 +41,8 @@ lua src/genomeRedactor/main.lua # For redactor things
 * [x] Rewrite of resourceManager
 * [x] Event system
 * [x] Genome spawn button
-* [] Add input blocks and modificate current (Flagellocytes, myocytes and etc.)
+* [x] Add input blocks and modificate current (Flagellocytes, myocytes and etc.) -- In progress, Flagellocytes are done
+* [x] Add eye in the game and new sensor type for cells -- In progress
 * [] Random genome generator in redactor
 * [] Redactor GUI and pre-simulation view
 * [] Collision fix

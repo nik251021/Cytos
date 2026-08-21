@@ -76,6 +76,11 @@ public:
         return (uint32_t)curWorld.getCellAtPosition(mouseWorldPos);
     }
 
+    Signals* getCellSignals(uint32_t entityID) {
+        entt::entity entity = static_cast<entt::entity>(entityID);
+        return curWorld.m_registry.try_get<Signals>(entity);
+    }
+
     void update(float dt, RenderBridge& rb) {
         curWorld.update(dt);
         curWorld.prepareRenderer(rb);

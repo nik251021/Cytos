@@ -1,0 +1,123 @@
+{
+  "Name": "PhotocyteHunter_MultiChannelTest",
+  "Modules_total": 6,
+  "StartModule": 1,
+  "Module1": {
+    "maxLength": 45.0,
+    "strength": 150.0,
+    "restLength": 15.0,
+    "cell_type": "Phagocyte",
+    "makeAdhesin": true,
+    "atf_consumption": 1.0,
+    "mass_consumption": 0.5,
+    "split_mass": 0.1,
+    "split_angle": 0.0,
+    "color_r": 0.2,
+    "color_g": 0.6,
+    "color_b": 1.0,
+
+    "childs": { "child1": 2, "child2": 3 }
+  },
+  "Module2": {
+    "maxLength": 45.0,
+    "strength": 150.0,
+    "restLength": 15.0,
+    "cell_type": "Sensorocyte",
+    "makeAdhesin": true,
+    "atf_consumption": 1.0,
+    "mass_consumption": 0.5,
+    "split_mass": 999.0,
+    "split_angle": 0.0,
+    "color_r": 1.0,
+    "color_g": 0.4,
+    "color_b": 0.2,
+
+    "sensorType": 6,          
+    "outputNumber": 0,     
+    "sensitivity": 1.0,
+    "maxRange": 400.0,        
+    "targetType": 2.0         
+  },
+  "Module3": {
+    "maxLength": 45.0,
+    "strength": 150.0,
+    "restLength": 15.0,
+    "cell_type": "Phagocyte",
+    "makeAdhesin": true,
+    "atf_consumption": 1.0,
+    "mass_consumption": 0.5,
+    "split_mass": 0.1,
+    "split_angle": 0.0,
+    "color_r": 0.2,
+    "color_g": 0.6,
+    "color_b": 1.0,
+
+    "childs": { "child1": 4, "child2": 5 }
+  },
+  "Module4": {
+    "maxLength": 45.0,
+    "strength": 150.0,
+    "restLength": 15.0,
+    "cell_type": "Neurocyte",
+    "makeAdhesin": true,
+    "atf_consumption": 1.0,
+    "mass_consumption": 0.5,
+    "split_mass": 99.0,
+    "split_angle": 0.0,
+    "color_r": 0.8,
+    "color_g": 0.8,
+    "color_b": 0.2,
+
+    "channels": [
+      {
+        "inputNumber": 0,
+        "outputNumber": 1,
+        "formulaType": "multiply",
+        "argument": 1.5
+      }
+    ],
+    "childs": { "child1": 6 }
+  },
+  "Module5": {
+    "maxLength": 45.0,
+    "strength": 150.0,
+    "restLength": 15.0,
+    "cell_type": "Flagellocyte",
+    "makeAdhesin": true,
+    "atf_consumption": 1.0,
+    "mass_consumption": 0.5,
+    "split_mass": 999.0,
+    "split_angle": 0.0,
+    "color_r": 1.0,
+    "color_g": 1.0,
+    "color_b": 1.0,
+
+    "flagellum_speed": 1500.0,
+    "flagellum_consumption": 0.5,
+    "flagellum_angle": 0.0,
+    "flagellum_input": 2
+  },
+  "Module6": {
+    "maxLength": 45.0,
+    "strength": 150.0,
+    "restLength": 15.0,
+    "cell_type": "Neurocyte",
+    "makeAdhesin": true,
+    "atf_consumption": 1.0,
+    "mass_consumption": 0.5,
+    "split_mass": 999.0,
+    "split_angle": 0.0,
+    "color_r": 0.6,
+    "color_g": 0.8,
+    "color_b": 0.4,
+
+    "channels": [
+      {
+        "inputNumber": 1,
+        "outputNumber": 2,
+        "formulaType": "multiply",
+        "argument": 2.0
+      }
+    ]
+  }
+}

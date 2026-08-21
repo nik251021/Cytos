@@ -13,7 +13,12 @@ public:
                 if (it->value <= 0.01f) {
                     it = sigComp.Signals.erase(it);
                 } else {
-                    ++it;
+                    it->value -= 0.02f * dt;
+                    if (it->value <= 0.01f) {
+                        it = sigComp.Signals.erase(it);
+                    } else {
+                        ++it;
+                    }
                 }
             }
         });
@@ -26,20 +31,30 @@ public:
                 auto& sigA = registry.get<Signals>(adj.cellA);
                 auto& sigB = registry.get<Signals>(adj.cellB);
 
+                int sensorChannelA = -1;
+                if (registry.all_of<SensorocyteComponent>(adj.cellA)) {
+                    sensorChannelA = registry.get<SensorocyteComponent>(adj.cellA).outputNumber;
+                }
+
+                int sensorChannelB = -1;
+                if (registry.all_of<SensorocyteComponent>(adj.cellB)) {
+                    sensorChannelB = registry.get<SensorocyteComponent>(adj.cellB).outputNumber;
+                }
+
                 for (const auto& signalA : sigA.Signals) {
-                    if (signalA.value <= 0.05f) continue;
+                    if (signalA.number == sensorChannelB) continue;
 
                     float transmittedValue = signalA.value * sigB.coefficient;
 
                     bool found = false;
                     for (auto& signalB : sigB.Signals) {
                         if (signalB.number == signalA.number) {
-                            signalB.value = std::max(signalB.value, transmittedValue);
+                            signalB.value = transmittedValue;
                             found = true;
                             break;
                         }
                     }
-                    if (!found) {
+                    if (!found && transmittedValue > 0.01f) {
                         sigB.Signals.push_back({
                             .number = signalA.number,
                             .value = transmittedValue
@@ -48,19 +63,19 @@ public:
                 }
 
                 for (const auto& signalB : sigB.Signals) {
-                    if (signalB.value <= 0.05f) continue;
+                    if (signalB.number == sensorChannelA) continue;
 
                     float transmittedValue = signalB.value * sigA.coefficient;
 
                     bool found = false;
                     for (auto& signalA : sigA.Signals) {
                         if (signalA.number == signalB.number) {
-                            signalA.value = std::max(signalA.value, transmittedValue);
+                            signalA.value = transmittedValue;
                             found = true;
                             break;
                         }
                     }
-                    if (!found) {
+                    if (!found && transmittedValue > 0.01f) {
                         sigA.Signals.push_back({
                             .number = signalB.number,
                             .value = transmittedValue

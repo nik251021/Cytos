@@ -3,11 +3,38 @@
 #include <entt/entt.hpp>
 #include <glm/glm.hpp>
 #include <cmath>
+#include <algorithm>
 
 class FlagellocyteBehavior {
 public:
     static void update(entt::registry& registry, entt::entity entity, Methabolism& met, Force& force, Flagellum& flag, Rotation& rot, float dt) {
-        float cost = flag.atfConsumption * dt;
+        if (!flag.enabled) return;
+
+        float signalMultiplier = 1.0f;
+        if (flag.inputNumber >= 0) {
+            if (registry.all_of<Signals>(entity)) {
+                auto& sigComp = registry.get<Signals>(entity);
+                bool signalFound = false;
+                
+                for (const auto& signal : sigComp.Signals) {
+                    if (signal.number == flag.inputNumber) {
+                        signalMultiplier = std::clamp(signal.value, 0.0f, 1.0f);
+                        signalFound = true;
+                        break;
+                    }
+                }
+                
+                if (!signalFound) {
+                    signalMultiplier = 0.0f;
+                }
+            } else {
+                signalMultiplier = 0.0f;
+            }
+        }
+
+        if (signalMultiplier <= 0.001f) return;
+
+        float cost = flag.atfConsumption * signalMultiplier * dt;
         if (met.atf >= cost) {
             met.atf -= cost;
             
@@ -33,7 +60,7 @@ public:
 
             glm::vec2 direction(std::cos(finalAngle), std::sin(finalAngle));
             
-            force.value += direction * flag.speed;
+            force.value += direction * flag.speed * signalMultiplier;
         }
     }
 };

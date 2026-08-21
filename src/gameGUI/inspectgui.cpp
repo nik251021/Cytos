@@ -48,5 +48,21 @@ void inspectGUI::update(worldApi& world, uint32_t entityID) {
         }
     }
 
+    if (ImGui::CollapsingHeader("Signals")) {
+        if (auto* signalsComp = world.getCellSignals(entityID)) {
+            ImGui::Text("Coefficient: %.2f", signalsComp->coefficient);
+            ImGui::Separator();
+            if (signalsComp->Signals.empty()) {
+                ImGui::TextColored(ImVec4(1, 0.5f, 0.5f, 1), "No active signals");
+            } else {
+                for (const auto& sig : signalsComp->Signals) {
+                    ImGui::Text("Channel [%d]: Value = %.3f", sig.number, sig.value);
+                }
+            }
+        } else {
+            ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1), "No Signals component");
+        }
+    }
+
     ImGui::End();
 }

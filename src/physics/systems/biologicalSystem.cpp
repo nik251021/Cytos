@@ -16,9 +16,11 @@ struct PendingDeath {
 std::vector<PendingDeath> pendingDeaths;
 
 void BiologicalSystem::update(entt::registry& registry, float dt, float lightAmount) {
-    SensorocyteSystem::updateSensors(registry,dt);
-    NeurocyteBehavior::updateNeurocytes(registry, dt);
     SignalsBehaivor::updateSignals(registry, dt);
+
+    SensorocyteSystem::updateSensors(registry, dt);
+
+    NeurocyteBehavior::updateNeurocytes(registry, dt);
 
     updateMetabolism(registry, dt, lightAmount);
     updateAdhesion(registry, dt);

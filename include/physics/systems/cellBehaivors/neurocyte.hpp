@@ -8,16 +8,34 @@ public:
         auto view = registry.view<Signals, NeuronComponent>();
 
         view.each([&](entt::entity entity, auto& sigComp, auto& neuron) {
-            for (auto& signal : sigComp.Signals) {
-                for (const auto& channel : neuron.channells) {
+            for (const auto& channel : neuron.channells) {
+                float inputVal = 0.0f;
+                for (const auto& signal : sigComp.Signals) {
                     if (signal.number == channel.inputNumber) {
-                        float oldVal = signal.value;
-                        
-                        if (channel.formule) {
-                            signal.value = channel.formule(signal.value);
-                        }
-                        signal.number = channel.outputNumber;
+                        inputVal = signal.value;
+                        break;
                     }
+                }
+
+                float processedVal = inputVal;
+                if (channel.formule) {
+                    processedVal = channel.formule(processedVal);
+                }
+
+                bool foundOutput = false;
+                for (auto& targetSig : sigComp.Signals) {
+                    if (targetSig.number == channel.outputNumber) {
+                        targetSig.value = processedVal;
+                        foundOutput = true;
+                        break;
+                    }
+                }
+
+                if (!foundOutput) {
+                    sigComp.Signals.push_back({
+                        .number = channel.outputNumber,
+                        .value = processedVal
+                    });
                 }
             }
         });
