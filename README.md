@@ -38,6 +38,7 @@ lua src/genomeRedactor/main.lua # For redactor things
 * [x] Finish neurocytes, add axonocytes
 * [x] Add sensors -- In progress
 * [x] Adding inspect on mousebutton2
+* [x] Rewrite of resourceManager
 * [] Genome spawn button -- in progress
 * [] Adding comments -- in progress
 * [] Add input blocks and modificate current (Flagellocytes, myocytes and etc.)

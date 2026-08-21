@@ -1,8 +1,9 @@
 #include <physics/systems/genomeSystem.hpp>
 #include <physics/world.hpp>
 #include <physics/components.hpp>
+#include <cmath>
 
-void GenomeSystem::update(world& w, entt::registry& registry, GenomeRegistry& genomeRegistry, float dt) {
+void GenomeSystem::update(world& w, entt::registry& registry, genomeManager& genomeManager, float dt) {
     auto cooldownView = registry.view<ReproductionCooldown>();
     for (auto entity : cooldownView) {
         auto& cd = cooldownView.get<ReproductionCooldown>(entity);
@@ -22,12 +23,12 @@ void GenomeSystem::update(world& w, entt::registry& registry, GenomeRegistry& ge
 
     for (auto e : toSplit) {
         if (registry.valid(e)) {
-            forceSplit(w, registry, genomeRegistry, e);
+            forceSplit(w, registry, genomeManager, e);
         }
     }
 }
 
-void GenomeSystem::forceSplit(world& w, entt::registry& registry, GenomeRegistry& genomeRegistry, entt::entity parent) {
+void GenomeSystem::forceSplit(world& w, entt::registry& registry, genomeManager& genomeManager, entt::entity parent) {
     if (!registry.all_of<GenomeComponent, Position, Mass, Methabolism, SplitComponent>(parent)) return;
 
     auto& gen = registry.get<GenomeComponent>(parent);
@@ -36,7 +37,7 @@ void GenomeSystem::forceSplit(world& w, entt::registry& registry, GenomeRegistry
     auto& met  = registry.get<Methabolism>(parent);
     auto& split = registry.get<SplitComponent>(parent);
 
-    const auto& mod = genomeRegistry.getModule(gen.genomeName, gen.currentModuleIndex);
+    const auto& mod = genomeManager.getModule(gen.genomeName, gen.currentModuleIndex);
     if (mod.childs.empty()) return;
 
     float splitRatio = mod.getParam("split_ratio", 0.5f);
@@ -46,7 +47,7 @@ void GenomeSystem::forceSplit(world& w, entt::registry& registry, GenomeRegistry
     float splitAngle = mod.getParam("split_angle", 0.0f);
 
     float angleRad = glm::radians(splitAngle);
-    glm::vec2 baseDir = glm::vec2(cos(angleRad), sin(angleRad));
+    glm::vec2 baseDir = glm::vec2(std::cos(angleRad), std::sin(angleRad));
 
     std::vector<entt::entity> children;
 

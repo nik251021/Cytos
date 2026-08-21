@@ -2,7 +2,7 @@
 #include <entt/entt.hpp>
 #include <glm/glm.hpp>
 #include <physics/components.hpp>
-#include <resourceManager/worldLoader.hpp>
+#include <resourceManager/worldManager.hpp>
 #include <vector>
 #include <span>
 
@@ -83,13 +83,13 @@ private:
     static WorldSOA m_soa;
 
 public:
-    static void update(entt::registry& registry, const worldSettings& settings, float dt);
+    static void update(entt::registry& registry, const WorldSettings& settings, float dt);
 private:
     static void pullFromRegistry(entt::registry& registry);
     static void pushToRegistry(entt::registry& registry);
 
-    static void applyForces(const worldSettings& settings, float dt);
-    static void integratePosition(const worldSettings& settings, float dt);
+    static void applyForces(const WorldSettings& settings, float dt);
+    static void integratePosition(const WorldSettings& settings, float dt);
     static void resolveCollisions(entt::registry& registry, float dt);
 
     static bool tryPhagocyteConsumption(entt::registry& registry, entt::entity eater, entt::entity victim);

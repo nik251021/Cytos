@@ -1,13 +1,9 @@
 #pragma once
 #include <string>
-#include <vector>
-#include <unordered_map>
 #include <entt/entt.hpp>
 #include <glm/glm.hpp>
 #include <bridge/renderBridge.hpp>
-#include <resourceManager/worldLoader.hpp>
-#include <resourceManager/genome_registry.hpp>
-#include <resourceManager/cellConfigLoader.hpp>
+#include <resourceManager/resourceManager.hpp>
 
 #include <physics/systems/physicSystem.hpp>
 #include <physics/systems/biologicalSystem.hpp>
@@ -16,13 +12,12 @@
 class world {
     friend class worldApi;
 private:
-    std::unordered_map<std::string, CellTemplate> m_cellTemplates;
-    worldSettings curSettings;
+    resourceManager& m_resourceManager;
+    WorldSettings curSettings;
     entt::registry m_registry;
-    GenomeRegistry& m_genomeRegistry;
+
 public:
-    world(std::string worldName, GenomeRegistry& registry);
-    void loadCellConfigs(const std::vector<std::string>& filePaths);
+    world(std::string worldName, resourceManager& resManager);
     
     entt::entity spawnCell(const std::string& type, glm::vec2 pos, glm::vec2 vel, glm::vec4 color);
     entt::entity spawnCellFromModule(const std::string& genomeName, int moduleIndex, glm::vec2 position);

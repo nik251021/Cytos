@@ -185,7 +185,7 @@ bool PhysicsSystem::tryDevourEnergy(entt::registry& registry, entt::entity eater
     return (gainedAtf > 0.0f || gainedMass > 0.0f);
 }
 
-void PhysicsSystem::update(entt::registry& registry, const worldSettings& settings, float dt) {
+void PhysicsSystem::update(entt::registry& registry, const WorldSettings& settings, float dt) {
     float subDt = dt / (float)subSteps;
 
     {
@@ -274,7 +274,7 @@ void PhysicsSystem::pushToRegistry(entt::registry& registry) {
     }
 }
 
-void PhysicsSystem::applyForces(const worldSettings& settings, float dt) {
+void PhysicsSystem::applyForces(const WorldSettings& settings, float dt) {
     size_t count = m_soa.entities.size();
     for (size_t i = 0; i < count; ++i) {
         float m = m_soa.mass[i];
@@ -288,7 +288,7 @@ void PhysicsSystem::applyForces(const worldSettings& settings, float dt) {
     }
 }
 
-void PhysicsSystem::integratePosition(const worldSettings& settings, float dt) {
+void PhysicsSystem::integratePosition(const WorldSettings& settings, float dt) {
     size_t count = m_soa.entities.size();
     const float bounce = 0.5f;
 

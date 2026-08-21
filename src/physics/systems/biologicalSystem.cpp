@@ -15,12 +15,12 @@ struct PendingDeath {
 
 std::vector<PendingDeath> pendingDeaths;
 
-void BiologicalSystem::update(entt::registry& registry, float dt) {
+void BiologicalSystem::update(entt::registry& registry, float dt, float lightAmount) {
     SensorocyteSystem::updateSensors(registry,dt);
     NeurocyteBehavior::updateNeurocytes(registry, dt);
     SignalsBehaivor::updateSignals(registry, dt);
 
-    updateMetabolism(registry, dt);
+    updateMetabolism(registry, dt, lightAmount);
     updateAdhesion(registry, dt);
 
     processPendingDeaths(registry);
@@ -54,7 +54,7 @@ void BiologicalSystem::processPendingDeaths(entt::registry& registry) {
     pendingDeaths.clear();
 }
 
-void BiologicalSystem::updateMetabolism(entt::registry& registry, float dt) {
+void BiologicalSystem::updateMetabolism(entt::registry& registry, float dt, float lightAmount) {
     thread_local std::vector<entt::entity> deadEntities;
     deadEntities.clear();
 
@@ -68,7 +68,7 @@ void BiologicalSystem::updateMetabolism(entt::registry& registry, float dt) {
         }
 
         if (renderData.type == 2.0f) {
-            PhotocyteBehavior::update(registry, entity, met, mass, 1.0f, dt);
+            PhotocyteBehavior::update(registry, entity, met, mass, lightAmount, dt);
         }
 
         if (met.isActive) {

@@ -7,18 +7,19 @@
 #include <bridge/renderBridge.hpp>
 #include <physics/components.hpp>
 
-#include <resourceManager/genome_registry.hpp>
+#include <resourceManager/resourceManager.hpp>
 
 class worldApi
 {
 private:
+    resourceManager m_resManager;
     world curWorld;
-    GenomeRegistry m_registry;
 
     uint32_t m_draggedEntity = (uint32_t)entt::null;
     bool m_isDragging = false;
+
 public:
-    worldApi() : m_registry(), curWorld("world1.json", m_registry) {}
+    worldApi() : m_resManager(), curWorld("world1.json", m_resManager) {}
     
     uint32_t spawnCell(
         std::string name,

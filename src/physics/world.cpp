@@ -1,71 +1,56 @@
-#include <filesystem>
-namespace fs = std::filesystem;
-
 #include "physics/systems/biologicalSystem.hpp"
 #include "physics/systems/genomeSystem.hpp"
-#include "physics/systems/physicSystem.hpp"
 #include <iostream>
 #include <physics/world.hpp>
 #include <physics/components.hpp>
-
 #include <benchmark.hpp>
 
-world::world(std::string name, GenomeRegistry& registry) : m_genomeRegistry(registry){
-    this->curSettings = getWorldSettings(name);
-
-    std::string configsDir = "data/configs";
-    if (fs::exists(configsDir) && fs::is_directory(configsDir)) {
-        for (const auto& entry : fs::directory_iterator(configsDir)) {
-            if (entry.is_regular_file() && entry.path().extension() == ".json") {
-                std::string pathStr = entry.path().string();
-                CellTemplate t = loadCellTemplate(pathStr);
-                m_cellTemplates[t.displayName] = t;
-                std::cout << "[World] Auto-loaded cell config: " << t.displayName << std::endl;
-            }
-        }
-    } else {
-        std::cerr << "[World] Warning: Configs directory not found: " << configsDir << std::endl;
-    }
+world::world(std::string name, resourceManager& resManager) 
+    : m_resourceManager(resManager) {
+    
+    this->curSettings = m_resourceManager.getWorldManager().getWorldSettings(name);
 }
 
 entt::entity world::spawnCell(const std::string& type, glm::vec2 pos, glm::vec2 vel, glm::vec4 color) {
-    if (m_cellTemplates.find(type) == m_cellTemplates.end()) return entt::null;
-
-    const auto& t = m_cellTemplates[type];
+    const CellTemplate* t = m_resourceManager.getCellsConfigManager().getTemplate(type);
+    if (!t) {
+        std::cerr << "[World] Error: Cell template not found: " << type << std::endl;
+        return entt::null;
+    }
     
     auto entity = m_registry.create();
     m_registry.emplace<Position>(entity, pos);
     m_registry.emplace<Velocity>(entity, vel);
-    m_registry.emplace<Mass>(entity, t.Default_mass);
+    m_registry.emplace<Mass>(entity, t->Default_mass);
     m_registry.emplace<Force>(entity, glm::vec2(0.0f));
 
     Methabolism met;
-    met.atf = t.maxAtf;
-    met.maxAtf = t.maxAtf;
-    met.atfConsumptionRate = t.atfConsumptionRate;
-    met.massConsumptionRate = t.massConsumptionRate;
+    met.atf = t->maxAtf;
+    met.maxAtf = t->maxAtf;
+    met.atfConsumptionRate = t->atfConsumptionRate;
+    met.massConsumptionRate = t->massConsumptionRate;
     
     m_registry.emplace<Methabolism>(entity, met);
-    m_registry.emplace<RenderData>(entity, color, t.maxRadius, t.typeId);
+    m_registry.emplace<RenderData>(entity, color, t->maxRadius, (float)t->typeId);
 
     return entity;
 }
 
 entt::entity world::spawnCellFromModule(const std::string& genomeName, int moduleIndex, glm::vec2 position) {
-    const auto& mod = m_genomeRegistry.getModule(genomeName, moduleIndex);
+    const auto& mod = m_resourceManager.getGenomeManager().getModule(genomeName, moduleIndex);
     
     std::string type = mod.cell_type; 
     
-    if (m_cellTemplates.find(type) == m_cellTemplates.end()) {
-        std::cerr << "Error: Cell type '" << type << "' not found!" << std::endl;
+    const CellTemplate* t = m_resourceManager.getCellsConfigManager().getTemplate(type);
+    if (!t) {
+        std::cerr << "[World] Error: Cell type '" << type << "' not found for genome " << genomeName << "!" << std::endl;
         return entt::null;
     }
+
     bool shouldMakeAdhesin = false;
     if (mod.flags.count("makeAdhesin")) {
         shouldMakeAdhesin = mod.flags.at("makeAdhesin");
     }
-    
-    const auto& t = m_cellTemplates.at(type); 
 
     auto entity = m_registry.create();
     m_registry.emplace<GenomeComponent>(entity, genomeName, moduleIndex);
@@ -73,42 +58,35 @@ entt::entity world::spawnCellFromModule(const std::string& genomeName, int modul
     m_registry.emplace<ReproductionCooldown>(entity, 0.4f, 0.4f);
     m_registry.emplace<Position>(entity, position);
     m_registry.emplace<Velocity>(entity, glm::vec2(0.0f));
-    m_registry.emplace<Mass>(entity, t.Default_mass);
+    m_registry.emplace<Mass>(entity, t->Default_mass);
     m_registry.emplace<Force>(entity, glm::vec2(0.0f));
 
     float initialRotation = 0.0f;
-
     if (mod.params.count("flagellum_angle")) {
         initialRotation = mod.getParam("flagellum_angle", 0.0f);
     }
     m_registry.emplace<Rotation>(entity, initialRotation);
 
     if (mod.cell_type == "Flagellocyte") {
-        float speed = mod.getParam("flagellum_speed", 10);
+        float speed = mod.getParam("flagellum_speed", 10.0f);
         float consumption = mod.getParam("flagellum_consumption", 0.5f);
         m_registry.emplace<Flagellum>(entity, speed, consumption, true);
     }
-
-    if (mod.cell_type == "Devorocite") {
+    else if (mod.cell_type == "Devorocite") {
         m_registry.emplace<Devorocite>(entity);
     }
-
-    if (mod.cell_type == "Keratinocite") {
+    else if (mod.cell_type == "Keratinocite") {
         m_registry.emplace<Keratinocite>(entity);
     }
-
-    if (mod.cell_type == "Axonocyte") {
+    else if (mod.cell_type == "Axonocyte") {
         m_registry.emplace<Signals>(entity);
     }
-
-    if (mod.cell_type == "Neurocyte") {
+    else if (mod.cell_type == "Neurocyte") {
         m_registry.emplace<Signals>(entity);
         
         NeuronComponent neuronComp;
-        
         for (const auto& cData : mod.channels) {
             std::function<float(float)> formula;
-            
             float arg = cData.argument;
 
             if (cData.formulaType == "multiply") {
@@ -133,68 +111,45 @@ entt::entity world::spawnCellFromModule(const std::string& genomeName, int modul
                 formula = [](float val) { return val; };
             }
 
-        neuronComp.channells.push_back({
-            .inputNumber = cData.inputNumber,
-            .outputNumber = cData.outputNumber,
-            .formule = formula
-        });
+            neuronComp.channells.push_back({
+                .inputNumber = cData.inputNumber,
+                .outputNumber = cData.outputNumber,
+                .formule = formula
+            });
         }
-        
         m_registry.emplace<NeuronComponent>(entity, neuronComp);
     }
-
-    if (mod.cell_type == "Sensorocyte") {
+    else if (mod.cell_type == "Sensorocyte") {
         SensorocyteComponent sensorComp;
-        
-        std::cout << "[Spawn] Creating Sensorocyte. Params count: " << mod.params.size() << std::endl;
-        for (const auto& [key, val] : mod.params) {
-            std::cout << "  Param -> " << key << ": " << val << std::endl;
-        }
-
-        if (mod.params.count("sensorType")) {
-            sensorComp.sensorType = static_cast<int>(mod.getParam("sensorType", 0.0f));
-        }
-        if (mod.params.count("outputNumber")) {
-            sensorComp.outputNumber = static_cast<int>(mod.getParam("outputNumber", 0.0f));
-        }
-        if (mod.params.count("sensitivity")) {
-            sensorComp.sensitivity = mod.getParam("sensitivity", 1.0f);
-        }
-
-        std::cout << "  -> Final Sensor: type=" << sensorComp.sensorType 
-                  << ", channel=" << sensorComp.outputNumber << std::endl;
+        sensorComp.sensorType = static_cast<int>(mod.getParam("sensorType", 0.0f));
+        sensorComp.outputNumber = static_cast<int>(mod.getParam("outputNumber", 0.0f));
+        sensorComp.sensitivity = mod.getParam("sensitivity", 1.0f);
 
         m_registry.emplace<SensorocyteComponent>(entity, sensorComp);
         m_registry.emplace<Signals>(entity);
     }
 
     Methabolism met;
-    met.atf = t.maxAtf; 
-    met.maxAtf = t.maxAtf;
-    met.atfConsumptionRate = t.atfConsumptionRate;
-    met.massConsumptionRate = t.massConsumptionRate;
+    met.atf = t->maxAtf; 
+    met.maxAtf = t->maxAtf;
+    met.atfConsumptionRate = t->atfConsumptionRate;
+    met.massConsumptionRate = t->massConsumptionRate;
     m_registry.emplace<Methabolism>(entity, met);
     
-    auto getColor = [&](const std::string& key, float defaultVal) {
-        auto it = mod.params.find(key);
-        return (it != mod.params.end()) ? it->second : defaultVal;
-    };
-
     glm::vec4 color(
-        getColor("color_r", 1.0f),
-        getColor("color_g", 0.5f),
-        getColor("color_b", 0.0f),
-        getColor("color_a", 1.0f)
+        mod.getParam("color_r", 1.0f),
+        mod.getParam("color_g", 0.5f),
+        mod.getParam("color_b", 0.0f),
+        mod.getParam("color_a", 1.0f)
     );
 
-    m_registry.emplace<RenderData>(entity, color, t.maxRadius, (float)t.typeId);
+    m_registry.emplace<RenderData>(entity, color, t->maxRadius, (float)t->typeId);
 
     return entity;
 }
 
 entt::entity world::makeAdhesin(entt::entity cell1, entt::entity cell2, float restLength, float maxLength, float strength) {
     if (!m_registry.valid(cell1) || !m_registry.valid(cell2)) return entt::null;
-
     if (cell1 == cell2) return entt::null;
     
     auto e = m_registry.create();
@@ -227,12 +182,12 @@ void world::update(float dt) {
 
     {
         ZONE_SCOPED("2. BiologicalSystem");
-        BiologicalSystem::update(m_registry, dt);
+        BiologicalSystem::update(m_registry, dt, curSettings.light_amount);
     }
 
     {
         ZONE_SCOPED("3. GenomeSystem");
-        GenomeSystem::update(*this, m_registry, m_genomeRegistry, dt);
+        GenomeSystem::update(*this, m_registry, m_resourceManager.getGenomeManager(), dt);
     }
 
     getBenchmark().tick(entityCount);
