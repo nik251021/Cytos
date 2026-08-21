@@ -5,10 +5,16 @@
 #include <physics/components.hpp>
 #include <benchmark.hpp>
 
+#include <cellsSystems/devorocyteLogic.hpp>
+#include <cellsSystems/phagocyteLogic.hpp>
+
 world::world(std::string name, resourceManager& resManager) 
     : m_resourceManager(resManager) {
     
     this->curSettings = m_resourceManager.getWorldManager().getWorldSettings(name);
+
+    PhagocyteLogic::init(m_registry);
+    DevorocyteLogic::init(m_registry);
 }
 
 entt::entity world::spawnCell(const std::string& type, glm::vec2 pos, glm::vec2 vel, glm::vec4 color) {
@@ -174,6 +180,8 @@ entt::entity world::getCellAtPosition(glm::vec2 worldPos) {
 
 void world::update(float dt) {
     int entityCount = (int)m_registry.storage<Position>().size();
+
+    DevorocyteLogic::setDeltaTime(dt);
 
     {
         ZONE_SCOPED("1. PhysicsSystem_Substep");

@@ -90,7 +90,7 @@ private:
 
     static void applyForces(const WorldSettings& settings, float dt);
     static void integratePosition(const WorldSettings& settings, float dt);
-    static void resolveCollisions(entt::registry& registry, float dt);
+    static void resolveCollisions(float dt);
 
     static bool tryPhagocyteConsumption(entt::registry& registry, entt::entity eater, entt::entity victim);
     static bool tryDevourEnergy(entt::registry& registry, entt::entity eater, entt::entity victim, float dt);
