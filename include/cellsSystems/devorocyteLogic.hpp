@@ -2,6 +2,8 @@
 #include <entt/entt.hpp>
 #include <eventSystem/eventSystem.hpp>
 #include <physics/components.hpp>
+#include <algorithm>
+#include <iostream>
 
 class DevorocyteLogic {
 private:
@@ -42,52 +44,42 @@ private:
 
         if (!devorocite || !metEater || !metVictim) return false;
 
-        float desiredSteal = devorocite->stealRate * dt;
-        float gainedAtf = 0.0f;
-        float gainedMass = 0.0f;
+        float frameBudget = devorocite->stealRate * dt;
+        bool actionHappened = false;
 
         if (metVictim->atf > 0.0f) {
-            gainedAtf = std::min(metVictim->atf, desiredSteal);
-            metVictim->atf -= gainedAtf;
-            desiredSteal -= gainedAtf;
-        }
-
-        if (!registry.valid(victim) || !registry.valid(eater) || 
-            !registry.all_of<Mass>(victim) || !registry.all_of<Mass>(eater)) {
-            return (gainedAtf > 0.0f);
-        }
-
-        if (desiredSteal > 0.0f) {
+            float atfStealAmount = std::min(metVictim->atf, frameBudget);
+            metVictim->atf -= atfStealAmount;
+            
+            float effectiveGain = atfStealAmount * devorocite->stealEfficiency;
+            metEater->atf += effectiveGain;
+            actionHappened = true;
+        } 
+        else if (registry.valid(victim) && registry.all_of<Mass>(victim)) {
             auto& massVictim = registry.get<Mass>(victim);
             auto& massEater = registry.get<Mass>(eater);
 
-            float massStealAmount = desiredSteal * 2.0f; 
-            gainedMass = std::min(massVictim.value, massStealAmount);
+            float massStealAmount = std::min(massVictim.value, frameBudget * 0.2f);
 
-            if (gainedMass > 0.0f) {
-                massVictim.value -= gainedMass;
-                massEater.value += gainedMass * devorocite->stealEfficiency;
+            if (massStealAmount > 0.0f) {
+                massVictim.value -= massStealAmount;
+                massEater.value += massStealAmount * devorocite->stealEfficiency;
+                if (massEater.value > 15.0f) massEater.value = 15.0f;
+                actionHappened = true;
             }
         }
 
-        if (gainedAtf > 0.0f) {
-            float effectiveAtfGain = gainedAtf * devorocite->stealEfficiency;
-            metEater->atf += effectiveAtfGain;
+        if (metEater->atf > metEater->maxAtf) {
+            float excessAtf = metEater->atf - metEater->maxAtf;
+            metEater->atf = metEater->maxAtf;
 
-            if (metEater->atf > metEater->maxAtf) {
-                float excessAtf = metEater->atf - metEater->maxAtf;
-                metEater->atf = metEater->maxAtf;
-
-                if (registry.valid(eater) && registry.all_of<Mass>(eater)) {
-                    auto& massEater = registry.get<Mass>(eater);
-                    float efficiency = 0.95f;
-                    
-                    massEater.value += excessAtf * efficiency;
-                    if (massEater.value > 15.0f) massEater.value = 15.0f;
-                }
-            }
+            auto& massEater = registry.get<Mass>(eater);
+            float atfToMassEfficiency = 0.025f;
+            
+            massEater.value += excessAtf * atfToMassEfficiency * dt;
+            if (massEater.value > 15.0f) massEater.value = 15.0f;
         }
 
-        return (gainedAtf > 0.0f || gainedMass > 0.0f);
+        return actionHappened;
     }
 };

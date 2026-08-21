@@ -10,7 +10,7 @@
     "makeAdhesin": true,
     "atf_consumption": 1.2,
     "mass_consumption": 0.6,
-    "split_mass": 2.5,
+    "split_mass": 14.9,
     "split_angle": 0.0,
     "childs": { "child1": 1, "child2": 1 }
   }

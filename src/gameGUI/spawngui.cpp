@@ -45,7 +45,11 @@ void spawnGUI::update(worldApi& world, GLFWwindow* window, Camera& camera) {
             glm::vec2 mouseWorldPos = mouseScreenPos / camera.getZoom() + camera.getPosition();
 
             std::string selectedName = genomeNames[m_selectedGenomeIndex];
-            world.spawnCellFromModule(selectedName, 1, mouseWorldPos.x, mouseWorldPos.y);
+
+            const auto& genomeData = genomeManager.getGenome(selectedName);
+            int startModuleIndex = genomeData.startModule;
+
+            world.spawnCellFromModule(selectedName, startModuleIndex, mouseWorldPos.x, mouseWorldPos.y);
         }
     }
 }

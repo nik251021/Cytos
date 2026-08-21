@@ -148,7 +148,6 @@ void PhysicsSystem::pushToRegistry(entt::registry& registry) {
         if (registry.all_of<Position>(entity)) registry.get<Position>(entity).value = m_soa.pos[i];
         if (registry.all_of<Velocity>(entity)) registry.get<Velocity>(entity).value = m_soa.vel[i];
         if (registry.all_of<Force>(entity))    registry.get<Force>(entity).value = m_soa.force[i];
-        if (registry.all_of<Mass>(entity))     registry.get<Mass>(entity).value = m_soa.mass[i];
     }
     
     for (size_t i = 0; i < m_soa.entities.size(); ++i) {

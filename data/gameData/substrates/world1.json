@@ -16,6 +16,6 @@
     "food_spawn_rate": 0.5,
     "food_size": 0.2,
     "salinity": 0.8,
-    "light_amount": 0.0,
+    "light_amount": 2,
     "gravity": 0
 }

@@ -29,7 +29,9 @@ void GenomeSystem::update(world& w, entt::registry& registry, genomeManager& gen
 }
 
 void GenomeSystem::forceSplit(world& w, entt::registry& registry, genomeManager& genomeManager, entt::entity parent) {
-    if (!registry.all_of<GenomeComponent, Position, Mass, Methabolism, SplitComponent>(parent)) return;
+    if (!registry.all_of<GenomeComponent, Position, Mass, Methabolism, SplitComponent>(parent)) {
+        return;
+    }
 
     auto& gen = registry.get<GenomeComponent>(parent);
     auto& pos = registry.get<Position>(parent);
@@ -38,7 +40,6 @@ void GenomeSystem::forceSplit(world& w, entt::registry& registry, genomeManager&
     auto& split = registry.get<SplitComponent>(parent);
 
     const auto& mod = genomeManager.getModule(gen.genomeName, gen.currentModuleIndex);
-    if (mod.childs.empty()) return;
 
     float splitRatio = mod.getParam("split_ratio", 0.5f);
     float restLength = mod.getParam("restLength", 7.5f);
@@ -68,6 +69,7 @@ void GenomeSystem::forceSplit(world& w, entt::registry& registry, genomeManager&
             if (childMet) childMet->atf = childAtf;
 
             children.push_back(child);
+        } else {
         }
     }
 
